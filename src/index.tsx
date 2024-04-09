@@ -1,6 +1,4 @@
-import { render } from 'react-dom';
-
-render(
-  <h1 style={{ color: 'red' }}>Hello</h1>,
-  document.getElementById('root')
-);
+import { createRoot } from 'react-dom/client';
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(<h2>qwer</h2>);
