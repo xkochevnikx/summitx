@@ -4,24 +4,29 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended",
+        "next/core-web-vitals",
+        "plugin:@next/eslint-plugin-next/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
         "plugin:react/jsx-runtime",
-        "plugin:import/recommended",
+        "plugin:react-hooks/recommended",
         "prettier"
     ],
-
+    "plugins": [
+        "@next/eslint-plugin-next",
+        "react",
+        "react-hooks",
+        "boundaries",
+        "@typescript-eslint"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
         "ecmaFeatures": {
             "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+        }
     },
-    "plugins": ["@typescript-eslint", "react", "react-hooks", "boundaries"],
     "settings": {
         "boundaries/include": ["src/**/*"],
         "boundaries/elements": [
@@ -57,7 +62,8 @@
         ]
     },
     "rules": {
-        "react-refresh/only-export-components": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error",
         "boundaries/entry-point": [
             2,
             {
@@ -97,13 +103,7 @@
                         "allow": "**"
                     },
                     {
-                        "target": [
-                            "app",
-                            "pages",
-                            "widgets",
-                            "features",
-                            "entities"
-                        ],
+                        "target": ["app", "pages", "widgets", "features", "entities"],
                         "allow": "index.(ts|tsx)"
                     }
                 ]
@@ -117,13 +117,7 @@
                 "rules": [
                     {
                         "from": ["shared"],
-                        "disallow": [
-                            "app",
-                            "pages",
-                            "widgets",
-                            "features",
-                            "entities"
-                        ],
+                        "disallow": ["app", "pages", "widgets", "features", "entities"],
                         "message": "Shared module must not import upper layers (${dependency.type})"
                     },
                     {
