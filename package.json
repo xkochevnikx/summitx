@@ -9,7 +9,7 @@
         "lint": "next lint",
         "lint:css": "npx stylelint \"**/*.css\"",
         "api:generate": "orval",
-        "commit": "better-commits"
+        "commit": "yarn run build && yarn run lint && better-commits"
     },
     "dependencies": {
         "@tanstack/react-query": "^5.29.2",
