@@ -263,6 +263,7 @@ export type CountriesListParams = {
  * Empty response object on success
  */
 export interface ReactAdminOKResponse {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -459,33 +460,33 @@ export interface LocaleRequest {
 /**
  * @nullable
  */
-export type GeodataMountainReponseVolcano = GeodataDbSourcePropertiesVolcano | null;
+export type GeodataMountainResponseVolcano = GeodataDbSourcePropertiesVolcano | null;
 
 /**
  * @nullable
  */
-export type GeodataMountainReponseProminence = LocaleApiQuantitiesLengthQuantity | null;
+export type GeodataMountainResponseProminence = LocaleApiQuantitiesLengthQuantity | null;
 
 /**
  * @nullable
  */
-export type GeodataMountainReponseElevation = LocaleApiQuantitiesLengthQuantity | null;
+export type GeodataMountainResponseElevation = LocaleApiQuantitiesLengthQuantity | null;
 
 /**
  * @nullable
  */
-export type GeodataMountainReponseDescription = LocaleApiLocaleLocalizedString | null;
+export type GeodataMountainResponseDescription = LocaleApiLocaleLocalizedString | null;
 
 /**
  * Element of mountain ranges list
  */
-export interface GeodataMountainReponse {
+export interface GeodataMountainResponse {
     /** Alternative names */
     alternative_names?: LocaleApiLocaleGeoName[];
     /** @nullable */
-    description?: GeodataMountainReponseDescription;
+    description?: GeodataMountainResponseDescription;
     /** @nullable */
-    elevation?: GeodataMountainReponseElevation;
+    elevation?: GeodataMountainResponseElevation;
     /** Mountain ID */
     id: number;
     /**
@@ -494,31 +495,31 @@ export interface GeodataMountainReponse {
      */
     object_name?: string | null;
     /** @nullable */
-    prominence?: GeodataMountainReponseProminence;
+    prominence?: GeodataMountainResponseProminence;
     /** @nullable */
-    volcano?: GeodataMountainReponseVolcano;
+    volcano?: GeodataMountainResponseVolcano;
 }
 
 /**
  * @nullable
  */
-export type GeodataMountainRangeReponseDescription = LocaleApiLocaleLocalizedString | null;
+export type GeodataMountainRangeResponseDescription = LocaleApiLocaleLocalizedString | null;
 
 /**
  * @nullable
  */
-export type GeodataMountainRangeReponseArea = LocaleApiQuantitiesAreaQuantity | null;
+export type GeodataMountainRangeResponseArea = LocaleApiQuantitiesAreaQuantity | null;
 
 /**
  * Element of mountain ranges list
  */
-export interface GeodataMountainRangeReponse {
+export interface GeodataMountainRangeResponse {
     /** Alternative names */
     alternative_names?: LocaleApiLocaleGeoName[];
     /** @nullable */
-    area?: GeodataMountainRangeReponseArea;
+    area?: GeodataMountainRangeResponseArea;
     /** @nullable */
-    description?: GeodataMountainRangeReponseDescription;
+    description?: GeodataMountainRangeResponseDescription;
     glaciers_area: LocaleApiQuantitiesAreaQuantity;
     /** Glaciers count */
     glaciers_count: number;
@@ -565,28 +566,28 @@ export interface GeodataMountainPassScale {
 /**
  * @nullable
  */
-export type GeodataMountainPassReponseScale = GeodataMountainPassScale | null;
+export type GeodataMountainPassResponseScale = GeodataMountainPassScale | null;
 
 /**
  * @nullable
  */
-export type GeodataMountainPassReponseElevation = LocaleApiQuantitiesLengthQuantity | null;
+export type GeodataMountainPassResponseElevation = LocaleApiQuantitiesLengthQuantity | null;
 
 /**
  * @nullable
  */
-export type GeodataMountainPassReponseDescription = LocaleApiLocaleLocalizedString | null;
+export type GeodataMountainPassResponseDescription = LocaleApiLocaleLocalizedString | null;
 
 /**
  * Element of mountain ranges list
  */
-export interface GeodataMountainPassReponse {
+export interface GeodataMountainPassResponse {
     /** Alternative names */
     alternative_names?: LocaleApiLocaleGeoName[];
     /** @nullable */
-    description?: GeodataMountainPassReponseDescription;
+    description?: GeodataMountainPassResponseDescription;
     /** @nullable */
-    elevation?: GeodataMountainPassReponseElevation;
+    elevation?: GeodataMountainPassResponseElevation;
     /** Mountain pass ID */
     id: number;
     /**
@@ -595,7 +596,7 @@ export interface GeodataMountainPassReponse {
      */
     object_name?: string | null;
     /** @nullable */
-    scale?: GeodataMountainPassReponseScale;
+    scale?: GeodataMountainPassResponseScale;
 }
 
 /**
@@ -615,23 +616,23 @@ export interface GeodataMountainListFilter {
 /**
  * @nullable
  */
-export type GeodataGlacierReponseDescription = LocaleApiLocaleLocalizedString | null;
+export type GeodataGlacierResponseDescription = LocaleApiLocaleLocalizedString | null;
 
 /**
  * @nullable
  */
-export type GeodataGlacierReponseArea = LocaleApiQuantitiesAreaQuantity | null;
+export type GeodataGlacierResponseArea = LocaleApiQuantitiesAreaQuantity | null;
 
 /**
  * Element of countries list
  */
-export interface GeodataGlacierReponse {
+export interface GeodataGlacierResponse {
     /** Alternative names */
     alternative_names?: LocaleApiLocaleGeoName[];
     /** @nullable */
-    area?: GeodataGlacierReponseArea;
+    area?: GeodataGlacierResponseArea;
     /** @nullable */
-    description?: GeodataGlacierReponseDescription;
+    description?: GeodataGlacierResponseDescription;
     /** Glacier ID */
     id: number;
     /** Mountain passes count within glacier */
@@ -661,23 +662,23 @@ export interface GeodataGlacierListFilter {
 /**
  * @nullable
  */
-export type GeodataCountryReponseDescription = LocaleApiLocaleLocalizedString | null;
+export type GeodataCountryResponseDescription = LocaleApiLocaleLocalizedString | null;
 
 /**
  * @nullable
  */
-export type GeodataCountryReponseArea = LocaleApiQuantitiesAreaQuantity | null;
+export type GeodataCountryResponseArea = LocaleApiQuantitiesAreaQuantity | null;
 
 /**
  * Element of countries list
  */
-export interface GeodataCountryReponse {
+export interface GeodataCountryResponse {
     /** Alternative names */
     alternative_names?: LocaleApiLocaleGeoName[];
     /** @nullable */
-    area?: GeodataCountryReponseArea;
+    area?: GeodataCountryResponseArea;
     /** @nullable */
-    description?: GeodataCountryReponseDescription;
+    description?: GeodataCountryResponseDescription;
     glaciers_area: LocaleApiQuantitiesAreaQuantity;
     /** Glaciers count */
     glaciers_count: number;
@@ -702,23 +703,23 @@ export interface GeodataCountryReponse {
 /**
  * @nullable
  */
-export type GeodataCountryRegionReponseDescription = LocaleApiLocaleLocalizedString | null;
+export type GeodataCountryRegionResponseDescription = LocaleApiLocaleLocalizedString | null;
 
 /**
  * @nullable
  */
-export type GeodataCountryRegionReponseArea = LocaleApiQuantitiesAreaQuantity | null;
+export type GeodataCountryRegionResponseArea = LocaleApiQuantitiesAreaQuantity | null;
 
 /**
  * Element of country regions list
  */
-export interface GeodataCountryRegionReponse {
+export interface GeodataCountryRegionResponse {
     /** Alternative names */
     alternative_names?: LocaleApiLocaleGeoName[];
     /** @nullable */
-    area?: GeodataCountryRegionReponseArea;
+    area?: GeodataCountryRegionResponseArea;
     /** @nullable */
-    description?: GeodataCountryRegionReponseDescription;
+    description?: GeodataCountryRegionResponseDescription;
     glaciers_area: LocaleApiQuantitiesAreaQuantity;
     /** Glaciers count */
     glaciers_count: number;
@@ -775,6 +776,7 @@ export interface CurrentUserInfoResponse {
     username: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
 /**
@@ -796,7 +798,7 @@ export const countriesList = (
     params: CountriesListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataCountryReponse[]>(
+    return createInstance<GeodataCountryResponse[]>(
         { url: `/api/v1/geodata_country`, method: 'GET', params },
         options,
     );
@@ -811,7 +813,7 @@ export const country = (
     params?: CountryParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataCountryReponse>(
+    return createInstance<GeodataCountryResponse>(
         { url: `/api/v1/geodata_country/${id}`, method: 'GET', params },
         options,
     );
@@ -825,7 +827,7 @@ export const countryRegionsList = (
     params: CountryRegionsListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataCountryRegionReponse[]>(
+    return createInstance<GeodataCountryRegionResponse[]>(
         { url: `/api/v1/geodata_countryregion`, method: 'GET', params },
         options,
     );
@@ -840,7 +842,7 @@ export const countryRegion = (
     params?: CountryRegionParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataCountryReponse>(
+    return createInstance<GeodataCountryResponse>(
         { url: `/api/v1/geodata_countryregion/${id}`, method: 'GET', params },
         options,
     );
@@ -854,7 +856,7 @@ export const glaciersList = (
     params: GlaciersListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataGlacierReponse[]>(
+    return createInstance<GeodataGlacierResponse[]>(
         { url: `/api/v1/geodata_glacier`, method: 'GET', params },
         options,
     );
@@ -869,7 +871,7 @@ export const glacier = (
     params?: GlacierParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataGlacierReponse>(
+    return createInstance<GeodataGlacierResponse>(
         { url: `/api/v1/geodata_glacier/${id}`, method: 'GET', params },
         options,
     );
@@ -883,7 +885,7 @@ export const mountainsList = (
     params: MountainsListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataMountainReponse[]>(
+    return createInstance<GeodataMountainResponse[]>(
         { url: `/api/v1/geodata_mountain`, method: 'GET', params },
         options,
     );
@@ -898,7 +900,7 @@ export const mountain = (
     params?: MountainParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataMountainReponse>(
+    return createInstance<GeodataMountainResponse>(
         { url: `/api/v1/geodata_mountain/${id}`, method: 'GET', params },
         options,
     );
@@ -912,7 +914,7 @@ export const mountainPassesList = (
     params: MountainPassesListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataMountainPassReponse[]>(
+    return createInstance<GeodataMountainPassResponse[]>(
         { url: `/api/v1/geodata_mountainpass`, method: 'GET', params },
         options,
     );
@@ -927,7 +929,7 @@ export const mountainPass = (
     params?: MountainPassParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataMountainPassReponse>(
+    return createInstance<GeodataMountainPassResponse>(
         { url: `/api/v1/geodata_mountainpass/${id}`, method: 'GET', params },
         options,
     );
@@ -941,7 +943,7 @@ export const mountainRangesList = (
     params: MountainRangesListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataMountainRangeReponse[]>(
+    return createInstance<GeodataMountainRangeResponse[]>(
         { url: `/api/v1/geodata_mountainrange`, method: 'GET', params },
         options,
     );
@@ -956,7 +958,7 @@ export const mountainRange = (
     params?: MountainRangeParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<GeodataMountainRangeReponse>(
+    return createInstance<GeodataMountainRangeResponse>(
         { url: `/api/v1/geodata_mountainrange/${id}`, method: 'GET', params },
         options,
     );
