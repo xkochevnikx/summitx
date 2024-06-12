@@ -785,7 +785,7 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  */
 export const currentUserInfo = (options?: SecondParameter<typeof createInstance>) => {
     return createInstance<CurrentUserInfoResponse>(
-        { url: `/api/v1/current_user`, method: 'GET' },
+        { url: `/v1/current_user`, method: 'GET' },
         options,
     );
 };
@@ -799,7 +799,7 @@ export const countriesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse[]>(
-        { url: `/api/v1/geodata_country`, method: 'GET', params },
+        { url: `/v1/geodata_country`, method: 'GET', params },
         options,
     );
 };
@@ -814,7 +814,7 @@ export const country = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse>(
-        { url: `/api/v1/geodata_country/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_country/${id}`, method: 'GET', params },
         options,
     );
 };
@@ -828,7 +828,7 @@ export const countryRegionsList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryRegionResponse[]>(
-        { url: `/api/v1/geodata_countryregion`, method: 'GET', params },
+        { url: `/v1/geodata_countryregion`, method: 'GET', params },
         options,
     );
 };
@@ -843,7 +843,7 @@ export const countryRegion = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse>(
-        { url: `/api/v1/geodata_countryregion/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_countryregion/${id}`, method: 'GET', params },
         options,
     );
 };
@@ -857,7 +857,7 @@ export const glaciersList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataGlacierResponse[]>(
-        { url: `/api/v1/geodata_glacier`, method: 'GET', params },
+        { url: `/v1/geodata_glacier`, method: 'GET', params },
         options,
     );
 };
@@ -872,7 +872,7 @@ export const glacier = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataGlacierResponse>(
-        { url: `/api/v1/geodata_glacier/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_glacier/${id}`, method: 'GET', params },
         options,
     );
 };
@@ -886,7 +886,7 @@ export const mountainsList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainResponse[]>(
-        { url: `/api/v1/geodata_mountain`, method: 'GET', params },
+        { url: `/v1/geodata_mountain`, method: 'GET', params },
         options,
     );
 };
@@ -901,7 +901,7 @@ export const mountain = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainResponse>(
-        { url: `/api/v1/geodata_mountain/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_mountain/${id}`, method: 'GET', params },
         options,
     );
 };
@@ -915,7 +915,7 @@ export const mountainPassesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainPassResponse[]>(
-        { url: `/api/v1/geodata_mountainpass`, method: 'GET', params },
+        { url: `/v1/geodata_mountainpass`, method: 'GET', params },
         options,
     );
 };
@@ -930,7 +930,7 @@ export const mountainPass = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainPassResponse>(
-        { url: `/api/v1/geodata_mountainpass/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_mountainpass/${id}`, method: 'GET', params },
         options,
     );
 };
@@ -944,7 +944,7 @@ export const mountainRangesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainRangeResponse[]>(
-        { url: `/api/v1/geodata_mountainrange`, method: 'GET', params },
+        { url: `/v1/geodata_mountainrange`, method: 'GET', params },
         options,
     );
 };
@@ -959,7 +959,7 @@ export const mountainRange = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainRangeResponse>(
-        { url: `/api/v1/geodata_mountainrange/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_mountainrange/${id}`, method: 'GET', params },
         options,
     );
 };
@@ -972,10 +972,7 @@ export const userList = (
     params?: UserListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<UserListResponse[]>(
-        { url: `/api/v1/user`, method: 'GET', params },
-        options,
-    );
+    return createInstance<UserListResponse[]>({ url: `/v1/user`, method: 'GET', params }, options);
 };
 
 /**
@@ -984,7 +981,7 @@ export const userList = (
  */
 export const userInfo = (userId: number, options?: SecondParameter<typeof createInstance>) => {
     return createInstance<UserInfoResponse[]>(
-        { url: `/api/v1/user/${userId}`, method: 'GET' },
+        { url: `/v1/user/${userId}`, method: 'GET' },
         options,
     );
 };
@@ -995,7 +992,7 @@ export const userInfo = (userId: number, options?: SecondParameter<typeof create
  */
 export const logout = (options?: SecondParameter<typeof createInstance>) => {
     return createInstance<ReactAdminOKResponse>(
-        { url: `/api/v1/user_logout`, method: 'POST' },
+        { url: `/v1/user_logout`, method: 'POST' },
         options,
     );
 };

@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { isClient } from '../lib/next';
 
 export const apiInstance = axios.create({
-    baseURL: '/api',
+    baseURL: isClient() ? '/api' : process.env.BASE_API_URL + '/api',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
