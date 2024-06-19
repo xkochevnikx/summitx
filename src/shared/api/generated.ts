@@ -5,7 +5,7 @@
  * Summit-X is the project about mountains and mountaineers
  * OpenAPI spec version: 0.1.0
  */
-import { createInstance } from './api-instanse';
+import { createInstance } from "./api-instanse";
 export type UserListParams = {
     /**
      * JSON-encoded array of requested range. Example: [0, 9]
@@ -324,13 +324,13 @@ export type LocaleApiLocaleGeoNameKind =
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const LocaleApiLocaleGeoNameKind = {
-    Main: 'Main',
-    Old: 'Old',
-    Alt: 'Alt',
-    International: 'International',
-    Local: 'Local',
-    National: 'National',
-    Official: 'Official',
+    Main: "Main",
+    Old: "Old",
+    Alt: "Alt",
+    International: "International",
+    Local: "Local",
+    National: "National",
+    Official: "Official",
 } as const;
 
 /**
@@ -368,18 +368,18 @@ export type VolcanoType = (typeof VolcanoType)[keyof typeof VolcanoType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const VolcanoType = {
-    Stratovolcano: 'Stratovolcano',
-    Shield: 'Shield',
-    Scoria: 'Scoria',
+    Stratovolcano: "Stratovolcano",
+    Shield: "Shield",
+    Scoria: "Scoria",
 } as const;
 
 export type VolcanoStatus = (typeof VolcanoStatus)[keyof typeof VolcanoStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const VolcanoStatus = {
-    Active: 'Active',
-    Dormant: 'Dormant',
-    Extinct: 'Extinct',
+    Active: "Active",
+    Dormant: "Dormant",
+    Extinct: "Extinct",
 } as const;
 
 /**
@@ -433,8 +433,8 @@ export type OrderDirection = (typeof OrderDirection)[keyof typeof OrderDirection
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const OrderDirection = {
-    ASC: 'ASC',
-    DESC: 'DESC',
+    ASC: "ASC",
+    DESC: "DESC",
 } as const;
 
 /**
@@ -444,8 +444,8 @@ export type LocaleMetricSystem = (typeof LocaleMetricSystem)[keyof typeof Locale
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const LocaleMetricSystem = {
-    Metric: 'Metric',
-    Imperial: 'Imperial',
+    Metric: "Metric",
+    Imperial: "Imperial",
 } as const;
 
 /**
@@ -785,7 +785,7 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  */
 export const currentUserInfo = (options?: SecondParameter<typeof createInstance>) => {
     return createInstance<CurrentUserInfoResponse>(
-        { url: `/v1/current_user`, method: 'GET' },
+        { url: `/v1/current_user`, method: "GET" },
         options,
     );
 };
@@ -799,7 +799,7 @@ export const countriesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse[]>(
-        { url: `/v1/geodata_country`, method: 'GET', params },
+        { url: `/v1/geodata_country`, method: "GET", params },
         options,
     );
 };
@@ -814,7 +814,7 @@ export const country = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse>(
-        { url: `/v1/geodata_country/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_country/${id}`, method: "GET", params },
         options,
     );
 };
@@ -828,7 +828,7 @@ export const countryRegionsList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryRegionResponse[]>(
-        { url: `/v1/geodata_countryregion`, method: 'GET', params },
+        { url: `/v1/geodata_countryregion`, method: "GET", params },
         options,
     );
 };
@@ -843,7 +843,7 @@ export const countryRegion = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse>(
-        { url: `/v1/geodata_countryregion/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_countryregion/${id}`, method: "GET", params },
         options,
     );
 };
@@ -857,7 +857,7 @@ export const glaciersList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataGlacierResponse[]>(
-        { url: `/v1/geodata_glacier`, method: 'GET', params },
+        { url: `/v1/geodata_glacier`, method: "GET", params },
         options,
     );
 };
@@ -872,7 +872,7 @@ export const glacier = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataGlacierResponse>(
-        { url: `/v1/geodata_glacier/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_glacier/${id}`, method: "GET", params },
         options,
     );
 };
@@ -886,7 +886,7 @@ export const mountainsList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainResponse[]>(
-        { url: `/v1/geodata_mountain`, method: 'GET', params },
+        { url: `/v1/geodata_mountain`, method: "GET", params },
         options,
     );
 };
@@ -901,7 +901,7 @@ export const mountain = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainResponse>(
-        { url: `/v1/geodata_mountain/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_mountain/${id}`, method: "GET", params },
         options,
     );
 };
@@ -915,7 +915,7 @@ export const mountainPassesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainPassResponse[]>(
-        { url: `/v1/geodata_mountainpass`, method: 'GET', params },
+        { url: `/v1/geodata_mountainpass`, method: "GET", params },
         options,
     );
 };
@@ -930,7 +930,7 @@ export const mountainPass = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainPassResponse>(
-        { url: `/v1/geodata_mountainpass/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_mountainpass/${id}`, method: "GET", params },
         options,
     );
 };
@@ -944,7 +944,7 @@ export const mountainRangesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainRangeResponse[]>(
-        { url: `/v1/geodata_mountainrange`, method: 'GET', params },
+        { url: `/v1/geodata_mountainrange`, method: "GET", params },
         options,
     );
 };
@@ -959,7 +959,7 @@ export const mountainRange = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainRangeResponse>(
-        { url: `/v1/geodata_mountainrange/${id}`, method: 'GET', params },
+        { url: `/v1/geodata_mountainrange/${id}`, method: "GET", params },
         options,
     );
 };
@@ -972,7 +972,7 @@ export const userList = (
     params?: UserListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<UserListResponse[]>({ url: `/v1/user`, method: 'GET', params }, options);
+    return createInstance<UserListResponse[]>({ url: `/v1/user`, method: "GET", params }, options);
 };
 
 /**
@@ -981,7 +981,7 @@ export const userList = (
  */
 export const userInfo = (userId: number, options?: SecondParameter<typeof createInstance>) => {
     return createInstance<UserInfoResponse[]>(
-        { url: `/v1/user/${userId}`, method: 'GET' },
+        { url: `/v1/user/${userId}`, method: "GET" },
         options,
     );
 };
@@ -992,7 +992,7 @@ export const userInfo = (userId: number, options?: SecondParameter<typeof create
  */
 export const logout = (options?: SecondParameter<typeof createInstance>) => {
     return createInstance<ReactAdminOKResponse>(
-        { url: `/v1/user_logout`, method: 'POST' },
+        { url: `/v1/user_logout`, method: "POST" },
         options,
     );
 };
