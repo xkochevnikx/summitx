@@ -1,11 +1,14 @@
-import { OrganizedMountainRange, OrganizedRegions } from "@/features/organizeRanges";
 import type { FC } from "react";
 
-type RegionsListProps = {
-    regions: OrganizedRegions;
-};
+import {
+    OrganizedMountainRange,
+    OrganizedRegions,
+    organizeRanges,
+} from "@/features/organizeRanges";
 
-export const RegionsList: FC<RegionsListProps> = ({ regions }) => {
+export const RegionsList: FC = async () => {
+    const regions: OrganizedRegions = await organizeRanges();
+
     return (
         <div>
             <h1>Regions</h1>

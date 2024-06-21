@@ -1,6 +1,6 @@
-import { organizeRanges, OrganizedRegions } from "@/features/organizeRanges";
 import type { Metadata } from "next";
 import { RegionsList } from "./regionsList";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
     title: "",
@@ -8,6 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const regions: OrganizedRegions = await organizeRanges();
-    return <RegionsList regions={regions} />;
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <RegionsList />
+        </Suspense>
+    );
 }

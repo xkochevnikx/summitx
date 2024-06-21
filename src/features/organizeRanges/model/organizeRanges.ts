@@ -1,25 +1,28 @@
 import { getRangesList } from "@/entities/mountainRanges";
-import { OrganizedRegions } from "./types";
-import { GeodataMountainRangeResponse } from "@/shared/api/generated";
+import type { OrganizedRegions } from "./types";
 
 export const organizeRanges = async (): Promise<OrganizedRegions> => {
     const { topList, secondList } = getRangesList();
 
-    const topRegions: GeodataMountainRangeResponse[] = await topList();
+    const topRegions = await topList();
 
-    const topRegionIds: number[] = topRegions.map((region) => region.id);
+    if (topRegions) {
+        const topRegionIds: number[] = topRegions.map((region) => region.id);
 
-    const childRegions: GeodataMountainRangeResponse[] = await secondList({
-        parent_id: topRegionIds,
-    });
+        const childRegions = await secondList({
+            parent_id: topRegionIds,
+        });
+        if (childRegions) {
+            const organized = topRegions.reduce((acc, region) => {
+                acc[region.id] = {
+                    ...region,
+                    children: childRegions?.filter((child) => child.parent_id === region.id),
+                };
+                return acc;
+            }, {} as OrganizedRegions);
 
-    const organized: OrganizedRegions = topRegions.reduce((acc, region) => {
-        acc[region.id] = {
-            ...region,
-            children: childRegions.filter((child) => child.parent_id === region.id),
-        };
-        return acc;
-    }, {} as OrganizedRegions);
-
-    return organized;
+            return organized;
+        }
+    }
+    return {};
 };
