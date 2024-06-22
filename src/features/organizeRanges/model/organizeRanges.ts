@@ -7,7 +7,7 @@ export const organizeRanges = async (): Promise<OrganizedRegions> => {
     const topRegions = await topList();
 
     if (topRegions) {
-        const topRegionIds: number[] = topRegions.map((region) => region.id);
+        const topRegionIds = topRegions.map((region) => region.id);
 
         const childRegions = await secondList({
             parent_id: topRegionIds,
