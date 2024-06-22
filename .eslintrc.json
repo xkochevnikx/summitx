@@ -16,7 +16,8 @@
         "react",
         "react-hooks",
         "boundaries",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "import"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -64,7 +65,7 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "error",
         "boundaries/entry-point": [
-            2,
+            "error",
             {
                 "default": "disallow",
                 "rules": [
@@ -109,7 +110,7 @@
             }
         ],
         "boundaries/element-types": [
-            2,
+            "error",
             {
                 "default": "allow",
                 "message": "${file.type} is not allowed to import (${dependency.type})",
@@ -188,6 +189,26 @@
                         ]
                     }
                 ]
+            }
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index",
+                    "object",
+                    "type"
+                ],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
             }
         ]
     }
