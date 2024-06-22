@@ -1,5 +1,6 @@
-import { api } from "@/shared/api";
 import { AxiosError } from "axios";
+
+import { api } from "@/shared/api";
 
 export type GetRangesModel = {
     topList: () => Promise<void | api.GeodataMountainRangeResponse[]>;

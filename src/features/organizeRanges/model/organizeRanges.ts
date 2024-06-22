@@ -1,5 +1,6 @@
-import { getRangesList } from "@/entities/mountainRanges";
 import type { OrganizedRegions } from "./types";
+
+import { getRangesList } from "@/entities/mountainRanges";
 
 export const organizeRanges = async (): Promise<OrganizedRegions> => {
     const { topList, secondList } = getRangesList();

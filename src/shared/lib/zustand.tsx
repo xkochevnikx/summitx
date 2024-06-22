@@ -1,6 +1,7 @@
-import { StoreApi, UseBoundStore } from "zustand";
-import { createStrictContext, useStrictContext } from "./react";
 import { useState } from "react";
+import { StoreApi, UseBoundStore } from "zustand";
+
+import { createStrictContext, useStrictContext } from "./react";
 
 export const createStoreContext = <S, P = void>(
     factory: (value: P) => UseBoundStore<StoreApi<S>>,
