@@ -105,6 +105,10 @@
             {
                 "value": "other",
                 "label": "other"
+            },
+            {
+                "value": "root",
+                "label": "root"
             }
         ]
     },
