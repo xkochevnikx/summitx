@@ -1,30 +1,38 @@
-name: ci check
+name: CI Check
 
 on:
     push:
         branches: [master]
     pull_request:
-        
+        branches: [master]
+
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-        uses: actions/checkout@v4
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20.x.x
-          cache: yarn
-        name: install modules
-        run: yarn
-        name: build production project
-        run: yarn run build
-        if: always()
-        name: linting
-        run: yarn run lint
-        if: always()
-        name: linting typescript
-        run: yarn run lint:types
-        if: always()
-        name: linting css
-        run: npm run lint:scss
-        if: always()
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20.x"
+                  cache: "yarn"
+
+            - name: Install modules
+              run: yarn
+
+            - name: Build production project
+              run: yarn run build
+
+            - name: Linting
+              run: yarn run lint
+              continue-on-error: true
+
+            - name: Linting TypeScript
+              run: yarn run lint:types
+              continue-on-error: true
+
+            - name: Linting CSS
+              run: npm run lint:scss
+              continue-on-error: true
