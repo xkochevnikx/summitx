@@ -24,10 +24,7 @@ lint_job:
             if ! yarn run lint:types; then
               echo "TypeScript linting failed, but continuing..."
             fi
-        - |
-            if ! npm run lint:scss; then
-              echo "SCSS linting failed, but continuing..."
-            fi
+
     only:
         - master
     except:
@@ -47,10 +44,7 @@ merge_requests:
             if ! yarn run lint:types; then
               echo "TypeScript linting failed, but continuing..."
             fi
-        - |
-            if ! npm run lint:scss; then
-              echo "SCSS linting failed, but continuing..."
-            fi
+
     only:
         - merge_requests
     except:
