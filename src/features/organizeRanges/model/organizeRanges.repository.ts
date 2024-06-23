@@ -25,5 +25,6 @@ export const organizeRanges = async (): Promise<OrganizedRegions> => {
             return organized;
         }
     }
+
     return {};
 };
