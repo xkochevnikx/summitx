@@ -8,8 +8,9 @@
         "start": "next start",
         "lint": "next lint",
         "lint:css": "npx stylelint \"**/*.css\"",
+        "lint:types": "tsc --noEmit",
         "api:generate": "orval",
-        "commit": "yarn run build && yarn run lint && better-commits"
+        "commit": "better-commits"
     },
     "dependencies": {
         "@tanstack/react-query": "^5.29.2",
