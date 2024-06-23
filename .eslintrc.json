@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:@next/eslint-plugin-next/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
@@ -28,6 +29,11 @@
         }
     },
     "settings": {
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true
+            }
+        },
         "boundaries/include": ["src/**/*"],
         "boundaries/elements": [
             {
@@ -62,13 +68,23 @@
         ]
     },
     "rules": {
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "error",
+        "react-refresh/only-export-components": 0,
         "boundaries/entry-point": [
-            "error",
+            2,
             {
                 "default": "disallow",
                 "rules": [
+                    {
+                        "target": [
+                            [
+                                "shared",
+                                {
+                                    "segment": "lib"
+                                }
+                            ]
+                        ],
+                        "allow": "*/index.ts"
+                    },
                     {
                         "target": [
                             [
@@ -89,7 +105,7 @@
                                 }
                             ]
                         ],
-                        "allow": "**"
+                        "allow": "index.ts"
                     },
                     {
                         "target": [
@@ -103,6 +119,17 @@
                         "allow": "**"
                     },
                     {
+                        "target": [
+                            [
+                                "shared",
+                                {
+                                    "segment": "api"
+                                }
+                            ]
+                        ],
+                        "allow": "index.ts"
+                    },
+                    {
                         "target": ["app", "pages", "widgets", "features", "entities"],
                         "allow": "index.(ts|tsx)"
                     }
@@ -110,7 +137,7 @@
             }
         ],
         "boundaries/element-types": [
-            "error",
+            2,
             {
                 "default": "allow",
                 "message": "${file.type} is not allowed to import (${dependency.type})",
@@ -154,6 +181,7 @@
                             ]
                         ]
                     },
+
                     {
                         "from": ["widgets"],
                         "message": "Feature must not import upper layers (${dependency.type})",
