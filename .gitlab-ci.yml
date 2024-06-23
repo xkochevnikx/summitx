@@ -5,16 +5,14 @@ variables:
     NODE_ENV: production
 
 before_script:
-    - apt-get update -y
-    - apt-get install -y curl
-    - curl -sL https://deb.nodesource.com/setup_20.x | bash -
-    - apt-get install -y nodejs
-    - npm install -g yarn
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    - yarn install
 
 lint_job:
+    image: node:20
     stage: lint
     script:
-        - yarn install
         - yarn run build
         - |
             if ! yarn run lint; then
@@ -35,9 +33,9 @@ lint_job:
         - triggers
 
 merge_requests:
+    image: node:20
     stage: lint
     script:
-        - yarn install
         - yarn run build
         - |
             if ! yarn run lint; then
