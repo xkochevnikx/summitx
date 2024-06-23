@@ -1,10 +1,10 @@
-import type { FC } from "react";
-
 import {
     OrganizedMountainRange,
     OrganizedRegions,
     organizeRanges,
 } from "@/features/organizeRanges";
+
+import type { FC } from "react";
 
 export const RegionsList: FC = async () => {
     const regions: OrganizedRegions = await organizeRanges();
