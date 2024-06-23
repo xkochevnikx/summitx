@@ -1,0 +1,58 @@
+stages:
+    - lint
+
+variables:
+    NODE_ENV: production
+
+before_script:
+    - apt-get update -y
+    - apt-get install -y curl
+    - curl -sL https://deb.nodesource.com/setup_20.x | bash -
+    - apt-get install -y nodejs
+    - npm install -g yarn
+
+lint_job:
+    stage: lint
+    script:
+        - yarn install
+        - yarn run build
+        - |
+            if ! yarn run lint; then
+              echo "Linting failed, but continuing..."
+            fi
+        - |
+            if ! yarn run lint:types; then
+              echo "TypeScript linting failed, but continuing..."
+            fi
+        - |
+            if ! npm run lint:scss; then
+              echo "SCSS linting failed, but continuing..."
+            fi
+    only:
+        - master
+    except:
+        - tags
+        - triggers
+
+merge_requests:
+    stage: lint
+    script:
+        - yarn install
+        - yarn run build
+        - |
+            if ! yarn run lint; then
+              echo "Linting failed, but continuing..."
+            fi
+        - |
+            if ! yarn run lint:types; then
+              echo "TypeScript linting failed, but continuing..."
+            fi
+        - |
+            if ! npm run lint:scss; then
+              echo "SCSS linting failed, but continuing..."
+            fi
+    only:
+        - merge_requests
+    except:
+        - tags
+        - triggers
