@@ -6,4 +6,5 @@ export interface OrganizedMountainRange extends GeodataMountainRangeResponse {
 
 export interface OrganizedRegions {
     [key: number]: OrganizedMountainRange;
+    sdfsdf: OrganizedMountainRange;
 }
