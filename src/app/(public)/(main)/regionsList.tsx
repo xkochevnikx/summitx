@@ -12,7 +12,7 @@ export const RegionsList: FC = async () => {
     return (
         <div>
             <h1>Regions</h1>
-            <h2>testing deploy</h2>
+            <h2>testing deploy 2</h2>
             {Object.values(regions).map((region: OrganizedMountainRange) => (
                 <div key={region.id} style={{ marginBottom: "20px" }}>
                     <h2>{region.object_name}</h2>
