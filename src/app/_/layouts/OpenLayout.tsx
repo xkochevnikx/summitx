@@ -4,7 +4,7 @@ import { UiHeader } from "@/shared/ui/header";
 
 export function OpenLayout({ children }: { children?: React.ReactNode }) {
     return (
-        <div>
+        <>
             <UiHeader
                 links={<div>links links</div>}
                 right={
@@ -14,7 +14,7 @@ export function OpenLayout({ children }: { children?: React.ReactNode }) {
                     </div>
                 }
             />
-            <main className="grow flex flex-col">{children}</main>
-        </div>
+            <main>{children}</main>
+        </>
     );
 }
