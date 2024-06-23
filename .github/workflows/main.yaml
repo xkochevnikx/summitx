@@ -27,12 +27,20 @@ jobs:
 
             - name: Linting
               run: yarn run lint
-              continue-on-error: true
 
             - name: Linting TypeScript
               run: yarn run lint:types
-              continue-on-error: true
 
             - name: Linting CSS
               run: npm run lint:scss
-              continue-on-error: true
+
+            - name: Commit and push changes
+              if: ${{ success() }}
+              run: |
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                  git add .
+                  git commit -m "Apply automatic fixes from CI"
+                  git push
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
