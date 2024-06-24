@@ -1,8 +1,5 @@
-import {
-    OrganizedMountainRange,
-    OrganizedRegions,
-    organizeRanges,
-} from "@/features/organizeRanges";
+import { organizeRanges } from "../model/organizeRanges.repository";
+import { OrganizedMountainRange, OrganizedRegions } from "../model/types";
 
 import type { FC } from "react";
 

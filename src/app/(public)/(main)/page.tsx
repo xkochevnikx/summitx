@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { RegionsList } from "./regionsList";
+import { RegionsList } from "@/features/organizeRanges";
 
 import type { Metadata } from "next";
 
