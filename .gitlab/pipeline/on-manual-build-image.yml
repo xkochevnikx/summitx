@@ -1,0 +1,14 @@
+---
+
+include:
+  - local: /.gitlab/job/image.yml
+  - local: /.gitlab/common.yml
+
+stages:
+  - manual
+
+docker-image:
+  stage: manual
+  extends:
+    - .job-build-image
+  when: manual
