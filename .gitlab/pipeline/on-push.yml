@@ -13,7 +13,7 @@ build:
   extends:
     - .build
 
-check:
+check-lint:
   stage: check
   extends:
-    - .check
+    - .check-lint
