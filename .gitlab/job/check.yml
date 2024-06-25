@@ -1,9 +1,7 @@
 ---
 
 .check-lint:
-  image: ubuntu:latest
-  services:
-    - node:latest
+  image: node:lts
   script:
     # Install dependencies
     - yarn install
