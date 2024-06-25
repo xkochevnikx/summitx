@@ -14,6 +14,7 @@ variables:
 
 .docker-login:
   before_script:
+    - unset DOCKER_HOST
     - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
 
 .rule_on_merge_request:
