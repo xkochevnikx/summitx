@@ -19,3 +19,10 @@ variables:
 .rule_on_merge_request:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+dummy_job:
+  stage: .pre
+  script:
+    - echo "Just a dummy job to make Gitlab happy with non-empty list of jobs"
+  rules:
+    - when: never
