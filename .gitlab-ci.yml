@@ -3,10 +3,6 @@
 include:
   - local: /.gitlab/common.yml
 
-  - local: /.gitlab/pipeline/on-manual-build-image.yml
-    rules:
-      - if: $CI_PIPELINE_SOURCE == 'web' && $WEB_PIPELINE_TARGET == 'build-image'
-
   - local: /.gitlab/pipeline/on-push.yml
     rules:
       - if: $CI_PIPELINE_SOURCE == 'push'

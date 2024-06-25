@@ -4,12 +4,6 @@ variables:
   BUILD_IMAGE: "$CI_REGISTRY/$CI_PROJECT_PATH/main"
   IMAGE_TAG: "latest"
 
-  WEB_PIPELINE_TARGET:
-    value: build-image
-    description: Which manual pipeline to run
-    options:
-      - build-image
-
 ###############################################################################
 
 .docker-login:
