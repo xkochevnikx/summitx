@@ -1,0 +1,19 @@
+---
+
+include:
+  - local: /.gitlab/job/build.yml
+  - local: /.gitlab/job/check.yml
+
+stages:
+  - check
+  - build
+
+build:
+  stage: build
+  extends:
+    - .build
+
+check:
+  stage: check
+  extends:
+    - .check

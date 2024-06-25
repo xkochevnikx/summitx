@@ -1,0 +1,11 @@
+---
+
+.build:
+  image: ubuntu:latest
+  services:
+    - node:latest
+  script:
+    # Install dependencies
+    - yarn install
+    # Build the project
+    - yarn run build
