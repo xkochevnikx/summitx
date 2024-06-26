@@ -1,0 +1,11 @@
+---
+
+.check-lint:
+  image: node:lts
+  script:
+    # Install dependencies
+    - yarn install
+    # Run linter
+    - yarn run lint
+    # Run typescript linter
+    - yarn run lint:types

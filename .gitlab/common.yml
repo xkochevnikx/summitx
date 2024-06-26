@@ -1,0 +1,23 @@
+---
+
+variables:
+  BUILD_IMAGE: "$CI_REGISTRY/$CI_PROJECT_PATH/main"
+  IMAGE_TAG: "latest"
+
+###############################################################################
+
+.docker-login:
+  before_script:
+    - unset DOCKER_HOST
+    - docker login --username gitlab-ci-token --password $CI_JOB_TOKEN $CI_REGISTRY
+
+.rule_on_merge_request:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+dummy_job:
+  stage: .pre
+  script:
+    - echo "Just a dummy job to make Gitlab happy with non-empty list of jobs"
+  rules:
+    - when: never
