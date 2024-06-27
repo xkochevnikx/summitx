@@ -1,16 +1,28 @@
+"use client";
+import { useEffect, useState, type FC } from "react";
+
 import { organizeRanges } from "../model/organizeRanges.repository";
 import { OrganizedMountainRange, OrganizedRegions } from "../model/types";
 
-import type { FC } from "react";
+type RegionsListProps = {
+    regions: OrganizedRegions;
+    lang: string;
+};
 
-export const RegionsList: FC = async () => {
-    const regions: OrganizedRegions = await organizeRanges();
+export const RegionsList: FC<RegionsListProps> = ({ regions, lang }) => {
+    const [regionsList, seRegionsList] = useState(regions ?? {});
+
+    useEffect(() => {
+        (async () => {
+            const regions: OrganizedRegions = await organizeRanges({ lang });
+            seRegionsList(regions);
+        })();
+    }, [lang]);
 
     return (
         <div>
             <h1>Regions</h1>
-            <h2>testing deploy 2</h2>
-            {Object.values(regions).map((region: OrganizedMountainRange) => (
+            {Object.values(regionsList).map((region: OrganizedMountainRange) => (
                 <div key={region.id} style={{ marginBottom: "20px" }}>
                     <h2>{region.object_name}</h2>
                     <ul>
