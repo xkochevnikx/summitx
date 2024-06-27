@@ -83,18 +83,7 @@
                                 }
                             ]
                         ],
-                        "allow": "*/index.ts"
-                    },
-                    {
-                        "target": [
-                            [
-                                "shared",
-                                {
-                                    "segment": "lib"
-                                }
-                            ]
-                        ],
-                        "allow": "*.(ts|tsx)"
+                        "allow": "**"
                     },
                     {
                         "target": [
@@ -105,7 +94,7 @@
                                 }
                             ]
                         ],
-                        "allow": "index.ts"
+                        "allow": "**"
                     },
                     {
                         "target": [
