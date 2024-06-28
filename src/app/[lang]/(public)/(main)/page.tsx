@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Suspense } from "react";
 
 import { OrganizedRegions, RegionsList, organizeRanges } from "@/features/organizeRanges";
@@ -14,8 +13,7 @@ export default async function Page({ params: { lang } }: { params: { lang: strin
     const regions: OrganizedRegions = await organizeRanges({ lang });
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <Link href={`/${lang}/about`}>about</Link>
-            <RegionsList regions={regions} lang={lang} />
+            <RegionsList regions={regions} />
         </Suspense>
     );
 }

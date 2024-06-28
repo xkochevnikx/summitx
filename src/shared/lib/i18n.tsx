@@ -20,7 +20,7 @@ export function createI18nModule<T extends Record<string, Record<string, string>
     };
 }
 
-export function useLangHook() {
+export function useLang() {
     const lang = useStrictContext(langContext);
     return lang;
 }
