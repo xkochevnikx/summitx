@@ -12,6 +12,7 @@
         "commit": "better-commits"
     },
     "dependencies": {
+        "@sentry/nextjs": "^8",
         "@tanstack/react-query": "^5.29.2",
         "axios": "^1.6.8",
         "cookies-next": "^4.2.1",

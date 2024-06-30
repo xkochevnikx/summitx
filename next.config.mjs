@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+import { withSentryConfig } from "@sentry/nextjs";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     async rewrites() {
@@ -11,4 +13,11 @@ const nextConfig = {
     },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+    org: "summitx",
+    project: "javascript-nextjs",
+    enabled: process.env.NODE_ENV === "production",
+    widenClientFileUpload: true,
+    hideSourceMaps: true,
+    disableLogger: true,
+});
