@@ -12,6 +12,7 @@ export function UiHeader({
     return (
         <header>
             {links}
+
             {right}
         </header>
     );
