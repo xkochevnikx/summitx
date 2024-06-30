@@ -15,6 +15,7 @@ const nextConfig = {
 
 export default withSentryConfig(nextConfig, {
     authToken: process.env.SENTRY_AUTH_TOKEN,
+    telemetry: false,
     org: "summitx",
     project: "javascript-nextjs",
     enabled: process.env.NODE_ENV === "production",
