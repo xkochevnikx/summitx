@@ -21,4 +21,8 @@ check-lint:
 
 deploy_to_stg:
   stage: deploy
-  script: echo "Deploy is processed by custom executor"
+  script:
+    - echo "Deploy is processed by custom executor, but it seems to be not configured yet."
+    - exit 1
+  tags:
+    - deploy
