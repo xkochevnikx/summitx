@@ -4,22 +4,32 @@ STG_PATH="/var/www/summitx/"
 STG_OWNER="node"
 STG_GROUP="node"
 STG_SERVICE_NAME="summitx-front.service"
+STG_ENV_FILE="/var/lib/summitx-frontend/staging/.env"
+
+# Exit on error
+set -e
+# Debug output
+# set -o xtrace
 
 fatal() {
-    echo "FATAL $*"
+    echo "$(date +'%F %T') FATAL $*"
     exit 1
 }
 
-deploy_to_stg() {
-    echo "Deploying to stg.summitx.info"
+info() {
+    echo "$(date +'%F %T') INFO $*"
+}
 
-    echo "Creating directories"
+deploy_to_stg() {
+    info "Deploying to stg.summitx.info"
+
+    info "Creating directories"
     mkdir -p "${STG_PATH}"
 
-    echo "Removing old files from ${STG_PATH}"
+    info "Removing old files from ${STG_PATH}"
     rm -rf "${STG_PATH}/node_modules"
 
-    echo "Copying files to ${STG_PATH}"
+    info "Copying files to ${STG_PATH}"
     rsync -av --delete \
           --exclude=".git" \
           --exclude=".gitignore" \
@@ -27,23 +37,26 @@ deploy_to_stg() {
           --exclude=".gitlab-ci.yml" \
           --exclude=".gitlab" \
           --exclude=".vscode" \
-          --exclude=".env" \
           --exclude=".next" \
-          ./ "${STG_PATH}"
+          "${CUSTOM_ENV_CI_PROJECT_DIR}/" "${STG_PATH}"
 
-    echo "Setting permissions"
+    info "Copying environment file"
+    cp "/${STG_ENV_FILE}" "${STG_PATH}/.env"
+
+    info "Setting permissions"
     chown -R "${STG_OWNER}:${STG_GROUP}" "${STG_PATH}"
 
-    echo "Rebuilding node_modules"
-    cd "${STG_PATH}" && npm install --production
+    info "Installing dependencies with 'npm install'"
+    cd "${STG_PATH}"
+    npm install
 
-    echo "Rebuilding project"
-    cd "${STG_PATH}" && npm run build
+    info "Rebuilding project with 'npm run build'"
+    npm run build
 
-    echo "Restarting service"
+    info "Restarting service"
     systemctl restart "${STG_SERVICE_NAME}"
 
-    echo "Deployed to stg.summitx.info"
+    info "Deployed to stg.summitx.info"
 }
 
 run() {
