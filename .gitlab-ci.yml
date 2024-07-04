@@ -3,6 +3,10 @@
 include:
   - local: /.gitlab/common.yml
 
+  - local: /.gitlab/pipeline/on-push-to-master.yml
+    rules:
+      - if: $CI_PIPELINE_SOURCE == 'push' && $CI_COMMIT_BRANCH == 'master'
+
   - local: /.gitlab/pipeline/on-push.yml
     rules:
-      - if: $CI_PIPELINE_SOURCE == 'push'
+      - if: $CI_PIPELINE_SOURCE == 'push' && $CI_COMMIT_BRANCH != 'master'

@@ -1,0 +1,24 @@
+---
+
+include:
+  - local: /.gitlab/job/build.yml
+  - local: /.gitlab/job/check.yml
+
+stages:
+  - check
+  - build
+  - deploy
+
+build:
+  stage: build
+  extends:
+    - .build
+
+check-lint:
+  stage: check
+  extends:
+    - .check-lint
+
+deploy_to_stg:
+  stage: deploy
+  script: echo "Deploy is processed by custom executor"
