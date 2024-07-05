@@ -3,9 +3,9 @@
 include:
   - local: /.gitlab/common.yml
 
-  - local: /.gitlab/pipeline/on-push-to-master.yml
+  - local: /.gitlab/pipeline/on-merge-request.yml
     rules:
-      - if: $CI_PIPELINE_SOURCE == 'push' && $CI_COMMIT_BRANCH == 'master'
+      - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
 
   - local: /.gitlab/pipeline/on-push.yml
     rules:
