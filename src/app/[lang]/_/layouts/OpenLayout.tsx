@@ -1,23 +1,9 @@
-import Link from "next/link";
-
-import { UpdateLang } from "@/features/i18n/";
-import { UiHeader } from "@/shared/ui/header";
+import { AppHeader } from "@/widgets/app-header";
 
 export function OpenLayout({ children }: { children?: React.ReactNode }) {
     return (
         <>
-            <UiHeader
-                links={
-                    <div>
-                        <Link href={`/about`}>about</Link>
-                    </div>
-                }
-                right={
-                    <div>
-                        <UpdateLang />
-                    </div>
-                }
-            />
+            <AppHeader variant="public" />
             <main>{children}</main>
         </>
     );
