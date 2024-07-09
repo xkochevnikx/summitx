@@ -9,7 +9,7 @@
         "lint": "next lint",
         "lint:types": "tsc --noEmit",
         "api:generate": "orval",
-        "commit": "better-commits"
+        "commit": "yarn run build && better-commits"
     },
     "dependencies": {
         "@sentry/nextjs": "^8",
