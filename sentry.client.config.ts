@@ -1,5 +1,6 @@
-import { privateConfig } from "@/shared/config/private";
 import * as Sentry from "@sentry/nextjs";
+
+import { privateConfig } from "@/shared/config/private";
 
 Sentry.init({
     dsn: privateConfig.NEXT_PUBLIC_SENTRY_DSN,
