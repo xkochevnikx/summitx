@@ -13,7 +13,6 @@ export default async function Page({ params: { lang } }: { params: { lang: strin
     const regions: OrganizedRegions = await organizeRanges({ lang });
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            test
             <RegionsList regions={regions} />
         </Suspense>
     );
