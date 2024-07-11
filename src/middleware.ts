@@ -4,7 +4,10 @@ import { COOKIES_LANGUAGE, DEFAULT_LANGUAGE } from "./shared/constants/cookies";
 import { LANGUAGES } from "./shared/constants/languages";
 
 export const config = {
-    matcher: ["/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|site.webmanifest).*)"],
+    matcher: [
+        "/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|site.webmanifest).*)",
+        "/favicon.ico",
+    ],
 };
 
 export function middleware(req: NextRequest) {
