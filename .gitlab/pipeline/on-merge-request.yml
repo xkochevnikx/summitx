@@ -1,33 +1,24 @@
 ---
-
 include:
-  - local: /.gitlab/common.yml
-  - local: /.gitlab/job/build.yml
-  - local: /.gitlab/job/check.yml
+    - local: /.gitlab/common.yml
+    - local: /.gitlab/job/check.yml
 
 stages:
-  - check
-  - build
-  - deploy
-
-build:
-  stage: build
-  extends:
-    - .rule_on_merge_request
-    - .build
+    - check
+    - deploy
 
 check-lint:
-  stage: check
-  extends:
-    - .rule_on_merge_request
-    - .check-lint
+    stage: check
+    extends:
+        - .rule_on_merge_request
+        - .check-lint
 
 deploy_to_stg:
-  stage: deploy
-  extends:
-    - .rule_on_merge_request
-  script:
-    - echo "Deploy is processed by custom executor, but it seems to be not configured yet."
-    - exit 1
-  tags:
-    - deploy
+    stage: deploy
+    extends:
+        - .rule_on_merge_request
+    script:
+        - echo "Deploy is processed by custom executor, but it seems to be not configured yet."
+        - exit 1
+    tags:
+        - deploy
