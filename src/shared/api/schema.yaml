@@ -1,1428 +1,1437 @@
 openapi: 3.0.3
 info:
-    title: Summit-X
-    description: Summit-X is the project about mountains and mountaineers
-    contact:
-        name: Evgenii Lepikhin
-        email: johnlepikhin@gmail.com
-    license:
-        name: MIT
-    version: 0.1.5
+  title: Summit-X
+  description: Summit-X is the project about mountains and mountaineers
+  contact:
+    name: Evgenii Lepikhin
+    email: johnlepikhin@gmail.com
+  license:
+    name: MIT
+  version: 0.1.7
 paths:
-    /v1/current_user:
-        get:
-            tags:
-                - User
-            summary: Returns current user information
-            operationId: current_user_info
-            responses:
-                "200":
-                    description: User's information
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/CurrentUserInfoResponse"
-            security:
-                - session_cookie: []
-                - authorization_header: []
-    /v1/geodata:
-        get:
-            tags:
-                - Geodata
-            summary: Returns list of geodata objects
-            operationId: object_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-            responses:
-                "200":
-                    description: Geographic objects list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of filtered geodata objects
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/GeodataResponse"
-                "400":
-                    description: Client sent invalid request
-    /v1/geodata_country:
-        get:
-            tags:
-                - Geodata
-            summary: Returns list of countries
-            operationId: countries_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-                - name: filter
-                  in: query
-                  description: Filters to apply. JSON object of type **GeodataCountryListFilter**
-                  required: true
-                  schema:
-                      $ref: "#/components/schemas/react_admin.json_query_param.JSONValue"
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-            responses:
-                "200":
-                    description: Countries list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of filtered countries
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/GeodataCountryResponse"
-    /v1/geodata_country/{id}:
-        get:
-            tags:
-                - Geodata
-            summary: Returns country information
-            operationId: country
-            parameters:
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Country information
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GeodataCountryResponse"
-    /v1/geodata_countryregion:
-        get:
-            tags:
-                - Geodata
-            summary: Returns list of countries regions
-            operationId: country_regions_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-                - name: filter
-                  in: query
-                  description: >-
-                      Filters to apply. JSON object of type
-                      **GeodataCountryRegionListFilter**
-                  required: true
-                  schema:
-                      $ref: "#/components/schemas/react_admin.json_query_param.JSONValue"
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-            responses:
-                "200":
-                    description: Countries regions list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of filtered countries regions
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/GeodataCountryRegionResponse"
-    /v1/geodata_countryregion/{id}:
-        get:
-            tags:
-                - Geodata
-            summary: Returns country region information
-            operationId: country_region
-            parameters:
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Country region information
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GeodataCountryResponse"
-    /v1/geodata_glacier:
-        get:
-            tags:
-                - Geodata
-            summary: Returns list of glaciers
-            operationId: glaciers_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-                - name: filter
-                  in: query
-                  description: Filters to apply. JSON object of type **GeodataGlacierListFilter**
-                  required: true
-                  schema:
-                      $ref: "#/components/schemas/react_admin.json_query_param.JSONValue"
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-            responses:
-                "200":
-                    description: Glaciers list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of filtered glaciers
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/GeodataGlacierResponse"
-    /v1/geodata_glacier/{id}:
-        get:
-            tags:
-                - Geodata
-            summary: Returns glacier information
-            operationId: glacier
-            parameters:
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Glacier information
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GeodataGlacierResponse"
-    /v1/geodata_mountain:
-        get:
-            tags:
-                - Geodata
-            summary: Returns list of mountains
-            operationId: mountains_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-                - name: filter
-                  in: query
-                  description: Filters to apply. JSON object of type **GeodataMountainListFilter**
-                  required: true
-                  schema:
-                      $ref: "#/components/schemas/react_admin.json_query_param.JSONValue"
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-            responses:
-                "200":
-                    description: Mountains list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of filtered mountains
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/GeodataMountainResponse"
-                "400":
-                    description: Client sent invalid request
-    /v1/geodata_mountain/{id}:
-        get:
-            tags:
-                - Geodata
-            summary: Returns mountain information
-            operationId: mountain
-            parameters:
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Mountain information
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GeodataMountainResponse"
-    /v1/geodata_mountainpass:
-        get:
-            tags:
-                - Geodata
-            summary: Returns list of mountain passes
-            operationId: mountain_passes_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-                - name: filter
-                  in: query
-                  description: >-
-                      Filters to apply. JSON object of type
-                      **GeodataMountainPassListFilter**
-                  required: true
-                  schema:
-                      $ref: "#/components/schemas/react_admin.json_query_param.JSONValue"
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-            responses:
-                "200":
-                    description: Mountain passes list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of filtered mountain passes
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/GeodataMountainPassResponse"
-                "400":
-                    description: Client sent invalid request
-    /v1/geodata_mountainpass/{id}:
-        get:
-            tags:
-                - Geodata
-            summary: Returns mountain pass information
-            operationId: mountain_pass
-            parameters:
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Mountain pass information
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GeodataMountainPassResponse"
-    /v1/geodata_mountainrange:
-        get:
-            tags:
-                - Geodata
-            summary: >-
-                Returns list of mountain ranges which belongs to the toplevel or
-                specified mountain range
-            operationId: mountain_ranges_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-                - name: filter
-                  in: query
-                  description: >-
-                      Filters to apply. JSON object of type
-                      **GeodataMountainRangeListFilter**
-                  required: true
-                  schema:
-                      $ref: "#/components/schemas/react_admin.json_query_param.JSONValue"
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-            responses:
-                "200":
-                    description: Mountain ranges list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of filtered mountain ranges
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/GeodataMountainRangeResponse"
-    /v1/geodata_mountainrange/{id}:
-        get:
-            tags:
-                - Geodata
-            summary: Returns mountain range information
-            operationId: mountain_range
-            parameters:
-                - name: locale_lang
-                  in: query
-                  description: Language in ISO 639-2 format
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/locale_api.isolang.Language"
-                - name: metric_system
-                  in: query
-                  description: Metric system to use
-                  required: false
-                  schema:
-                      $ref: "#/components/schemas/LocaleMetricSystem"
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: Mountain range information
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/GeodataMountainRangeResponse"
-    /v1/user:
-        get:
-            tags:
-                - User
-            summary: Returns list of users
-            operationId: user_list
-            parameters:
-                - name: range
-                  in: query
-                  description: "JSON-encoded array of requested range. Example: [0, 9]"
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: sort
-                  in: query
-                  description: >-
-                      JSON-encoded array which specifies results ordering. First value is
-                      order field and the second is direction. Example: ["id", "ASC"]
-                  required: false
-                  schema:
-                      type: string
-                      title: JSON-encoded object
-                      description: JSON-encoded object
-                      default: {}
-                - name: q
-                  in: query
-                  description: >-
-                      Quick filter string. Not all backend endpoints are able to process
-                      it
-                  required: false
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: User list
-                    headers:
-                        X-Total-Count:
-                            schema:
-                                type: integer
-                                minimum: 0
-                            description: Total count of users
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/UserListResponse"
-            security:
-                - session_cookie: []
-                - authorization_header: []
-    /v1/user/{user_id}:
-        get:
-            tags:
-                - User
-            summary: Returns user information
-            operationId: user_info
-            parameters:
-                - name: user_id
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      format: int64
-            responses:
-                "200":
-                    description: User information
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: "#/components/schemas/UserInfoResponse"
-            security:
-                - session_cookie: []
-                - authorization_header: []
-    /v1/user_logout:
-        post:
-            tags:
-                - User
-            summary: Deletes current session of user
-            operationId: logout
-            responses:
-                "200":
-                    description: Session removed successfully
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/react_admin.OKResponse"
-                "403":
-                    description: User not logged in
-            security:
-                - session_cookie: []
-                - authorization_header: []
-components:
-    schemas:
-        CurrentUserInfoResponse:
-            type: object
-            description: Current user information
-            required:
-                - id
-                - create_date
-                - username
-                - person
-            properties:
-                create_date:
-                    type: string
-                    format: date-time
-                    description: When user was created
-                id:
-                    type: integer
-                    format: int64
-                    description: Internal user ID
-                last_seen_date:
-                    type: string
-                    format: date-time
-                    description: When authenticated user used API last time
-                    nullable: true
-                person:
-                    type: string
-                    description: User person
-                username:
-                    type: string
-                    description: Username
-        GeodataCountryListFilter:
-            type: object
-            description: Filter to apply to countries list
-            properties:
-                parent_id:
-                    type: array
-                    items:
-                        type: integer
-                        format: int64
-                    description: >-
-                        Parent object: mountain ranges, countries, etc. If empty list,
-                        filter will not be applied
-        GeodataCountryRegionListFilter:
-            type: object
-            description: Filter to apply to country regions list
-            properties:
-                parent_id:
-                    type: array
-                    items:
-                        type: integer
-                        format: int64
-                    description: >-
-                        Parent object: mountain ranges, countries, etc. If empty list,
-                        filter will not be applied
-        GeodataCountryRegionResponse:
-            type: object
-            description: Element of country regions list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-                - glaciers_count
-                - glaciers_area
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
-                glaciers_count:
-                    type: integer
-                    format: int64
-                    description: Glaciers count
-                id:
-                    type: integer
-                    format: int64
-                    description: Country region ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within country
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within country
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
-        GeodataCountryResponse:
-            type: object
-            description: Element of countries list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-                - glaciers_count
-                - glaciers_area
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
-                glaciers_count:
-                    type: integer
-                    format: int64
-                    description: Glaciers count
-                id:
-                    type: integer
-                    format: int64
-                    description: Country ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within country
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within country
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
-        GeodataGlacierListFilter:
-            type: object
-            description: Filter to apply to glaciers list
-            properties:
-                parent_id:
-                    type: array
-                    items:
-                        type: integer
-                        format: int64
-                    description: >-
-                        Parent object: mountain ranges, countries, etc. If empty list,
-                        filter will not be applied
-        GeodataGlacierResponse:
-            type: object
-            description: Element of glaciers list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                id:
-                    type: integer
-                    format: int64
-                    description: Glacier ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within glacier
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within glacier
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
-        GeodataMountainListFilter:
-            type: object
-            description: Filter to apply to mountains list
-            properties:
-                parent_id:
-                    type: array
-                    items:
-                        type: integer
-                        format: int64
-        GeodataMountainPassListFilter:
-            type: object
-            description: Filter to apply to mountain passes list
-            properties:
-                parent_id:
-                    type: array
-                    items:
-                        type: integer
-                        format: int64
-        GeodataMountainPassResponse:
-            type: object
-            description: Element of mountain ranges list
-            required:
-                - id
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                elevation:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
-                    nullable: true
-                id:
-                    type: integer
-                    format: int64
-                    description: Mountain pass ID
-                object_name:
-                    type: string
-                    description: Default mountain pass name
-                    nullable: true
-                scale:
-                    allOf:
-                        - $ref: "#/components/schemas/GeodataMountainPassScale"
-                    nullable: true
-        GeodataMountainPassScale:
-            type: object
-            description: Mountain range scale information
-            required:
-                - min
-                - max
-            properties:
-                max:
-                    type: string
-                    description: Maximum known grade
-                min:
-                    type: string
-                    description: Minimum known grade
-        GeodataMountainRangeListFilter:
-            type: object
-            description: Filter to apply to mountain ranges list
-            properties:
-                parent_id:
-                    type: array
-                    items:
-                        type: integer
-                        format: int64
-                    description: >-
-                        Parent object: mountain ranges, countries, etc. If null, filter will
-                        not be applied. If empty list, only
-
-                        toplevel mountain ranges will be returned
-                    nullable: true
-        GeodataMountainRangeResponse:
-            type: object
-            description: Element of mountain ranges list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-                - glaciers_count
-                - glaciers_area
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
-                glaciers_count:
-                    type: integer
-                    format: int64
-                    description: Glaciers count
-                id:
-                    type: integer
-                    format: int64
-                    description: Mountain range ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within mountain range
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within mountain range
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
-        GeodataMountainResponse:
-            type: object
-            description: Element of mountain ranges list
-            required:
-                - id
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                elevation:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
-                    nullable: true
-                id:
-                    type: integer
-                    format: int64
-                    description: Mountain ID
-                object_name:
-                    type: string
-                    description: Default mountain name
-                    nullable: true
-                prominence:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
-                    nullable: true
-                volcano:
-                    allOf:
-                        - $ref: "#/components/schemas/geodata.db.source_properties.Volcano"
-                    nullable: true
-        GeodataResponse:
-            type: object
-            description: Element of geodata objects list
-            required:
-                - id
-                - object_kind
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                elevation:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
-                    nullable: true
-                id:
-                    type: integer
-                    format: int64
-                    description: Object ID
-                object_kind:
-                    $ref: "#/components/schemas/geodata.db.kind.GeodataKind"
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                prominence:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
-                    nullable: true
-                volcano:
-                    allOf:
-                        - $ref: "#/components/schemas/geodata.db.source_properties.Volcano"
-                    nullable: true
-        LocaleMetricSystem:
-            type: string
-            description: Metric system to use in the response
-            enum:
-                - Metric
-                - Imperial
-        LocaleRequest:
-            type: object
-            description: Which language and metric system to use in the response
-            properties:
-                locale_lang:
-                    type: string
-                    description: Language in ISO 639-2 format
-                metric_system:
-                    $ref: "#/components/schemas/LocaleMetricSystem"
-        OrderDirection:
-            type: string
-            description: Order direction for paginated list output
-            enum:
-                - ASC
-                - DESC
-        UserInfoResponse:
-            type: object
-            description: Element of user list
-            required:
-                - id
-                - create_date
-                - login_count
-                - username
-                - person
-                - active_sessions
-            properties:
-                active_sessions:
-                    type: integer
-                    format: int64
-                    description: Active user sessions count
-                create_date:
-                    type: string
-                    format: date-time
-                    description: When user was created
-                id:
-                    type: integer
-                    format: int64
-                    description: Internal user ID
-                last_seen_date:
-                    type: string
-                    format: date-time
-                    description: When authenticated user used API last time
-                    nullable: true
-                login_count:
-                    type: integer
-                    format: int64
-                    description: Total number of times user ever logged in
-                person:
-                    type: string
-                    description: User person
-                username:
-                    type: string
-                    description: Username
-        UserListResponse:
-            type: object
-            description: Element of user list
-            required:
-                - id
-                - create_date
-                - login_count
-                - username
-                - person
-            properties:
-                create_date:
-                    type: string
-                    format: date-time
-                    description: When user was created
-                id:
-                    type: integer
-                    format: int64
-                    description: Internal user ID
-                last_seen_date:
-                    type: string
-                    format: date-time
-                    description: When authenticated user used API last time
-                    nullable: true
-                login_count:
-                    type: integer
-                    format: int64
-                    description: Total number of times user ever logged in
-                person:
-                    type: string
-                    description: User person
-                username:
-                    type: string
-                    description: Username
-        VolcanoStatus:
-            type: string
-            enum:
-                - Active
-                - Dormant
-                - Extinct
-        VolcanoType:
-            type: string
-            enum:
-                - Stratovolcano
-                - Shield
-                - Scoria
-        geodata.db.source_properties.Volcano:
-            type: object
-            properties:
-                status:
-                    allOf:
-                        - $ref: "#/components/schemas/VolcanoStatus"
-                    nullable: true
-                volcano_type:
-                    allOf:
-                        - $ref: "#/components/schemas/VolcanoType"
-                    nullable: true
-        locale_api.isolang.Language:
-            type: string
-            title: Language
-            description: Language code according to ISO 639-2
-        locale_api.locale.GeoName:
-            type: object
-            title: GeoName
-            description: Name of geographical object
-            required:
-                - kind
-                - value
-            properties:
-                kind:
-                    type: string
-                    description: Kind of the name
-                    enum:
-                        - Main
-                        - Old
-                        - Alt
-                        - International
-                        - Local
-                        - National
-                        - Official
-                value:
-                    anyOf:
-                        - type: object
-                          description: Name without knowledge about it's localization
-                          properties:
-                              String:
-                                  type: string
-                                  description: Unlocalized name
-                        - type: object
-                          description: Localized name
-                          properties:
-                              LocalString:
-                                  $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-        locale_api.locale.LocalizedString:
-            type: object
-            title: LocalizedString
-            description: String with information about it's language
-            required:
-                - value
-                - lang
-            properties:
-                lang:
-                    type: string
-                    description: 3-letter language code, according to ISO 639-2
-                value:
-                    type: string
-                    description: String value
-        locale_api.quantities.AreaQuantity:
-            type: object
-            title: AreaQuantity
-            description: Area size with information about it's unit
-            required:
-                - amount
-                - unit
-            properties:
-                amount:
-                    type: number
-                    description: Amount of the area size
-                unit:
-                    type: string
-                    description: >-
-                        Unit of measure Square_Meter, Square_Kilometer, Square_Foot,
-                        Square_Mile
-        locale_api.quantities.LengthQuantity:
-            type: object
-            title: LengthQuantity
-            description: Length with information about it's unit
-            required:
-                - amount
-                - unit
-            properties:
-                amount:
-                    type: number
-                    description: Amount of the length
-                unit:
-                    type: string
-                    description: "Unit of measure: Meter, Kilometer, Foot, Mile"
-        react_admin.OKResponse:
-            type: object
-            title: Empty response
-            description: Empty response object on success
-            default: {}
-        react_admin.json_query_param.JSONValue:
+  /api/v1/current_user:
+    get:
+      tags:
+        - User
+      summary: Returns current user information
+      operationId: current_user_info
+      responses:
+        '200':
+          description: User's information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentUserInfoResponse'
+      security:
+        - session_cookie: []
+        - authorization_header: []
+  /api/v1/geodata:
+    get:
+      tags:
+        - Geodata
+      summary: Returns list of geodata objects
+      operationId: object_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
             type: string
             title: JSON-encoded object
             description: JSON-encoded object
             default: {}
-        webapp_core.secstr.SecUtf8:
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
             type: string
-            title: Secret UTF-8 string
-            format: password
-            description: >-
-                This value should be kept in secret. On the server side, it will be
-                hidden from logs
-    securitySchemes:
-        authorization_header:
-            type: apiKey
-            in: header
-            name: Authorization
-        session_cookie:
-            type: apiKey
-            in: cookie
-            name: session
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+      responses:
+        '200':
+          description: Geographic objects list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of filtered geodata objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeodataResponse'
+        '400':
+          description: Client sent invalid request
+  /api/v1/geodata_country:
+    get:
+      tags:
+        - Geodata
+      summary: Returns list of countries
+      operationId: countries_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filters to apply. JSON object of type **GeodataCountryListFilter**
+          required: true
+          schema:
+            $ref: '#/components/schemas/react_admin.json_query_param.JSONValue'
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+      responses:
+        '200':
+          description: Countries list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of filtered countries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeodataCountryResponse'
+  /api/v1/geodata_country/{id}:
+    get:
+      tags:
+        - Geodata
+      summary: Returns country information
+      operationId: country
+      parameters:
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Country information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeodataCountryResponse'
+  /api/v1/geodata_countryregion:
+    get:
+      tags:
+        - Geodata
+      summary: Returns list of countries regions
+      operationId: country_regions_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: >-
+            Filters to apply. JSON object of type
+            **GeodataCountryRegionListFilter**
+          required: true
+          schema:
+            $ref: '#/components/schemas/react_admin.json_query_param.JSONValue'
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+      responses:
+        '200':
+          description: Countries regions list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of filtered countries regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeodataCountryRegionResponse'
+  /api/v1/geodata_countryregion/{id}:
+    get:
+      tags:
+        - Geodata
+      summary: Returns country region information
+      operationId: country_region
+      parameters:
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Country region information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeodataCountryResponse'
+  /api/v1/geodata_glacier:
+    get:
+      tags:
+        - Geodata
+      summary: Returns list of glaciers
+      operationId: glaciers_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filters to apply. JSON object of type **GeodataGlacierListFilter**
+          required: true
+          schema:
+            $ref: '#/components/schemas/react_admin.json_query_param.JSONValue'
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+      responses:
+        '200':
+          description: Glaciers list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of filtered glaciers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeodataGlacierResponse'
+  /api/v1/geodata_glacier/{id}:
+    get:
+      tags:
+        - Geodata
+      summary: Returns glacier information
+      operationId: glacier
+      parameters:
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Glacier information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeodataGlacierResponse'
+  /api/v1/geodata_mountain:
+    get:
+      tags:
+        - Geodata
+      summary: Returns list of mountains
+      operationId: mountains_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filters to apply. JSON object of type **GeodataMountainListFilter**
+          required: true
+          schema:
+            $ref: '#/components/schemas/react_admin.json_query_param.JSONValue'
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+      responses:
+        '200':
+          description: Mountains list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of filtered mountains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeodataMountainResponse'
+        '400':
+          description: Client sent invalid request
+  /api/v1/geodata_mountain/{id}:
+    get:
+      tags:
+        - Geodata
+      summary: Returns mountain information
+      operationId: mountain
+      parameters:
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Mountain information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeodataMountainResponse'
+  /api/v1/geodata_mountainpass:
+    get:
+      tags:
+        - Geodata
+      summary: Returns list of mountain passes
+      operationId: mountain_passes_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: >-
+            Filters to apply. JSON object of type
+            **GeodataMountainPassListFilter**
+          required: true
+          schema:
+            $ref: '#/components/schemas/react_admin.json_query_param.JSONValue'
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+      responses:
+        '200':
+          description: Mountain passes list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of filtered mountain passes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeodataMountainPassResponse'
+        '400':
+          description: Client sent invalid request
+  /api/v1/geodata_mountainpass/{id}:
+    get:
+      tags:
+        - Geodata
+      summary: Returns mountain pass information
+      operationId: mountain_pass
+      parameters:
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Mountain pass information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeodataMountainPassResponse'
+  /api/v1/geodata_mountainrange:
+    get:
+      tags:
+        - Geodata
+      summary: >-
+        Returns list of mountain ranges which belongs to the toplevel or
+        specified mountain range
+      operationId: mountain_ranges_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: >-
+            Filters to apply. JSON object of type
+            **GeodataMountainRangeListFilter**
+          required: true
+          schema:
+            $ref: '#/components/schemas/react_admin.json_query_param.JSONValue'
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+      responses:
+        '200':
+          description: Mountain ranges list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of filtered mountain ranges
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GeodataMountainRangeResponse'
+  /api/v1/geodata_mountainrange/{id}:
+    get:
+      tags:
+        - Geodata
+      summary: Returns mountain range information
+      operationId: mountain_range
+      parameters:
+        - name: locale_lang
+          in: query
+          description: Language in ISO 639-2 format
+          required: false
+          schema:
+            $ref: '#/components/schemas/locale_api.isolang.Language'
+        - name: metric_system
+          in: query
+          description: Metric system to use
+          required: false
+          schema:
+            $ref: '#/components/schemas/LocaleMetricSystem'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Mountain range information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeodataMountainRangeResponse'
+  /api/v1/user:
+    get:
+      tags:
+        - User
+      summary: Returns list of users
+      operationId: user_list
+      parameters:
+        - name: range
+          in: query
+          description: 'JSON-encoded array of requested range. Example: [0, 9]'
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: sort
+          in: query
+          description: >-
+            JSON-encoded array which specifies results ordering. First value is
+            order field and the second is direction. Example: ["id", "ASC"]
+          required: false
+          schema:
+            type: string
+            title: JSON-encoded object
+            description: JSON-encoded object
+            default: {}
+        - name: q
+          in: query
+          description: >-
+            Quick filter string. Not all backend endpoints are able to process
+            it
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User list
+          headers:
+            X-Total-Count:
+              schema:
+                type: integer
+                minimum: 0
+              description: Total count of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserListResponse'
+      security:
+        - session_cookie: []
+        - authorization_header: []
+  /api/v1/user/{user_id}:
+    get:
+      tags:
+        - User
+      summary: Returns user information
+      operationId: user_info
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: User information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInfoResponse'
+      security:
+        - session_cookie: []
+        - authorization_header: []
+  /api/v1/user_logout:
+    post:
+      tags:
+        - User
+      summary: Deletes current session of user
+      operationId: logout
+      responses:
+        '200':
+          description: Session removed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/react_admin.OKResponse'
+        '403':
+          description: User not logged in
+      security:
+        - session_cookie: []
+        - authorization_header: []
+components:
+  schemas:
+    CurrentUserInfoResponse:
+      type: object
+      description: Current user information
+      required:
+        - id
+        - create_date
+        - username
+        - person
+      properties:
+        create_date:
+          type: string
+          format: date-time
+          description: When user was created
+        id:
+          type: integer
+          format: int64
+          description: Internal user ID
+        last_seen_date:
+          type: string
+          format: date-time
+          description: When authenticated user used API last time
+          nullable: true
+        person:
+          type: string
+          description: User person
+        username:
+          type: string
+          description: Username
+    GeodataCountryListFilter:
+      type: object
+      description: Filter to apply to countries list
+      properties:
+        parent_id:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: >-
+            Parent object: mountain ranges, countries, etc. If empty list,
+            filter will not be applied
+    GeodataCountryRegionListFilter:
+      type: object
+      description: Filter to apply to country regions list
+      properties:
+        parent_id:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: >-
+            Parent object: mountain ranges, countries, etc. If empty list,
+            filter will not be applied
+    GeodataCountryRegionResponse:
+      type: object
+      description: Element of country regions list
+      required:
+        - id
+        - mountains_count
+        - mountain_passes_count
+        - glaciers_count
+        - glaciers_area
+      properties:
+        alternative_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_api.locale.GeoName'
+          description: Alternative names
+        area:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.AreaQuantity'
+          nullable: true
+        description:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+          nullable: true
+        glaciers_area:
+          $ref: '#/components/schemas/locale_api.quantities.AreaQuantity'
+        glaciers_count:
+          type: integer
+          format: int64
+          description: Glaciers count
+        id:
+          type: integer
+          format: int64
+          description: Country region ID
+        mountain_passes_count:
+          type: integer
+          format: int64
+          description: Mountain passes count within country
+        mountains_count:
+          type: integer
+          format: int64
+          description: Mountains count within country
+        object_name:
+          type: string
+          description: Default object name
+          nullable: true
+        parent_id:
+          type: integer
+          format: int64
+          description: Parent ID
+          nullable: true
+    GeodataCountryResponse:
+      type: object
+      description: Element of countries list
+      required:
+        - id
+        - mountains_count
+        - mountain_passes_count
+        - glaciers_count
+        - glaciers_area
+      properties:
+        alternative_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_api.locale.GeoName'
+          description: Alternative names
+        area:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.AreaQuantity'
+          nullable: true
+        description:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+          nullable: true
+        glaciers_area:
+          $ref: '#/components/schemas/locale_api.quantities.AreaQuantity'
+        glaciers_count:
+          type: integer
+          format: int64
+          description: Glaciers count
+        id:
+          type: integer
+          format: int64
+          description: Country ID
+        mountain_passes_count:
+          type: integer
+          format: int64
+          description: Mountain passes count within country
+        mountains_count:
+          type: integer
+          format: int64
+          description: Mountains count within country
+        object_name:
+          type: string
+          description: Default object name
+          nullable: true
+        parent_id:
+          type: integer
+          format: int64
+          description: Parent ID
+          nullable: true
+    GeodataGlacierListFilter:
+      type: object
+      description: Filter to apply to glaciers list
+      properties:
+        parent_id:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: >-
+            Parent object: mountain ranges, countries, etc. If empty list,
+            filter will not be applied
+    GeodataGlacierResponse:
+      type: object
+      description: Element of glaciers list
+      required:
+        - id
+        - mountains_count
+        - mountain_passes_count
+      properties:
+        alternative_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_api.locale.GeoName'
+          description: Alternative names
+        area:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.AreaQuantity'
+          nullable: true
+        description:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+          nullable: true
+        id:
+          type: integer
+          format: int64
+          description: Glacier ID
+        mountain_passes_count:
+          type: integer
+          format: int64
+          description: Mountain passes count within glacier
+        mountains_count:
+          type: integer
+          format: int64
+          description: Mountains count within glacier
+        object_name:
+          type: string
+          description: Default object name
+          nullable: true
+        parent_id:
+          type: integer
+          format: int64
+          description: Parent ID
+          nullable: true
+    GeodataMountainListFilter:
+      type: object
+      description: Filter to apply to mountains list
+      properties:
+        parent_id:
+          type: array
+          items:
+            type: integer
+            format: int64
+    GeodataMountainPassListFilter:
+      type: object
+      description: Filter to apply to mountain passes list
+      properties:
+        parent_id:
+          type: array
+          items:
+            type: integer
+            format: int64
+    GeodataMountainPassResponse:
+      type: object
+      description: Element of mountain ranges list
+      required:
+        - id
+      properties:
+        alternative_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_api.locale.GeoName'
+          description: Alternative names
+        description:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+          nullable: true
+        elevation:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.LengthQuantity'
+          nullable: true
+        id:
+          type: integer
+          format: int64
+          description: Mountain pass ID
+        object_name:
+          type: string
+          description: Default mountain pass name
+          nullable: true
+        scale:
+          allOf:
+            - $ref: '#/components/schemas/GeodataMountainPassScale'
+          nullable: true
+    GeodataMountainPassScale:
+      type: object
+      description: Mountain range scale information
+      required:
+        - min
+        - max
+      properties:
+        max:
+          type: string
+          description: Maximum known grade
+        min:
+          type: string
+          description: Minimum known grade
+    GeodataMountainRangeListFilter:
+      type: object
+      description: Filter to apply to mountain ranges list
+      properties:
+        parent_id:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: >-
+            Parent object: mountain ranges, countries, etc. If null, filter will
+            not be applied. If empty list, only
+
+            toplevel mountain ranges will be returned
+          nullable: true
+    GeodataMountainRangeResponse:
+      type: object
+      description: Element of mountain ranges list
+      required:
+        - id
+        - mountains_count
+        - mountain_passes_count
+        - glaciers_count
+        - glaciers_area
+      properties:
+        alternative_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_api.locale.GeoName'
+          description: Alternative names
+        area:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.AreaQuantity'
+          nullable: true
+        description:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+          nullable: true
+        glaciers_area:
+          $ref: '#/components/schemas/locale_api.quantities.AreaQuantity'
+        glaciers_count:
+          type: integer
+          format: int64
+          description: Glaciers count
+        id:
+          type: integer
+          format: int64
+          description: Mountain range ID
+        mountain_passes_count:
+          type: integer
+          format: int64
+          description: Mountain passes count within mountain range
+        mountains_count:
+          type: integer
+          format: int64
+          description: Mountains count within mountain range
+        object_name:
+          type: string
+          description: Default object name
+          nullable: true
+        parent_id:
+          type: integer
+          format: int64
+          description: Parent ID
+          nullable: true
+    GeodataMountainResponse:
+      type: object
+      description: Element of mountain ranges list
+      required:
+        - id
+      properties:
+        alternative_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_api.locale.GeoName'
+          description: Alternative names
+        description:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+          nullable: true
+        elevation:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.LengthQuantity'
+          nullable: true
+        id:
+          type: integer
+          format: int64
+          description: Mountain ID
+        object_name:
+          type: string
+          description: Default mountain name
+          nullable: true
+        prominence:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.LengthQuantity'
+          nullable: true
+        volcano:
+          allOf:
+            - $ref: '#/components/schemas/geodata_api.api.types.Volcano'
+          nullable: true
+    GeodataResponse:
+      type: object
+      description: Element of geodata objects list
+      required:
+        - id
+        - object_kind
+      properties:
+        alternative_names:
+          type: array
+          items:
+            $ref: '#/components/schemas/locale_api.locale.GeoName'
+          description: Alternative names
+        description:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+          nullable: true
+        elevation:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.LengthQuantity'
+          nullable: true
+        id:
+          type: integer
+          format: int64
+          description: Object ID
+        object_kind:
+          $ref: '#/components/schemas/geodata_api.api.types.GeodataKind'
+        object_name:
+          type: string
+          description: Default object name
+          nullable: true
+        prominence:
+          allOf:
+            - $ref: '#/components/schemas/locale_api.quantities.LengthQuantity'
+          nullable: true
+        volcano:
+          allOf:
+            - $ref: '#/components/schemas/geodata_api.api.types.Volcano'
+          nullable: true
+    LocaleMetricSystem:
+      type: string
+      description: Metric system to use in the response
+      enum:
+        - Metric
+        - Imperial
+    LocaleRequest:
+      type: object
+      description: Which language and metric system to use in the response
+      properties:
+        locale_lang:
+          type: string
+          description: Language in ISO 639-2 format
+        metric_system:
+          $ref: '#/components/schemas/LocaleMetricSystem'
+    OrderDirection:
+      type: string
+      description: Order direction for paginated list output
+      enum:
+        - ASC
+        - DESC
+    UserInfoResponse:
+      type: object
+      description: Element of user list
+      required:
+        - id
+        - create_date
+        - login_count
+        - username
+        - person
+        - active_sessions
+      properties:
+        active_sessions:
+          type: integer
+          format: int64
+          description: Active user sessions count
+        create_date:
+          type: string
+          format: date-time
+          description: When user was created
+        id:
+          type: integer
+          format: int64
+          description: Internal user ID
+        last_seen_date:
+          type: string
+          format: date-time
+          description: When authenticated user used API last time
+          nullable: true
+        login_count:
+          type: integer
+          format: int64
+          description: Total number of times user ever logged in
+        person:
+          type: string
+          description: User person
+        username:
+          type: string
+          description: Username
+    UserListResponse:
+      type: object
+      description: Element of user list
+      required:
+        - id
+        - create_date
+        - login_count
+        - username
+        - person
+      properties:
+        create_date:
+          type: string
+          format: date-time
+          description: When user was created
+        id:
+          type: integer
+          format: int64
+          description: Internal user ID
+        last_seen_date:
+          type: string
+          format: date-time
+          description: When authenticated user used API last time
+          nullable: true
+        login_count:
+          type: integer
+          format: int64
+          description: Total number of times user ever logged in
+        person:
+          type: string
+          description: User person
+        username:
+          type: string
+          description: Username
+    geodata_api.api.types.GeodataKind:
+      type: string
+      enum:
+        - Country
+        - CountryRegion
+        - Mountain
+        - MountainPass
+        - MountainRange
+        - Glacier
+    geodata_api.api.types.Volcano:
+      type: object
+      properties:
+        status:
+          allOf:
+            - $ref: '#/components/schemas/geodata_api.api.types.VolcanoStatus'
+          nullable: true
+        volcano_type:
+          allOf:
+            - $ref: '#/components/schemas/geodata_api.api.types.VolcanoType'
+          nullable: true
+    geodata_api.api.types.VolcanoStatus:
+      type: string
+      enum:
+        - Active
+        - Dormant
+        - Extinct
+    geodata_api.api.types.VolcanoType:
+      type: string
+      enum:
+        - Stratovolcano
+        - Shield
+        - Scoria
+    locale_api.isolang.Language:
+      type: string
+      title: Language
+      description: Language code according to ISO 639-2
+    locale_api.locale.GeoName:
+      type: object
+      title: GeoName
+      description: Name of geographical object
+      required:
+        - kind
+        - value
+      properties:
+        kind:
+          type: string
+          description: Kind of the name
+          enum:
+            - Main
+            - Old
+            - Alt
+            - International
+            - Local
+            - National
+            - Official
+        value:
+          anyOf:
+            - type: object
+              description: Name without knowledge about it's localization
+              properties:
+                String:
+                  type: string
+                  description: Unlocalized name
+            - type: object
+              description: Localized name
+              properties:
+                LocalString:
+                  $ref: '#/components/schemas/locale_api.locale.LocalizedString'
+    locale_api.locale.LocalizedString:
+      type: object
+      title: LocalizedString
+      description: String with information about it's language
+      required:
+        - value
+        - lang
+      properties:
+        lang:
+          type: string
+          description: 3-letter language code, according to ISO 639-2
+        value:
+          type: string
+          description: String value
+    locale_api.quantities.AreaQuantity:
+      type: object
+      title: AreaQuantity
+      description: Area size with information about it's unit
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: number
+          description: Amount of the area size
+        unit:
+          type: string
+          description: >-
+            Unit of measure Square_Meter, Square_Kilometer, Square_Foot,
+            Square_Mile
+    locale_api.quantities.LengthQuantity:
+      type: object
+      title: LengthQuantity
+      description: Length with information about it's unit
+      required:
+        - amount
+        - unit
+      properties:
+        amount:
+          type: number
+          description: Amount of the length
+        unit:
+          type: string
+          description: 'Unit of measure: Meter, Kilometer, Foot, Mile'
+    react_admin.OKResponse:
+      type: object
+      title: Empty response
+      description: Empty response object on success
+      default: {}
+    react_admin.json_query_param.JSONValue:
+      type: string
+      title: JSON-encoded object
+      description: JSON-encoded object
+      default: {}
+    webapp_core.secstr.SecUtf8:
+      type: string
+      title: Secret UTF-8 string
+      format: password
+      description: >-
+        This value should be kept in secret. On the server side, it will be
+        hidden from logs
+  securitySchemes:
+    authorization_header:
+      type: apiKey
+      in: header
+      name: Authorization
+    session_cookie:
+      type: apiKey
+      in: cookie
+      name: session

@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Summit-X
  * Summit-X is the project about mountains and mountaineers
- * OpenAPI spec version: 0.1.5
+ * OpenAPI spec version: 0.1.7
  */
 import { createInstance } from "./api-instanse";
 export type UserListParams = {
@@ -20,17 +20,6 @@ export type UserListParams = {
      */
     q?: string;
 };
-
-/**
- * Metric system to use in the response
- */
-export type LocaleMetricSystem = (typeof LocaleMetricSystem)[keyof typeof LocaleMetricSystem];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LocaleMetricSystem = {
-    Metric: "Metric",
-    Imperial: "Imperial",
-} as const;
 
 export type MountainRangeParams = {
     /**
@@ -380,39 +369,54 @@ export interface LocaleApiLocaleGeoName {
  */
 export type LocaleApiIsolangLanguage = string;
 
-/**
- * @nullable
- */
-export type GeodataDbSourcePropertiesVolcanoVolcanoType = VolcanoType | null;
-
-/**
- * @nullable
- */
-export type GeodataDbSourcePropertiesVolcanoStatus = VolcanoStatus | null;
-
-export interface GeodataDbSourcePropertiesVolcano {
-    /** @nullable */
-    status?: GeodataDbSourcePropertiesVolcanoStatus;
-    /** @nullable */
-    volcano_type?: GeodataDbSourcePropertiesVolcanoVolcanoType;
-}
-
-export type VolcanoType = (typeof VolcanoType)[keyof typeof VolcanoType];
+export type GeodataApiApiTypesVolcanoType =
+    (typeof GeodataApiApiTypesVolcanoType)[keyof typeof GeodataApiApiTypesVolcanoType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const VolcanoType = {
+export const GeodataApiApiTypesVolcanoType = {
     Stratovolcano: "Stratovolcano",
     Shield: "Shield",
     Scoria: "Scoria",
 } as const;
 
-export type VolcanoStatus = (typeof VolcanoStatus)[keyof typeof VolcanoStatus];
+export type GeodataApiApiTypesVolcanoStatus =
+    (typeof GeodataApiApiTypesVolcanoStatus)[keyof typeof GeodataApiApiTypesVolcanoStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const VolcanoStatus = {
+export const GeodataApiApiTypesVolcanoStatus = {
     Active: "Active",
     Dormant: "Dormant",
     Extinct: "Extinct",
+} as const;
+
+/**
+ * @nullable
+ */
+export type GeodataApiApiTypesVolcanoVolcanoType = GeodataApiApiTypesVolcanoType | null;
+
+/**
+ * @nullable
+ */
+export type GeodataApiApiTypesVolcanoStatusProperty = GeodataApiApiTypesVolcanoStatus | null;
+
+export interface GeodataApiApiTypesVolcano {
+    /** @nullable */
+    status?: GeodataApiApiTypesVolcanoStatusProperty;
+    /** @nullable */
+    volcano_type?: GeodataApiApiTypesVolcanoVolcanoType;
+}
+
+export type GeodataApiApiTypesGeodataKind =
+    (typeof GeodataApiApiTypesGeodataKind)[keyof typeof GeodataApiApiTypesGeodataKind];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const GeodataApiApiTypesGeodataKind = {
+    Country: "Country",
+    CountryRegion: "CountryRegion",
+    Mountain: "Mountain",
+    MountainPass: "MountainPass",
+    MountainRange: "MountainRange",
+    Glacier: "Glacier",
 } as const;
 
 /**
@@ -471,6 +475,17 @@ export const OrderDirection = {
 } as const;
 
 /**
+ * Metric system to use in the response
+ */
+export type LocaleMetricSystem = (typeof LocaleMetricSystem)[keyof typeof LocaleMetricSystem];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LocaleMetricSystem = {
+    Metric: "Metric",
+    Imperial: "Imperial",
+} as const;
+
+/**
  * Which language and metric system to use in the response
  */
 export interface LocaleRequest {
@@ -482,7 +497,7 @@ export interface LocaleRequest {
 /**
  * @nullable
  */
-export type GeodataResponseVolcano = GeodataDbSourcePropertiesVolcano | null;
+export type GeodataResponseVolcano = GeodataApiApiTypesVolcano | null;
 
 /**
  * @nullable
@@ -511,7 +526,7 @@ export interface GeodataResponse {
     elevation?: GeodataResponseElevation;
     /** Object ID */
     id: number;
-    object_kind: GeodataDbKindGeodataKind;
+    object_kind: GeodataApiApiTypesGeodataKind;
     /**
      * Default object name
      * @nullable
@@ -526,7 +541,7 @@ export interface GeodataResponse {
 /**
  * @nullable
  */
-export type GeodataMountainResponseVolcano = GeodataDbSourcePropertiesVolcano | null;
+export type GeodataMountainResponseVolcano = GeodataApiApiTypesVolcano | null;
 
 /**
  * @nullable
@@ -849,7 +864,7 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  */
 export const currentUserInfo = (options?: SecondParameter<typeof createInstance>) => {
     return createInstance<CurrentUserInfoResponse>(
-        { url: `/v1/current_user`, method: "GET" },
+        { url: `/api/v1/current_user`, method: "GET" },
         options,
     );
 };
@@ -862,7 +877,7 @@ export const objectList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataResponse[]>(
-        { url: `/v1/geodata`, method: "GET", params },
+        { url: `/api/v1/geodata`, method: "GET", params },
         options,
     );
 };
@@ -875,7 +890,7 @@ export const countriesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse[]>(
-        { url: `/v1/geodata_country`, method: "GET", params },
+        { url: `/api/v1/geodata_country`, method: "GET", params },
         options,
     );
 };
@@ -889,7 +904,7 @@ export const country = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse>(
-        { url: `/v1/geodata_country/${id}`, method: "GET", params },
+        { url: `/api/v1/geodata_country/${id}`, method: "GET", params },
         options,
     );
 };
@@ -902,7 +917,7 @@ export const countryRegionsList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryRegionResponse[]>(
-        { url: `/v1/geodata_countryregion`, method: "GET", params },
+        { url: `/api/v1/geodata_countryregion`, method: "GET", params },
         options,
     );
 };
@@ -916,7 +931,7 @@ export const countryRegion = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataCountryResponse>(
-        { url: `/v1/geodata_countryregion/${id}`, method: "GET", params },
+        { url: `/api/v1/geodata_countryregion/${id}`, method: "GET", params },
         options,
     );
 };
@@ -929,7 +944,7 @@ export const glaciersList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataGlacierResponse[]>(
-        { url: `/v1/geodata_glacier`, method: "GET", params },
+        { url: `/api/v1/geodata_glacier`, method: "GET", params },
         options,
     );
 };
@@ -943,7 +958,7 @@ export const glacier = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataGlacierResponse>(
-        { url: `/v1/geodata_glacier/${id}`, method: "GET", params },
+        { url: `/api/v1/geodata_glacier/${id}`, method: "GET", params },
         options,
     );
 };
@@ -956,7 +971,7 @@ export const mountainsList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainResponse[]>(
-        { url: `/v1/geodata_mountain`, method: "GET", params },
+        { url: `/api/v1/geodata_mountain`, method: "GET", params },
         options,
     );
 };
@@ -970,7 +985,7 @@ export const mountain = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainResponse>(
-        { url: `/v1/geodata_mountain/${id}`, method: "GET", params },
+        { url: `/api/v1/geodata_mountain/${id}`, method: "GET", params },
         options,
     );
 };
@@ -983,7 +998,7 @@ export const mountainPassesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainPassResponse[]>(
-        { url: `/v1/geodata_mountainpass`, method: "GET", params },
+        { url: `/api/v1/geodata_mountainpass`, method: "GET", params },
         options,
     );
 };
@@ -997,7 +1012,7 @@ export const mountainPass = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainPassResponse>(
-        { url: `/v1/geodata_mountainpass/${id}`, method: "GET", params },
+        { url: `/api/v1/geodata_mountainpass/${id}`, method: "GET", params },
         options,
     );
 };
@@ -1010,7 +1025,7 @@ export const mountainRangesList = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainRangeResponse[]>(
-        { url: `/v1/geodata_mountainrange`, method: "GET", params },
+        { url: `/api/v1/geodata_mountainrange`, method: "GET", params },
         options,
     );
 };
@@ -1024,7 +1039,7 @@ export const mountainRange = (
     options?: SecondParameter<typeof createInstance>,
 ) => {
     return createInstance<GeodataMountainRangeResponse>(
-        { url: `/v1/geodata_mountainrange/${id}`, method: "GET", params },
+        { url: `/api/v1/geodata_mountainrange/${id}`, method: "GET", params },
         options,
     );
 };
@@ -1036,7 +1051,10 @@ export const userList = (
     params?: UserListParams,
     options?: SecondParameter<typeof createInstance>,
 ) => {
-    return createInstance<UserListResponse[]>({ url: `/v1/user`, method: "GET", params }, options);
+    return createInstance<UserListResponse[]>(
+        { url: `/api/v1/user`, method: "GET", params },
+        options,
+    );
 };
 
 /**
@@ -1044,7 +1062,7 @@ export const userList = (
  */
 export const userInfo = (userId: number, options?: SecondParameter<typeof createInstance>) => {
     return createInstance<UserInfoResponse[]>(
-        { url: `/v1/user/${userId}`, method: "GET" },
+        { url: `/api/v1/user/${userId}`, method: "GET" },
         options,
     );
 };
@@ -1054,7 +1072,7 @@ export const userInfo = (userId: number, options?: SecondParameter<typeof create
  */
 export const logout = (options?: SecondParameter<typeof createInstance>) => {
     return createInstance<ReactAdminOKResponse>(
-        { url: `/v1/user_logout`, method: "POST" },
+        { url: `/api/v1/user_logout`, method: "POST" },
         options,
     );
 };
