@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Summit-X
  * Summit-X is the project about mountains and mountaineers
- * OpenAPI spec version: 0.1.0
+ * OpenAPI spec version: 0.1.5
  */
 import { createInstance } from "./api-instanse";
 export type UserListParams = {
@@ -20,6 +20,17 @@ export type UserListParams = {
      */
     q?: string;
 };
+
+/**
+ * Metric system to use in the response
+ */
+export type LocaleMetricSystem = (typeof LocaleMetricSystem)[keyof typeof LocaleMetricSystem];
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export const LocaleMetricSystem = {
+    Metric: "Metric",
+    Imperial: "Imperial",
+} as const;
 
 export type MountainRangeParams = {
     /**
@@ -195,6 +206,29 @@ export type CountryParams = {
     metric_system?: LocaleMetricSystem;
 };
 
+export type ObjectListParams = {
+    /**
+     * JSON-encoded array of requested range. Example: [0, 9]
+     */
+    range?: string;
+    /**
+     * JSON-encoded array which specifies results ordering. First value is order field and the second is direction. Example: ["id", "ASC"]
+     */
+    sort?: string;
+    /**
+     * Quick filter string. Not all backend endpoints are able to process it
+     */
+    q?: string;
+    /**
+     * Language in ISO 639-2 format
+     */
+    locale_lang?: LocaleApiIsolangLanguage;
+    /**
+     * Metric system to use
+     */
+    metric_system?: LocaleMetricSystem;
+};
+
 /**
  * This value should be kept in secret. On the server side, it will be hidden from logs
  */
@@ -263,7 +297,6 @@ export type CountriesListParams = {
  * Empty response object on success
  */
 export interface ReactAdminOKResponse {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
 }
 
@@ -438,23 +471,56 @@ export const OrderDirection = {
 } as const;
 
 /**
- * Metric system to use in the response
- */
-export type LocaleMetricSystem = (typeof LocaleMetricSystem)[keyof typeof LocaleMetricSystem];
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const LocaleMetricSystem = {
-    Metric: "Metric",
-    Imperial: "Imperial",
-} as const;
-
-/**
  * Which language and metric system to use in the response
  */
 export interface LocaleRequest {
     /** Language in ISO 639-2 format */
     locale_lang?: string;
     metric_system?: LocaleMetricSystem;
+}
+
+/**
+ * @nullable
+ */
+export type GeodataResponseVolcano = GeodataDbSourcePropertiesVolcano | null;
+
+/**
+ * @nullable
+ */
+export type GeodataResponseProminence = LocaleApiQuantitiesLengthQuantity | null;
+
+/**
+ * @nullable
+ */
+export type GeodataResponseElevation = LocaleApiQuantitiesLengthQuantity | null;
+
+/**
+ * @nullable
+ */
+export type GeodataResponseDescription = LocaleApiLocaleLocalizedString | null;
+
+/**
+ * Element of geodata objects list
+ */
+export interface GeodataResponse {
+    /** Alternative names */
+    alternative_names?: LocaleApiLocaleGeoName[];
+    /** @nullable */
+    description?: GeodataResponseDescription;
+    /** @nullable */
+    elevation?: GeodataResponseElevation;
+    /** Object ID */
+    id: number;
+    object_kind: GeodataDbKindGeodataKind;
+    /**
+     * Default object name
+     * @nullable
+     */
+    object_name?: string | null;
+    /** @nullable */
+    prominence?: GeodataResponseProminence;
+    /** @nullable */
+    volcano?: GeodataResponseVolcano;
 }
 
 /**
@@ -624,7 +690,7 @@ export type GeodataGlacierResponseDescription = LocaleApiLocaleLocalizedString |
 export type GeodataGlacierResponseArea = LocaleApiQuantitiesAreaQuantity | null;
 
 /**
- * Element of countries list
+ * Element of glaciers list
  */
 export interface GeodataGlacierResponse {
     /** Alternative names */
@@ -776,11 +842,9 @@ export interface CurrentUserInfoResponse {
     username: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
 /**
- * Returns current user information
  * @summary Returns current user information
  */
 export const currentUserInfo = (options?: SecondParameter<typeof createInstance>) => {
@@ -791,7 +855,19 @@ export const currentUserInfo = (options?: SecondParameter<typeof createInstance>
 };
 
 /**
- * Returns list of countries
+ * @summary Returns list of geodata objects
+ */
+export const objectList = (
+    params?: ObjectListParams,
+    options?: SecondParameter<typeof createInstance>,
+) => {
+    return createInstance<GeodataResponse[]>(
+        { url: `/v1/geodata`, method: "GET", params },
+        options,
+    );
+};
+
+/**
  * @summary Returns list of countries
  */
 export const countriesList = (
@@ -805,7 +881,6 @@ export const countriesList = (
 };
 
 /**
- * Returns country information
  * @summary Returns country information
  */
 export const country = (
@@ -820,7 +895,6 @@ export const country = (
 };
 
 /**
- * Returns list of countries regions
  * @summary Returns list of countries regions
  */
 export const countryRegionsList = (
@@ -834,7 +908,6 @@ export const countryRegionsList = (
 };
 
 /**
- * Returns country region information
  * @summary Returns country region information
  */
 export const countryRegion = (
@@ -849,7 +922,6 @@ export const countryRegion = (
 };
 
 /**
- * Returns list of glaciers
  * @summary Returns list of glaciers
  */
 export const glaciersList = (
@@ -863,7 +935,6 @@ export const glaciersList = (
 };
 
 /**
- * Returns glacier information
  * @summary Returns glacier information
  */
 export const glacier = (
@@ -878,7 +949,6 @@ export const glacier = (
 };
 
 /**
- * Returns list of mountains
  * @summary Returns list of mountains
  */
 export const mountainsList = (
@@ -892,7 +962,6 @@ export const mountainsList = (
 };
 
 /**
- * Returns mountain information
  * @summary Returns mountain information
  */
 export const mountain = (
@@ -907,7 +976,6 @@ export const mountain = (
 };
 
 /**
- * Returns list of mountain passes
  * @summary Returns list of mountain passes
  */
 export const mountainPassesList = (
@@ -921,7 +989,6 @@ export const mountainPassesList = (
 };
 
 /**
- * Returns mountain pass information
  * @summary Returns mountain pass information
  */
 export const mountainPass = (
@@ -936,7 +1003,6 @@ export const mountainPass = (
 };
 
 /**
- * Returns list of mountain ranges which belongs to the toplevel or specified mountain range
  * @summary Returns list of mountain ranges which belongs to the toplevel or specified mountain range
  */
 export const mountainRangesList = (
@@ -950,7 +1016,6 @@ export const mountainRangesList = (
 };
 
 /**
- * Returns mountain range information
  * @summary Returns mountain range information
  */
 export const mountainRange = (
@@ -965,7 +1030,6 @@ export const mountainRange = (
 };
 
 /**
- * Returns list of users
  * @summary Returns list of users
  */
 export const userList = (
@@ -976,7 +1040,6 @@ export const userList = (
 };
 
 /**
- * Returns user information
  * @summary Returns user information
  */
 export const userInfo = (userId: number, options?: SecondParameter<typeof createInstance>) => {
@@ -987,7 +1050,6 @@ export const userInfo = (userId: number, options?: SecondParameter<typeof create
 };
 
 /**
- * Deletes current session of user
  * @summary Deletes current session of user
  */
 export const logout = (options?: SecondParameter<typeof createInstance>) => {
@@ -998,6 +1060,7 @@ export const logout = (options?: SecondParameter<typeof createInstance>) => {
 };
 
 export type CurrentUserInfoResult = NonNullable<Awaited<ReturnType<typeof currentUserInfo>>>;
+export type ObjectListResult = NonNullable<Awaited<ReturnType<typeof objectList>>>;
 export type CountriesListResult = NonNullable<Awaited<ReturnType<typeof countriesList>>>;
 export type CountryResult = NonNullable<Awaited<ReturnType<typeof country>>>;
 export type CountryRegionsListResult = NonNullable<Awaited<ReturnType<typeof countryRegionsList>>>;
