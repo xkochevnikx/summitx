@@ -7,9 +7,9 @@ info:
         email: johnlepikhin@gmail.com
     license:
         name: MIT
-    version: 0.1.8
+    version: 0.1.9
 paths:
-    /api/v1/current_user:
+    /v1/current_user:
         get:
             tags:
                 - User
@@ -25,7 +25,7 @@ paths:
             security:
                 - session_cookie: []
                 - authorization_header: []
-    /api/v1/geodata:
+    /v1/geodata:
         get:
             tags:
                 - Geodata
@@ -89,7 +89,7 @@ paths:
                                     $ref: "#/components/schemas/GeodataResponse"
                 "400":
                     description: Client sent invalid request
-    /api/v1/geodata_country:
+    /v1/geodata_country:
         get:
             tags:
                 - Geodata
@@ -157,7 +157,7 @@ paths:
                                 type: array
                                 items:
                                     $ref: "#/components/schemas/GeodataCountryResponse"
-    /api/v1/geodata_country/{id}:
+    /v1/geodata_country/{id}:
         get:
             tags:
                 - Geodata
@@ -189,7 +189,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/GeodataCountryResponse"
-    /api/v1/geodata_countryregion:
+    /v1/geodata_countryregion:
         get:
             tags:
                 - Geodata
@@ -259,7 +259,7 @@ paths:
                                 type: array
                                 items:
                                     $ref: "#/components/schemas/GeodataCountryRegionResponse"
-    /api/v1/geodata_countryregion/{id}:
+    /v1/geodata_countryregion/{id}:
         get:
             tags:
                 - Geodata
@@ -291,7 +291,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/GeodataCountryResponse"
-    /api/v1/geodata_glacier:
+    /v1/geodata_glacier:
         get:
             tags:
                 - Geodata
@@ -359,7 +359,7 @@ paths:
                                 type: array
                                 items:
                                     $ref: "#/components/schemas/GeodataGlacierResponse"
-    /api/v1/geodata_glacier/{id}:
+    /v1/geodata_glacier/{id}:
         get:
             tags:
                 - Geodata
@@ -391,7 +391,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/GeodataGlacierResponse"
-    /api/v1/geodata_mountain:
+    /v1/geodata_mountain:
         get:
             tags:
                 - Geodata
@@ -461,7 +461,7 @@ paths:
                                     $ref: "#/components/schemas/GeodataMountainResponse"
                 "400":
                     description: Client sent invalid request
-    /api/v1/geodata_mountain/{id}:
+    /v1/geodata_mountain/{id}:
         get:
             tags:
                 - Geodata
@@ -493,7 +493,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/GeodataMountainResponse"
-    /api/v1/geodata_mountainpass:
+    /v1/geodata_mountainpass:
         get:
             tags:
                 - Geodata
@@ -565,7 +565,7 @@ paths:
                                     $ref: "#/components/schemas/GeodataMountainPassResponse"
                 "400":
                     description: Client sent invalid request
-    /api/v1/geodata_mountainpass/{id}:
+    /v1/geodata_mountainpass/{id}:
         get:
             tags:
                 - Geodata
@@ -597,7 +597,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/GeodataMountainPassResponse"
-    /api/v1/geodata_mountainrange:
+    /v1/geodata_mountainrange:
         get:
             tags:
                 - Geodata
@@ -669,7 +669,7 @@ paths:
                                 type: array
                                 items:
                                     $ref: "#/components/schemas/GeodataMountainRangeResponse"
-    /api/v1/geodata_mountainrange/{id}:
+    /v1/geodata_mountainrange/{id}:
         get:
             tags:
                 - Geodata
@@ -701,7 +701,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/GeodataMountainRangeResponse"
-    /api/v1/user:
+    /v1/user:
         get:
             tags:
                 - User
@@ -754,7 +754,7 @@ paths:
             security:
                 - session_cookie: []
                 - authorization_header: []
-    /api/v1/user/{user_id}:
+    /v1/user/{user_id}:
         get:
             tags:
                 - User
@@ -779,7 +779,7 @@ paths:
             security:
                 - session_cookie: []
                 - authorization_header: []
-    /api/v1/user_logout:
+    /v1/user_logout:
         post:
             tags:
                 - User
@@ -868,14 +868,14 @@ components:
                     description: Alternative names
                 area:
                     allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
                     nullable: true
                 description:
                     allOf:
                         - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
                     nullable: true
                 glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
+                    $ref: "#/components/schemas/locale_api.quantities.Area"
                 glaciers_count:
                     type: integer
                     format: int64
@@ -918,14 +918,14 @@ components:
                     description: Alternative names
                 area:
                     allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
                     nullable: true
                 description:
                     allOf:
                         - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
                     nullable: true
                 glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
+                    $ref: "#/components/schemas/locale_api.quantities.Area"
                 glaciers_count:
                     type: integer
                     format: int64
@@ -978,7 +978,7 @@ components:
                     description: Alternative names
                 area:
                     allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
                     nullable: true
                 description:
                     allOf:
@@ -1040,7 +1040,7 @@ components:
                     nullable: true
                 elevation:
                     allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
+                        - $ref: "#/components/schemas/locale_api.quantities.Length"
                     nullable: true
                 id:
                     type: integer
@@ -1099,14 +1099,14 @@ components:
                     description: Alternative names
                 area:
                     allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
                     nullable: true
                 description:
                     allOf:
                         - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
                     nullable: true
                 glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.AreaQuantity"
+                    $ref: "#/components/schemas/locale_api.quantities.Area"
                 glaciers_count:
                     type: integer
                     format: int64
@@ -1149,7 +1149,7 @@ components:
                     nullable: true
                 elevation:
                     allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
+                        - $ref: "#/components/schemas/locale_api.quantities.Length"
                     nullable: true
                 id:
                     type: integer
@@ -1161,11 +1161,12 @@ components:
                     nullable: true
                 prominence:
                     allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
+                        - $ref: "#/components/schemas/locale_api.quantities.Length"
                     nullable: true
                 volcano:
                     allOf:
-                        - $ref: "#/components/schemas/geodata_api.api.types.Volcano"
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.Volcano
                     nullable: true
         GeodataResponse:
             type: object
@@ -1173,20 +1174,29 @@ components:
             required:
                 - id
                 - object_kind
+                - geometry_properties
+                - object_properties
             properties:
                 alternative_names:
                     type: array
                     items:
                         $ref: "#/components/schemas/locale_api.locale.GeoName"
                     description: Alternative names
+                area_statistics:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.types.geodata_area_statistics
+                              ::
+
+                              GeodataAreaStatistics
+                    nullable: true
                 description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
+                    type: string
+                    description: Description
                     nullable: true
-                elevation:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
-                    nullable: true
+                geometry_properties:
+                    $ref: >-
+                        #/components/schemas/geodata_api.api.types.geometry_properties.Properties
                 id:
                     type: integer
                     format: int64
@@ -1197,14 +1207,9 @@ components:
                     type: string
                     description: Default object name
                     nullable: true
-                prominence:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.LengthQuantity"
-                    nullable: true
-                volcano:
-                    allOf:
-                        - $ref: "#/components/schemas/geodata_api.api.types.Volcano"
-                    nullable: true
+                object_properties:
+                    $ref: >-
+                        #/components/schemas/geodata_api.api.types.object_properties.Properties
         LocaleMetricSystem:
             type: string
             description: Metric system to use in the response
@@ -1306,24 +1311,152 @@ components:
                 - MountainPass
                 - MountainRange
                 - Glacier
-        geodata_api.api.types.Volcano:
+        "geodata_api.api.types.geodata_area_statistics ::\nGeodataAreaStatistics":
+            type: object
+            required:
+                - mountains_count
+                - mountain_passes_count
+                - glaciers_count
+                - glaciers_area
+            properties:
+                glaciers_area:
+                    $ref: "#/components/schemas/locale_api.quantities.Area"
+                glaciers_count:
+                    type: integer
+                    format: int64
+                mountain_passes_count:
+                    type: integer
+                    format: int64
+                mountains_count:
+                    type: integer
+                    format: int64
+        geodata_api.api.types.geometry_properties.Point:
+            type: object
+        geodata_api.api.types.geometry_properties.Properties:
+            oneOf:
+                - type: object
+                  required:
+                      - Point
+                  properties:
+                      Point:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.types.geometry_properties.Point
+                - type: object
+                  required:
+                      - Area
+                  properties:
+                      Area:
+                          $ref: "#/components/schemas/locale_api.quantities.Area"
+        geodata_api.api.types.object_properties.Country:
+            type: object
+        geodata_api.api.types.object_properties.CountryRegion:
+            type: object
+        geodata_api.api.types.object_properties.Glacier:
+            type: object
+        geodata_api.api.types.object_properties.Mountain:
+            type: object
+            properties:
+                elevation:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Length"
+                    nullable: true
+                prominence:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Length"
+                    nullable: true
+                volcano:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.Volcano
+                    nullable: true
+        geodata_api.api.types.object_properties.MountainPass:
+            type: object
+            properties:
+                elevation:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Length"
+                    nullable: true
+                grade:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.MountainPassGrade
+                    nullable: true
+        geodata_api.api.types.object_properties.MountainPassGrade:
+            type: object
+            required:
+                - min
+                - max
+            properties:
+                max:
+                    type: string
+                min:
+                    type: string
+        geodata_api.api.types.object_properties.MountainRange:
+            type: object
+        geodata_api.api.types.object_properties.Properties:
+            oneOf:
+                - type: object
+                  required:
+                      - Mountain
+                  properties:
+                      Mountain:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.Mountain
+                - type: object
+                  required:
+                      - MountainPass
+                  properties:
+                      MountainPass:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.MountainPass
+                - type: object
+                  required:
+                      - MountainRange
+                  properties:
+                      MountainRange:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.MountainRange
+                - type: object
+                  required:
+                      - Country
+                  properties:
+                      Country:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.Country
+                - type: object
+                  required:
+                      - CountryRegion
+                  properties:
+                      CountryRegion:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.CountryRegion
+                - type: object
+                  required:
+                      - Glacier
+                  properties:
+                      Glacier:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.Glacier
+        geodata_api.api.types.object_properties.Volcano:
             type: object
             properties:
                 status:
                     allOf:
-                        - $ref: "#/components/schemas/geodata_api.api.types.VolcanoStatus"
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.VolcanoStatus
                     nullable: true
                 volcano_type:
                     allOf:
-                        - $ref: "#/components/schemas/geodata_api.api.types.VolcanoType"
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.types.object_properties.VolcanoType
                     nullable: true
-        geodata_api.api.types.VolcanoStatus:
+        geodata_api.api.types.object_properties.VolcanoStatus:
             type: string
             enum:
                 - Active
                 - Dormant
                 - Extinct
-        geodata_api.api.types.VolcanoType:
+        geodata_api.api.types.object_properties.VolcanoType:
             type: string
             enum:
                 - Stratovolcano
@@ -1379,36 +1512,40 @@ components:
                 value:
                     type: string
                     description: String value
-        locale_api.quantities.AreaQuantity:
+        locale_api.quantities.Area:
             type: object
-            title: AreaQuantity
-            description: Area size with information about it's unit
             required:
                 - amount
                 - unit
+                - string
             properties:
                 amount:
                     type: number
-                    description: Amount of the area size
+                    format: double
+                    description: Amount
+                string:
+                    type: string
+                    description: Human readable area
                 unit:
                     type: string
-                    description: >-
-                        Unit of measure Square_Meter, Square_Kilometer, Square_Foot,
-                        Square_Mile
-        locale_api.quantities.LengthQuantity:
+                    description: Unit
+        locale_api.quantities.Length:
             type: object
-            title: LengthQuantity
-            description: Length with information about it's unit
             required:
                 - amount
                 - unit
+                - string
             properties:
                 amount:
                     type: number
-                    description: Amount of the length
+                    format: double
+                    description: Amount
+                string:
+                    type: string
+                    description: Human readable length
                 unit:
                     type: string
-                    description: "Unit of measure: Meter, Kilometer, Foot, Mile"
+                    description: Unit
         react_admin.OKResponse:
             type: object
             title: Empty response
