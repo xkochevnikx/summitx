@@ -1,18 +1,15 @@
 import { create } from "zustand";
 
 import { geoDataListQuery } from "@/entities/geoData";
-import { api } from "@/shared/api";
 
-type GeoDataStore = {
-    geoData: api.GeodataResponse[];
-    isLoading: boolean;
-    setGeoData: (search: string) => void;
-};
+import { GeoDataStore } from "./types";
 
 export const useGeoData = create<GeoDataStore>((set, _) => ({
-    isLoading: true,
+    isLoading: null,
     geoData: [],
     setGeoData: async (search: string) => {
-        set({ geoData: await geoDataListQuery(search), isLoading: false });
+        set({ isLoading: true });
+        set({ geoData: await geoDataListQuery(search) });
+        set({ isLoading: false });
     },
 }));

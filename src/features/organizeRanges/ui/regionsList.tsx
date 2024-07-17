@@ -4,7 +4,6 @@ import { type FC } from "react";
 
 import { classNames } from "@/shared/lib/classNames";
 
-import { useI18n } from "../i18n";
 import { OrganizedMountainRange, OrganizedRegions } from "../model/types";
 
 import cls from "./regionsList.module.css";
@@ -15,10 +14,8 @@ type RegionsListProps = {
 
 export const RegionsList: FC<RegionsListProps> = ({ regions }) => {
     const router = useRouter();
-    const { t } = useI18n();
     return (
         <div className={classNames(cls.container)}>
-            <h1 className={classNames(cls.title)}>{t("title")}</h1>
             <div className={classNames(cls.items)}>
                 {Object.values(regions).map((region: OrganizedMountainRange) => (
                     <div key={region.id} className={classNames(cls.item)}>

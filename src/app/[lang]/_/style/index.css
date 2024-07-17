@@ -1,0 +1,6 @@
+@import "reset.css";
+
+@font-face {
+    font-family: Consolas;
+    src: local("Consolas"), url("./fonts/Consolas.ttf");
+}

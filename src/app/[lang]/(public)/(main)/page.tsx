@@ -5,6 +5,8 @@ import { getRegionsQuery, organizeRanges, RegionsList } from "@/features/organiz
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryClient } from "@/shared/lib/query";
 
+import cls from "./page.module.css";
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -23,10 +25,14 @@ export default async function Page({ params: { lang } }: { params: { lang: strin
     );
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <RegionsList regions={regions} />
-            <GeoDataForm />
-            <GeoDataList />
-        </Suspense>
+        <div className={cls.container}>
+            <Suspense fallback={<div>Loading...</div>}>
+                <RegionsList regions={regions} />
+            </Suspense>
+            <div className={cls.geoData}>
+                <GeoDataForm />
+                <GeoDataList />
+            </div>
+        </div>
     );
 }

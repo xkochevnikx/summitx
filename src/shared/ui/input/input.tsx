@@ -1,8 +1,8 @@
 import { InputHTMLAttributes, PropsWithRef } from "react";
 
-import { classNames } from "../lib/classNames";
+import { classNames } from "../../lib/classNames";
 
-import cls from "./Input.module.css";
+import cls from "./input.module.css";
 
 import type { ComponentProps } from "react";
 
@@ -15,12 +15,12 @@ type InputProps = ComponentProps<"input"> & {
 
 export const Input = ({ id, className, error, label, inputProps }: InputProps) => {
     return (
-        <div className={classNames(cls.input, { [cls.error]: error }, [className])}>
+        <div className={classNames(cls.inputBox, { [cls.error]: error }, [className])}>
             {label && <label htmlFor={id}>{label}</label>}
 
-            <input {...inputProps} id={id} />
+            <input {...inputProps} id={id} className={cls.input} />
 
-            {error && <span style={{ color: "red" }}>{error}</span>}
+            {error && <span className={cls.errorText}>{error}</span>}
         </div>
     );
 };

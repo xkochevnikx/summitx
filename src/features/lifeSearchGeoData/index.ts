@@ -1,2 +1,2 @@
-export { GeoDataForm } from "./ui/GeoDataForm";
-export { GeoDataList } from "./ui/GeoDataList";
+export { GeoDataForm } from "./ui/geoDataForm";
+export { GeoDataList } from "./ui/geoDataList";

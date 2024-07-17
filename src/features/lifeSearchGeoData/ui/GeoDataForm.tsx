@@ -4,9 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
-import { Input } from "@/shared/ui/Input";
+import { Button } from "@/shared/ui/button/button";
+import { Input } from "@/shared/ui/input/input";
 
 import { useGeoData } from "../model/geoDataStore";
+
+import cls from "./geoDataForm.module.css";
 
 export function GeoDataForm() {
     const { setGeoData } = useGeoData();
@@ -24,7 +27,7 @@ export function GeoDataForm() {
     });
 
     return (
-        <form onSubmit={handleSubmit((data) => setGeoData(data.name))}>
+        <form onSubmit={handleSubmit((data) => setGeoData(data.name))} className={cls.form}>
             <Controller
                 control={control}
                 name="name"
@@ -38,7 +41,7 @@ export function GeoDataForm() {
                     />
                 )}
             />
-            <button type="submit">Submit</button>
+            <Button type="submit">Search</Button>
         </form>
     );
 }

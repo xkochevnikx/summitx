@@ -2,7 +2,11 @@
 import { useGeoData } from "../model/geoDataStore";
 
 export const GeoDataList = () => {
-    const { geoData } = useGeoData();
+    const { geoData, isLoading } = useGeoData();
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <ul>
