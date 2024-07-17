@@ -2,7 +2,7 @@ import { InputHTMLAttributes, PropsWithRef } from "react";
 
 import { classNames } from "../lib/classNames";
 
-import cls from "./input.module.css";
+import cls from "./Input.module.css";
 
 import type { ComponentProps } from "react";
 
