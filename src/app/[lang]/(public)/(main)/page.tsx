@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import { GeoDataForm, GeoDataList } from "@/features/lifeSearchGeoData";
 import { getRegionsQuery, organizeRanges, RegionsList } from "@/features/organizeRanges";
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryClient } from "@/shared/lib/query";
@@ -24,7 +25,8 @@ export default async function Page({ params: { lang } }: { params: { lang: strin
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <RegionsList regions={regions} />
-            
+            <GeoDataForm />
+            <GeoDataList />
         </Suspense>
     );
 }

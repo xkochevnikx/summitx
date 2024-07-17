@@ -1,1 +1,1 @@
-export { geoDataListQuery } from "./model/queries";
+export { geoDataListQuery } from "./model/query";

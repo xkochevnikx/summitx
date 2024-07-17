@@ -19,7 +19,6 @@ export const useDebounce = (callback: (...args: unknown[]) => void, delay: numbe
             timer.current = setTimeout(() => {
                 callback(...args);
             }, delay);
-
         },
         [callback, delay],
     );
