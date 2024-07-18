@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import { GeoDataForm, GeoDataList } from "@/features/lifeSearchGeoData";
 import { getRegionsQuery, organizeRanges, RegionsList } from "@/features/organizeRanges";
+import { GeoDataForm, GeoDataList } from "@/features/searchGeoData";
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryClient } from "@/shared/lib/query";
 
