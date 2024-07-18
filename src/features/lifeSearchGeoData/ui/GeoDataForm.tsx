@@ -7,11 +7,11 @@ import * as z from "zod";
 import { Button } from "@/shared/ui/button/button";
 import { Input } from "@/shared/ui/input/input";
 
-import { useGeoData } from "../model/geoDataStore";
+import { useGeoData } from "../model/store";
 
 import cls from "./geoDataForm.module.css";
 
-export function GeoDataForm() {
+export const GeoDataForm = () => {
     const { setGeoData } = useGeoData();
     const schema = z.object({
         name: z
@@ -44,4 +44,4 @@ export function GeoDataForm() {
             <Button type="submit">Search</Button>
         </form>
     );
-}
+};

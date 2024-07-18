@@ -1,5 +1,5 @@
 "use client";
-import { useGeoData } from "../model/geoDataStore";
+import { useGeoData } from "../model/store";
 
 export const GeoDataList = () => {
     const { geoData, isLoading } = useGeoData();
