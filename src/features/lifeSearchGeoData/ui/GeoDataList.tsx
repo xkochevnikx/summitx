@@ -1,7 +1,9 @@
 "use client";
+import { FC } from "react";
+
 import { useGeoData } from "../model/store";
 
-export const GeoDataList = () => {
+export const GeoDataList: FC = () => {
     const { geoData, isLoading } = useGeoData();
 
     if (isLoading) {

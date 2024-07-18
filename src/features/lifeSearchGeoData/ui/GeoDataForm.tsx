@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -11,7 +12,7 @@ import { useGeoData } from "../model/store";
 
 import cls from "./geoDataForm.module.css";
 
-export const GeoDataForm = () => {
+export const GeoDataForm: FC = () => {
     const { setGeoData } = useGeoData();
     const schema = z.object({
         name: z

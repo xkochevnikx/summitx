@@ -1,2 +1,2 @@
-export { GeoDataForm } from "./ui/geoDataForm";
-export { GeoDataList } from "./ui/geoDataList";
+export { GeoDataForm } from "@/features/lifeSearchGeoData/ui/geoDataForm";
+export { GeoDataList } from "@/features/lifeSearchGeoData/ui/geoDataList";
