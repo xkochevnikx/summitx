@@ -18,3 +18,12 @@
 .item {
     padding: 2rem;
 }
+
+.child {
+    transition: opacity 0.3s;
+}
+
+.child:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}

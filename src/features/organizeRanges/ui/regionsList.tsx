@@ -22,7 +22,11 @@ export const RegionsList: FC<RegionsListProps> = ({ regions }) => {
                         <h2>{region.object_name}</h2>
                         <ul>
                             {region.children.map((child) => (
-                                <li onClick={() => router.push(`/${child.id}`)} key={child.id}>
+                                <li
+                                    className={cls.child}
+                                    onClick={() => router.push(`/${child.id}`)}
+                                    key={child.id}
+                                >
                                     {child.object_name}
                                 </li>
                             ))}
