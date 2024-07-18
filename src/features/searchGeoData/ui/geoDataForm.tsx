@@ -12,17 +12,22 @@ import { useGeoData } from "../model/store";
 
 import cls from "./geoDataForm.module.css";
 
+const schema = z.object({
+    name: z
+        .string()
+        .min(2, { message: "Must be at least 2 characters" })
+        .transform((value) => value.trim())
+        .refine((value) => !/\d/.test(value), {
+            message: "Numbers are not allowed",
+        }),
+});
+
+type FormDataValues = z.infer<typeof schema>;
+
 export const GeoDataForm: FC = () => {
     const { setGeoData } = useGeoData();
-    const schema = z.object({
-        name: z
-            .string()
-            .min(2, { message: "Must be at least 2 characters" })
-            .refine((value) => !/\d/.test(value), {
-                message: "Numbers are not allowed",
-            }),
-    });
-    const { control, handleSubmit } = useForm({
+
+    const { control, handleSubmit } = useForm<FormDataValues>({
         defaultValues: { name: "" },
         resolver: zodResolver(schema),
     });
