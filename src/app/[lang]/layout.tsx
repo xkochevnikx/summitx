@@ -1,5 +1,5 @@
-import { OpenLayout } from "./_/layouts/openLayout";
 import { AppLoader } from "./_/loaders/app-loader";
+import { OpenLayout } from "./_/loaders/layouts/openLayout";
 import { AppProvider } from "./_/providers/app-provider";
 import "./_/style/index.css";
 export default function RootLayout({
