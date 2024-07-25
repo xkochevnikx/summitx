@@ -9,17 +9,21 @@
         "lint": "next lint",
         "lint:types": "tsc --noEmit",
         "api:generate": "orval",
-        "commit": "yarn run build && better-commits"
+        "commit": "yarn run build && better-commits",
+        "drop": "rm -rf ./node_modules .next yarn.lock"
     },
     "dependencies": {
+        "@hookform/resolvers": "^3.9.0",
         "@sentry/nextjs": "^8",
         "@tanstack/react-query": "^5.29.2",
         "axios": "^1.6.8",
         "cookies-next": "^4.2.1",
-        "next": "14.2.1",
+        "next": "^14.2.5",
         "npm": "^10.8.1",
         "react": "^18",
         "react-dom": "^18",
+        "react-hook-form": "^7.52.1",
+        "zod": "^3.23.8",
         "zustand": "^4.5.2"
     },
     "devDependencies": {
@@ -38,7 +42,7 @@
         "eslint-plugin-import": "^2.29.1",
         "eslint-plugin-react": "^7.34.1",
         "eslint-plugin-react-hooks": "^4.6.0",
-        "orval": "^6.27.1",
+        "orval": "^6.31.0",
         "prettier": "3.2.5",
         "ts-node": "^10.9.2",
         "typescript": "^5"

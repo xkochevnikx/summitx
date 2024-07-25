@@ -101,6 +101,17 @@
                             [
                                 "shared",
                                 {
+                                    "segment": "config"
+                                }
+                            ]
+                        ],
+                        "allow": "**"
+                    },
+                    {
+                        "target": [
+                            [
+                                "shared",
+                                {
                                     "segment": "ui"
                                 }
                             ]

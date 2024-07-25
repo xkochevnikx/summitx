@@ -1,1 +1,1 @@
-export { getRangesList } from "./model/getRangesList";
+export { getRangesList } from "./model/queries.server";

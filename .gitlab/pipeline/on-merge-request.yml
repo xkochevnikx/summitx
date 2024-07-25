@@ -1,0 +1,24 @@
+---
+include:
+    - local: /.gitlab/common.yml
+    - local: /.gitlab/job/check.yml
+
+stages:
+    - check
+    - deploy
+
+check-lint:
+    stage: check
+    extends:
+        - .rule_on_merge_request
+        - .check-lint
+
+deploy_to_stg:
+    stage: deploy
+    extends:
+        - .rule_on_merge_request
+    script:
+        - echo "Deploy is processed by custom executor, but it seems to be not configured yet."
+        - exit 1
+    tags:
+        - deploy
