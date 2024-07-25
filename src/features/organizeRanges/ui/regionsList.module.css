@@ -1,0 +1,29 @@
+.title {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+
+.item {
+    padding: 2rem;
+}
+
+.child {
+    transition: opacity 0.3s;
+}
+
+.child:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}

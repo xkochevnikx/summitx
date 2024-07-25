@@ -1,6 +1,10 @@
 import { ReactNode } from "react";
 
-export function HeaderLayout({
+import { classNames } from "@/shared/lib/classNames";
+
+import cls from "./headerLayout.module.css";
+
+export const HeaderLayout = ({
     profile,
     logo,
     className,
@@ -12,13 +16,17 @@ export function HeaderLayout({
     nav?: ReactNode;
     actions?: ReactNode;
     logo?: ReactNode;
-}) {
+}) => {
     return (
-        <header style={{ display: "flex", gap: "10px" }} className={className}>
-            {logo}
-            {nav}
-            {actions}
-            {profile}
+        <header className={classNames(cls.header, {}, [className])}>
+            <div className={cls.nav}>
+                {logo}
+                {nav}
+            </div>
+            <div className={cls.actions}>
+                {actions}
+                {profile}
+            </div>
         </header>
     );
-}
+};
