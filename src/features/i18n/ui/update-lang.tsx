@@ -1,12 +1,10 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Lang, useLang } from "../model/lang.store";
+import { useLang } from "../model/lang.store";
+import { Lang } from "../model/types";
 
-type LangOption = {
-    id: Lang;
-    label: string;
-};
+import { LangOption } from "./types";
 
 const langOptions: LangOption[] = [
     { id: "en", label: "En" },
