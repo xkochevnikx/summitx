@@ -3,7 +3,15 @@
 .build:
   image: node:lts
   script:
-    # Install dependencies
+    - |
+      echo "Creating .env file for the build process"
+      echo "BASE_API_URL='http://localhost'" > .env
+      echo "NEXT_PUBLIC_SENTRY_DSN=''" >> .env
+      echo "NEXT_PUBLIC_SENTRY_ENVIRONMENT=staging" >> .env
+      echo "SENTRY_AUTH_TOKEN=''" >> .env
+
+    - echo "Installing dependencies"
     - yarn install
-    # Build the project
+
+    - echo "Building the project"
     - yarn run build
