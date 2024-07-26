@@ -26,7 +26,7 @@ const schema = z.object({
 type FormDataValues = z.infer<typeof schema>;
 
 export const GeoDataForm: FC = () => {
-    const { setGeoData } = useGeoData();
+    const { setGeoData, isLoading } = useGeoData();
 
     const { control, handleSubmit } = useFormFacade<FormDataValues>({
         defaultValues: { name: "" },
@@ -48,7 +48,9 @@ export const GeoDataForm: FC = () => {
                     />
                 )}
             />
-            <Button type="submit">Search</Button>
+            <Button type="submit" isLoading={isLoading}>
+                Search
+            </Button>
         </form>
     );
 };

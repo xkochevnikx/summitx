@@ -1,8 +1,6 @@
 .button {
-    font-family: "Consolas", monospace;
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
-    border: 2px solid #007bff;
+    font-size: 0.75rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 5px;
     background-color: #007bff;
     color: #ffffff;
@@ -11,7 +9,8 @@
         background-color 0.3s,
         border-color 0.3s,
         box-shadow 0.3s;
-    box-sizing: border-box;
+    border: 1px solid black;
+    height: var(--font-size-xl);
 }
 
 .button:hover {
