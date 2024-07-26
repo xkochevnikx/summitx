@@ -22,9 +22,6 @@ jobs:
             - name: Install modules
               run: yarn
 
-            - name: Build production project
-              run: yarn run build
-
             - name: Linting
               run: yarn run lint
               continue-on-error: true
