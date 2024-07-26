@@ -48,7 +48,9 @@ export const GeoDataForm: FC = () => {
                     />
                 )}
             />
-            <Button type="submit">Search</Button>
+            <Button type="submit" isLoading={isLoading}>
+                Search
+            </Button>
         </form>
     );
 };
