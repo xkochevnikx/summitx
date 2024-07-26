@@ -2,9 +2,11 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC } from "react";
-import { Controller, useForm } from "react-hook-form";
+
+import { Controller } from "react-hook-form";
 import * as z from "zod";
 
+import { useFormFacade } from "@/shared/lib/useFormFacade";
 import { Button } from "@/shared/ui/button/button";
 import { Input } from "@/shared/ui/input/input";
 
@@ -27,7 +29,7 @@ type FormDataValues = z.infer<typeof schema>;
 export const GeoDataForm: FC = () => {
     const { setGeoData } = useGeoData();
 
-    const { control, handleSubmit } = useForm<FormDataValues>({
+    const { control, handleSubmit } = useFormFacade<FormDataValues>({
         defaultValues: { name: "" },
         resolver: zodResolver(schema),
     });

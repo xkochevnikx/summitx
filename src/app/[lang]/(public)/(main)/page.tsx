@@ -4,6 +4,15 @@ import { getRegionsQuery, organizeRanges, RegionsList } from "@/features/organiz
 import { GeoDataForm, GeoDataList } from "@/features/searchGeoData";
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryClient } from "@/shared/lib/query";
+import {
+    getRegionsQuery,
+    OrganizedRegions,
+    organizeRanges,
+    RegionsList,
+} from "@/features/organizeRanges";
+import { GeoDataForm, GeoDataList } from "@/features/searchGeoData";
+import { fetchQueryFacade } from "@/shared/lib/fetchQueryFacade";
+import { langGuard } from "@/shared/lib/languageGuard";
 
 import cls from "./page.module.css";
 
@@ -17,12 +26,11 @@ export const metadata: Metadata = {
 export default async function Page({ params: { lang } }: { params: { lang: string } }) {
     const language = langGuard(lang);
 
-    const regions = await queryClient.fetchQuery(
-        getRegionsQuery({
-            organizeRanges,
-            lang: language ?? "ru",
-        }),
-    );
+
+    const regions = await fetchQueryFacade<OrganizedRegions>(getRegionsQuery, {
+        queryFn: ({ lang }: { lang: string }) => organizeRanges({ lang }),
+        lang: language ?? "ru",
+    });
 
     return (
         <div className={cls.container}>

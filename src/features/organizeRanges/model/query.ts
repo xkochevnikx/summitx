@@ -1,13 +1,14 @@
-import { OrganizedRegions } from "@/features/organizeRanges";
 
-export const getRegionsQuery = ({
-    organizeRanges,
+type QueryFunctionType<T> = ({ lang }: { lang: string }) => Promise<T>;
+
+export const getRegionsQuery = <T>({
+    queryFn,
     lang,
 }: {
-    organizeRanges: ({ lang }: { lang: string }) => Promise<OrganizedRegions>;
+    queryFn: QueryFunctionType<T>;
     lang: string;
 }) => ({
-    queryKey: ["query", lang],
-    queryFn: () => organizeRanges({ lang }),
+    queryKey: ["OrganizedRegions", lang],
+    queryFn: () => queryFn({ lang }),
     staleTime: 5 * 60 * 1000,
 });
