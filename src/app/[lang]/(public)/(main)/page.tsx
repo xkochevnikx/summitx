@@ -1,5 +1,9 @@
 import { Suspense } from "react";
 
+import { getRegionsQuery, organizeRanges, RegionsList } from "@/features/organizeRanges";
+import { GeoDataForm, GeoDataList } from "@/features/searchGeoData";
+import { langGuard } from "@/shared/lib/languageGuard";
+import { queryClient } from "@/shared/lib/query";
 import {
     getRegionsQuery,
     OrganizedRegions,
@@ -21,6 +25,7 @@ export const metadata: Metadata = {
 
 export default async function Page({ params: { lang } }: { params: { lang: string } }) {
     const language = langGuard(lang);
+
 
     const regions = await fetchQueryFacade<OrganizedRegions>(getRegionsQuery, {
         queryFn: ({ lang }: { lang: string }) => organizeRanges({ lang }),

@@ -1,3 +1,4 @@
+
 type QueryFunctionType<T> = ({ lang }: { lang: string }) => Promise<T>;
 
 export const getRegionsQuery = <T>({
