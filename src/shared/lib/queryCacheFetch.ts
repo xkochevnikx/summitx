@@ -1,7 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
 
-import { queryClient } from "./query";
-
 export interface CacheStrategy {
     fetch<T>(key: unknown[], getData: () => Promise<T>): Promise<T>;
 }

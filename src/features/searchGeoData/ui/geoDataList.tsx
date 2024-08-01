@@ -13,6 +13,11 @@ export const GeoDataList: FC<GeoDataListProps> = ({ geoData }) => {
         return [key, value];
     });
 
+    const mappedData = geoData?.map((data) => {
+        const [key, value] = Object.entries(data)[0];
+        return [key, value];
+    });
+
     return (
         <ul>
             {mappedData?.map((data) => {
