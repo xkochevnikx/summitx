@@ -10,11 +10,17 @@ export const GeoDataList: FC = () => {
         return <div>Loading...</div>;
     }
 
+    const mappedData = geoData?.map((data) => {
+        const [key, value] = Object.entries(data)[0];
+        return [key, value];
+    });
+
     return (
         <ul>
-            {geoData.map((item) => (
-                <li key={item.id}>{item.object_name}</li>
-            ))}
+            {mappedData?.map((data) => {
+                const [key, value] = data;
+                return <li key={key}>{value.object_name}</li>;
+            })}
         </ul>
     );
 };

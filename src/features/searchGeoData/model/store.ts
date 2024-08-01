@@ -4,12 +4,12 @@ import { geoDataListQuery } from "@/entities/geoData";
 
 import { GeoDataStore } from "./types";
 
-export const useGeoData = create<GeoDataStore>((set, _) => ({
-    isLoading: null,
+export const useGeoData = create<GeoDataStore>((set) => ({
+    isLoading: false,
     geoData: [],
     setGeoData: async (search: string) => {
         set({ isLoading: true });
-        set({ geoData: await geoDataListQuery(search) });
-        set({ isLoading: false });
+        const data = await geoDataListQuery(search);
+        set({ geoData: data ?? [], isLoading: false });
     },
 }));

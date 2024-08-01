@@ -7,7 +7,7 @@ info:
         email: johnlepikhin@gmail.com
     license:
         name: MIT
-    version: 0.1.9
+    version: 0.1.13
 paths:
     /v1/current_user:
         get:
@@ -86,7 +86,8 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/GeodataResponse"
+                                    $ref: >-
+                                        #/components/schemas/geodata_api.api.response_types.GeodataObjectResponse
                 "400":
                     description: Client sent invalid request
     /v1/geodata_country:
@@ -156,7 +157,8 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/GeodataCountryResponse"
+                                    $ref: >-
+                                        #/components/schemas/geodata_api.api.response_types.GeodataCountryResponse
     /v1/geodata_country/{id}:
         get:
             tags:
@@ -188,7 +190,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GeodataCountryResponse"
+                                $ref: >-
+                                    #/components/schemas/geodata_api.api.response_types.GeodataCountryResponse
     /v1/geodata_countryregion:
         get:
             tags:
@@ -258,7 +261,8 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/GeodataCountryRegionResponse"
+                                    $ref: >-
+                                        #/components/schemas/geodata_api.api.response_types.GeodataCountryRegionResponse
     /v1/geodata_countryregion/{id}:
         get:
             tags:
@@ -290,7 +294,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GeodataCountryResponse"
+                                $ref: >-
+                                    #/components/schemas/geodata_api.api.response_types.GeodataCountryResponse
     /v1/geodata_glacier:
         get:
             tags:
@@ -358,7 +363,8 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/GeodataGlacierResponse"
+                                    $ref: >-
+                                        #/components/schemas/geodata_api.api.response_types.GeodataGlacierResponse
     /v1/geodata_glacier/{id}:
         get:
             tags:
@@ -390,7 +396,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GeodataGlacierResponse"
+                                $ref: >-
+                                    #/components/schemas/geodata_api.api.response_types.GeodataGlacierResponse
     /v1/geodata_mountain:
         get:
             tags:
@@ -458,7 +465,8 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/GeodataMountainResponse"
+                                    $ref: >-
+                                        #/components/schemas/geodata_api.api.response_types.GeodataMountainResponse
                 "400":
                     description: Client sent invalid request
     /v1/geodata_mountain/{id}:
@@ -492,7 +500,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GeodataMountainResponse"
+                                $ref: >-
+                                    #/components/schemas/geodata_api.api.response_types.GeodataMountainResponse
     /v1/geodata_mountainpass:
         get:
             tags:
@@ -562,7 +571,8 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/GeodataMountainPassResponse"
+                                    $ref: >-
+                                        #/components/schemas/geodata_api.api.response_types.GeodataMountainPassResponse
                 "400":
                     description: Client sent invalid request
     /v1/geodata_mountainpass/{id}:
@@ -596,7 +606,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GeodataMountainPassResponse"
+                                $ref: >-
+                                    #/components/schemas/geodata_api.api.response_types.GeodataMountainPassResponse
     /v1/geodata_mountainrange:
         get:
             tags:
@@ -668,7 +679,8 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: "#/components/schemas/GeodataMountainRangeResponse"
+                                    $ref: >-
+                                        #/components/schemas/geodata_api.api.response_types.GeodataMountainRangeResponse
     /v1/geodata_mountainrange/{id}:
         get:
             tags:
@@ -700,7 +712,8 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GeodataMountainRangeResponse"
+                                $ref: >-
+                                    #/components/schemas/geodata_api.api.response_types.GeodataMountainRangeResponse
     /v1/user:
         get:
             tags:
@@ -851,106 +864,6 @@ components:
                     description: >-
                         Parent object: mountain ranges, countries, etc. If empty list,
                         filter will not be applied
-        GeodataCountryRegionResponse:
-            type: object
-            description: Element of country regions list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-                - glaciers_count
-                - glaciers_area
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Area"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.Area"
-                glaciers_count:
-                    type: integer
-                    format: int64
-                    description: Glaciers count
-                id:
-                    type: integer
-                    format: int64
-                    description: Country region ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within country
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within country
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
-        GeodataCountryResponse:
-            type: object
-            description: Element of countries list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-                - glaciers_count
-                - glaciers_area
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Area"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.Area"
-                glaciers_count:
-                    type: integer
-                    format: int64
-                    description: Glaciers count
-                id:
-                    type: integer
-                    format: int64
-                    description: Country ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within country
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within country
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
         GeodataGlacierListFilter:
             type: object
             description: Filter to apply to glaciers list
@@ -963,48 +876,6 @@ components:
                     description: >-
                         Parent object: mountain ranges, countries, etc. If empty list,
                         filter will not be applied
-        GeodataGlacierResponse:
-            type: object
-            description: Element of glaciers list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Area"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                id:
-                    type: integer
-                    format: int64
-                    description: Glacier ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within glacier
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within glacier
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
         GeodataMountainListFilter:
             type: object
             description: Filter to apply to mountains list
@@ -1023,50 +894,6 @@ components:
                     items:
                         type: integer
                         format: int64
-        GeodataMountainPassResponse:
-            type: object
-            description: Element of mountain ranges list
-            required:
-                - id
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                elevation:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Length"
-                    nullable: true
-                id:
-                    type: integer
-                    format: int64
-                    description: Mountain pass ID
-                object_name:
-                    type: string
-                    description: Default mountain pass name
-                    nullable: true
-                scale:
-                    allOf:
-                        - $ref: "#/components/schemas/GeodataMountainPassScale"
-                    nullable: true
-        GeodataMountainPassScale:
-            type: object
-            description: Mountain range scale information
-            required:
-                - min
-                - max
-            properties:
-                max:
-                    type: string
-                    description: Maximum known grade
-                min:
-                    type: string
-                    description: Minimum known grade
         GeodataMountainRangeListFilter:
             type: object
             description: Filter to apply to mountain ranges list
@@ -1082,134 +909,6 @@ components:
 
                         toplevel mountain ranges will be returned
                     nullable: true
-        GeodataMountainRangeResponse:
-            type: object
-            description: Element of mountain ranges list
-            required:
-                - id
-                - mountains_count
-                - mountain_passes_count
-                - glaciers_count
-                - glaciers_area
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Area"
-                    nullable: true
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                glaciers_area:
-                    $ref: "#/components/schemas/locale_api.quantities.Area"
-                glaciers_count:
-                    type: integer
-                    format: int64
-                    description: Glaciers count
-                id:
-                    type: integer
-                    format: int64
-                    description: Mountain range ID
-                mountain_passes_count:
-                    type: integer
-                    format: int64
-                    description: Mountain passes count within mountain range
-                mountains_count:
-                    type: integer
-                    format: int64
-                    description: Mountains count within mountain range
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                parent_id:
-                    type: integer
-                    format: int64
-                    description: Parent ID
-                    nullable: true
-        GeodataMountainResponse:
-            type: object
-            description: Element of mountain ranges list
-            required:
-                - id
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                description:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
-                    nullable: true
-                elevation:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Length"
-                    nullable: true
-                id:
-                    type: integer
-                    format: int64
-                    description: Mountain ID
-                object_name:
-                    type: string
-                    description: Default mountain name
-                    nullable: true
-                prominence:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Length"
-                    nullable: true
-                volcano:
-                    allOf:
-                        - $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.Volcano
-                    nullable: true
-        GeodataResponse:
-            type: object
-            description: Element of geodata objects list
-            required:
-                - id
-                - object_kind
-                - geometry_properties
-                - object_properties
-            properties:
-                alternative_names:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/locale_api.locale.GeoName"
-                    description: Alternative names
-                area_statistics:
-                    allOf:
-                        - $ref: >-
-                              #/components/schemas/geodata_api.api.types.geodata_area_statistics
-                              ::
-
-                              GeodataAreaStatistics
-                    nullable: true
-                description:
-                    type: string
-                    description: Description
-                    nullable: true
-                geometry_properties:
-                    $ref: >-
-                        #/components/schemas/geodata_api.api.types.geometry_properties.Properties
-                id:
-                    type: integer
-                    format: int64
-                    description: Object ID
-                object_kind:
-                    $ref: "#/components/schemas/geodata_api.api.types.GeodataKind"
-                object_name:
-                    type: string
-                    description: Default object name
-                    nullable: true
-                object_properties:
-                    $ref: >-
-                        #/components/schemas/geodata_api.api.types.object_properties.Properties
         LocaleMetricSystem:
             type: string
             description: Metric system to use in the response
@@ -1302,16 +1001,7 @@ components:
                 username:
                     type: string
                     description: Username
-        geodata_api.api.types.GeodataKind:
-            type: string
-            enum:
-                - Country
-                - CountryRegion
-                - Mountain
-                - MountainPass
-                - MountainRange
-                - Glacier
-        "geodata_api.api.types.geodata_area_statistics ::\nGeodataAreaStatistics":
+        geodata_api.api.response_types.GeodataAreaStatistics:
             type: object
             required:
                 - mountains_count
@@ -1324,41 +1014,264 @@ components:
                 glaciers_count:
                     type: integer
                     format: int64
+                    description: Glaciers count
                 mountain_passes_count:
                     type: integer
                     format: int64
+                    description: Mountain passes count
                 mountains_count:
                     type: integer
                     format: int64
-        geodata_api.api.types.geometry_properties.Point:
+                    description: Mountains count
+        geodata_api.api.response_types.GeodataCountryRegionResponse:
             type: object
-        geodata_api.api.types.geometry_properties.Properties:
-            oneOf:
-                - type: object
-                  required:
-                      - Point
-                  properties:
-                      Point:
-                          $ref: >-
-                              #/components/schemas/geodata_api.api.types.geometry_properties.Point
-                - type: object
-                  required:
-                      - Area
-                  properties:
-                      Area:
-                          $ref: "#/components/schemas/locale_api.quantities.Area"
-        geodata_api.api.types.object_properties.Country:
-            type: object
-        geodata_api.api.types.object_properties.CountryRegion:
-            type: object
-        geodata_api.api.types.object_properties.Glacier:
-            type: object
-        geodata_api.api.types.object_properties.Mountain:
-            type: object
+            description: Element of country regions list
+            required:
+                - id
             properties:
+                alternative_names:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/locale_api.locale.GeoName"
+                    description: Alternative names
+                area:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
+                    nullable: true
+                area_statistics:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataAreaStatistics
+                    nullable: true
+                description:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
+                    nullable: true
+                id:
+                    type: integer
+                    format: int64
+                    description: Country region ID
+                object_name:
+                    type: string
+                    description: Default object name
+                    nullable: true
+                parent_id:
+                    type: integer
+                    format: int64
+                    description: Parent ID
+                    nullable: true
+        geodata_api.api.response_types.GeodataCountryResponse:
+            type: object
+            description: Element of countries list
+            required:
+                - id
+            properties:
+                alternative_names:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/locale_api.locale.GeoName"
+                    description: Alternative names
+                area:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
+                    nullable: true
+                area_statistics:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataAreaStatistics
+                    nullable: true
+                description:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
+                    nullable: true
+                id:
+                    type: integer
+                    format: int64
+                    description: Country ID
+                object_name:
+                    type: string
+                    description: Default object name
+                    nullable: true
+                parent_id:
+                    type: integer
+                    format: int64
+                    description: Parent ID
+                    nullable: true
+        geodata_api.api.response_types.GeodataGlacierResponse:
+            type: object
+            description: Element of glaciers list
+            required:
+                - id
+            properties:
+                alternative_names:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/locale_api.locale.GeoName"
+                    description: Alternative names
+                area:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
+                    nullable: true
+                area_statistics:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataAreaStatistics
+                    nullable: true
+                description:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
+                    nullable: true
+                id:
+                    type: integer
+                    format: int64
+                    description: Glacier ID
+                object_name:
+                    type: string
+                    description: Default object name
+                    nullable: true
+                parent_country_region:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataCountryRegionResponse
+                    nullable: true
+                parent_id:
+                    type: integer
+                    format: int64
+                    description: Parent ID
+                    nullable: true
+                parent_mountain_range:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataMountainRangeResponse
+                    nullable: true
+        geodata_api.api.response_types.GeodataMountainPassResponse:
+            type: object
+            description: Element of mountain ranges list
+            required:
+                - id
+            properties:
+                alternative_names:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/locale_api.locale.GeoName"
+                    description: Alternative names
+                description:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
+                    nullable: true
                 elevation:
                     allOf:
                         - $ref: "#/components/schemas/locale_api.quantities.Length"
+                    nullable: true
+                id:
+                    type: integer
+                    format: int64
+                    description: Mountain pass ID
+                object_name:
+                    type: string
+                    description: Default mountain pass name
+                    nullable: true
+                parent_country_region:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataCountryRegionResponse
+                    nullable: true
+                parent_mountain_range:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataMountainRangeResponse
+                    nullable: true
+                scale:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataMountainPassScale
+                    nullable: true
+        geodata_api.api.response_types.GeodataMountainPassScale:
+            type: object
+            description: Mountain range scale information
+            required:
+                - min
+                - max
+            properties:
+                max:
+                    type: string
+                    description: Maximum known grade
+                min:
+                    type: string
+                    description: Minimum known grade
+        geodata_api.api.response_types.GeodataMountainRangeResponse:
+            type: object
+            description: Element of mountain ranges list
+            required:
+                - id
+            properties:
+                alternative_names:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/locale_api.locale.GeoName"
+                    description: Alternative names
+                area:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Area"
+                    nullable: true
+                area_statistics:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataAreaStatistics
+                    nullable: true
+                description:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
+                    nullable: true
+                id:
+                    type: integer
+                    format: int64
+                    description: Mountain range ID
+                object_name:
+                    type: string
+                    description: Default object name
+                    nullable: true
+                parent_id:
+                    type: integer
+                    format: int64
+                    description: Parent ID
+                    nullable: true
+        geodata_api.api.response_types.GeodataMountainResponse:
+            type: object
+            description: Element of mountain ranges list
+            required:
+                - id
+            properties:
+                alternative_names:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/locale_api.locale.GeoName"
+                    description: Alternative names
+                description:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.locale.LocalizedString"
+                    nullable: true
+                elevation:
+                    allOf:
+                        - $ref: "#/components/schemas/locale_api.quantities.Length"
+                    nullable: true
+                id:
+                    type: integer
+                    format: int64
+                    description: Mountain ID
+                object_name:
+                    type: string
+                    description: Default mountain name
+                    nullable: true
+                parent_country_region:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataCountryRegionResponse
+                    nullable: true
+                parent_mountain_range:
+                    allOf:
+                        - $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataMountainRangeResponse
                     nullable: true
                 prominence:
                     allOf:
@@ -1369,31 +1282,7 @@ components:
                         - $ref: >-
                               #/components/schemas/geodata_api.api.types.object_properties.Volcano
                     nullable: true
-        geodata_api.api.types.object_properties.MountainPass:
-            type: object
-            properties:
-                elevation:
-                    allOf:
-                        - $ref: "#/components/schemas/locale_api.quantities.Length"
-                    nullable: true
-                grade:
-                    allOf:
-                        - $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.MountainPassGrade
-                    nullable: true
-        geodata_api.api.types.object_properties.MountainPassGrade:
-            type: object
-            required:
-                - min
-                - max
-            properties:
-                max:
-                    type: string
-                min:
-                    type: string
-        geodata_api.api.types.object_properties.MountainRange:
-            type: object
-        geodata_api.api.types.object_properties.Properties:
+        geodata_api.api.response_types.GeodataObjectResponse:
             oneOf:
                 - type: object
                   required:
@@ -1401,42 +1290,43 @@ components:
                   properties:
                       Mountain:
                           $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.Mountain
-                - type: object
-                  required:
-                      - MountainPass
-                  properties:
-                      MountainPass:
-                          $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.MountainPass
+                              #/components/schemas/geodata_api.api.response_types.GeodataMountainResponse
                 - type: object
                   required:
                       - MountainRange
                   properties:
                       MountainRange:
                           $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.MountainRange
+                              #/components/schemas/geodata_api.api.response_types.GeodataMountainRangeResponse
+                - type: object
+                  required:
+                      - MountainPass
+                  properties:
+                      MountainPass:
+                          $ref: >-
+                              #/components/schemas/geodata_api.api.response_types.GeodataMountainPassResponse
                 - type: object
                   required:
                       - Country
                   properties:
                       Country:
                           $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.Country
+                              #/components/schemas/geodata_api.api.response_types.GeodataCountryResponse
                 - type: object
                   required:
                       - CountryRegion
                   properties:
                       CountryRegion:
                           $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.CountryRegion
+                              #/components/schemas/geodata_api.api.response_types.GeodataCountryRegionResponse
                 - type: object
                   required:
                       - Glacier
                   properties:
                       Glacier:
                           $ref: >-
-                              #/components/schemas/geodata_api.api.types.object_properties.Glacier
+                              #/components/schemas/geodata_api.api.response_types.GeodataGlacierResponse
+            description: Any geodata object
         geodata_api.api.types.object_properties.Volcano:
             type: object
             properties:

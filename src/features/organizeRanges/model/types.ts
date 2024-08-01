@@ -1,9 +1,9 @@
 import { api } from "@/shared/api";
 
-export interface OrganizedMountainRange extends api.GeodataMountainRangeResponse {
-    children: api.GeodataMountainRangeResponse[];
-}
+export type OrganizedMountainRange = api.GeodataApiApiResponseTypesGeodataMountainRangeResponse & {
+    children: api.GeodataApiApiResponseTypesGeodataMountainRangeResponse[];
+};
 
-export interface OrganizedRegions {
+export type OrganizedRegions = {
     [key: number]: OrganizedMountainRange;
-}
+};

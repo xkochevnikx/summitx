@@ -17,18 +17,20 @@ export type ScrollPosition = {
  * */
 export const useWindowScroll = () => {
     const [value, setValue] = useState<ScrollPosition>({
-        x: window.scrollX,
-        y: window.scrollY,
+        x: 0,
+        y: 0,
     });
 
     useEffect(() => {
-        const onChange = () => setValue({ x: window.scrollX, y: window.scrollY });
-        window.addEventListener("scroll", onChange);
-        window.addEventListener("resize", onChange);
-        return () => {
-            window.removeEventListener("scroll", onChange);
-            window.removeEventListener("resize", onChange);
-        };
+        if (typeof window !== "undefined") {
+            const onChange = () => setValue({ x: window.scrollX, y: window.scrollY });
+            window.addEventListener("scroll", onChange);
+            window.addEventListener("resize", onChange);
+            return () => {
+                window.removeEventListener("scroll", onChange);
+                window.removeEventListener("resize", onChange);
+            };
+        }
     }, []);
 
     return { value };

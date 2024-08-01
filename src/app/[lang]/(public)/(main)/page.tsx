@@ -1,14 +1,9 @@
 import { Suspense } from "react";
 
-import {
-    getRegionsQuery,
-    OrganizedRegions,
-    organizeRanges,
-    RegionsList,
-} from "@/features/organizeRanges";
+import { organizeRanges, RegionsList } from "@/features/organizeRanges";
 import { GeoDataForm, GeoDataList } from "@/features/searchGeoData";
-import { fetchQueryFacade } from "@/shared/lib/fetchQueryFacade";
 import { langGuard } from "@/shared/lib/languageGuard";
+import { queryCacheFetch } from "@/shared/lib/queryCacheFetch";
 
 import cls from "./page.module.css";
 
@@ -19,13 +14,14 @@ export const metadata: Metadata = {
     description: "",
 };
 
+const GET_REGIONS_QUERY = "getRegionsQuery";
+
 export default async function Page({ params: { lang } }: { params: { lang: string } }) {
     const language = langGuard(lang);
 
-    const regions = await fetchQueryFacade<OrganizedRegions>(getRegionsQuery, {
-        queryFn: ({ lang }: { lang: string }) => organizeRanges({ lang }),
-        lang: language ?? "ru",
-    });
+    const regions = await queryCacheFetch.fetch([GET_REGIONS_QUERY, lang], () =>
+        organizeRanges({ lang: language ?? "ru" }),
+    );
 
     return (
         <div className={cls.container}>
