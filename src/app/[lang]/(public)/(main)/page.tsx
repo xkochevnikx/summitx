@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 
 import { organizeRanges, RegionsList } from "@/features/organizeRanges";
-import { GeoDataForm, GeoDataList } from "@/features/searchGeoData";
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryCacheFetch } from "@/shared/lib/queryCacheFetch";
 
@@ -28,10 +27,6 @@ export default async function Page({ params: { lang } }: { params: { lang: strin
             <Suspense fallback={<div>Loading...</div>}>
                 <RegionsList regions={regions} />
             </Suspense>
-            <div className={cls.geoData}>
-                <GeoDataForm />
-                <GeoDataList />
-            </div>
         </div>
     );
 }
