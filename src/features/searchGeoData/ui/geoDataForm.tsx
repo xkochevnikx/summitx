@@ -10,8 +10,6 @@ import { useFormFacade } from "@/shared/lib/useFormFacade";
 import { Button } from "@/shared/ui/button/button";
 import { Input } from "@/shared/ui/input/input";
 
-import { useGeoData } from "../model/store";
-
 import cls from "./geoDataForm.module.css";
 
 const schema = z.object({
@@ -26,16 +24,13 @@ type FormDataValues = z.infer<typeof schema>;
 
 export const GeoDataForm: FC = () => {
     const router = useRouter();
-    const { setGeoData, isLoading } = useGeoData();
-
     const { control, handleSubmit } = useFormFacade<FormDataValues>({
         defaultValues: { name: "" },
         resolver: zodResolver(schema),
     });
 
     const onSubmit = (name: string) => {
-        setGeoData(name);
-        router.push(`/search`);
+        router.push(`/search/${name}`);
     };
 
     return (
@@ -53,9 +48,7 @@ export const GeoDataForm: FC = () => {
                     />
                 )}
             />
-            <Button type="submit" isLoading={isLoading}>
-                Search
-            </Button>
+            <Button type="submit">Search</Button>
         </form>
     );
 };

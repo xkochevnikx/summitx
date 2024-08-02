@@ -1,26 +1,26 @@
 import { QueryClient } from "@tanstack/react-query";
 
+import { queryClient } from "./query";
+
 export interface CacheStrategy {
     fetch<T>(key: unknown[], getData: () => Promise<T>): Promise<T>;
 }
 
 class QueryCacheStrategy implements CacheStrategy {
     private timer: ReturnType<typeof setInterval>;
+    private cache: boolean;
+    private queryClient: QueryClient;
 
-    constructor(
-        private queryClient = new QueryClient({
-            defaultOptions: {
-                queries: {
-                    staleTime: Infinity,
-                },
-            },
-        }),
-    ) {
+    constructor(queryClient: QueryClient, cache: boolean = false) {
+        this.queryClient = queryClient;
+        this.cache = cache;
         this.timer = setInterval(
             () => {
-                queryClient.refetchQueries();
+                if (this.cache) {
+                    this.queryClient.refetchQueries();
+                }
             },
-            60 * 60 * 1000,
+            this.cache ? 60 * 60 * 1000 : 0,
         );
     }
 
@@ -36,4 +36,5 @@ class QueryCacheStrategy implements CacheStrategy {
     }
 }
 
-export const queryCacheFetch = new QueryCacheStrategy();
+export const queryCacheFetch = new QueryCacheStrategy(queryClient, true);
+export const queryCacheFetchWithoutCache = new QueryCacheStrategy(queryClient, false);
