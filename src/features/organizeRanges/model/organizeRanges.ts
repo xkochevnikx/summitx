@@ -21,7 +21,6 @@ export const organizeRanges = async ({ lang }: { lang: string }): Promise<Organi
             parent_id: topRegionIds,
             lang,
         });
-
         if (childRegions?.length) {
             const organized = topRegions.reduce((acc, region) => {
                 acc[region.id] = {
