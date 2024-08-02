@@ -14,8 +14,14 @@ export function middleware(req: NextRequest) {
     const cookieLocale = req.cookies.get(COOKIES_LANGUAGE)?.value ?? DEFAULT_LANGUAGE;
     const langInPath = LANGUAGES.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`));
     const nextDir = req.nextUrl.pathname.startsWith("/_next");
+
     if (!langInPath && !nextDir) {
-        return NextResponse.redirect(new URL(`/${cookieLocale}${req.nextUrl.pathname}`, req.url));
+        const newUrl = new URL(
+            `/${cookieLocale}${req.nextUrl.pathname}${req.nextUrl.search}`,
+            req.url,
+        );
+
+        return NextResponse.redirect(newUrl);
     }
 
     return NextResponse.next();

@@ -1,11 +1,5 @@
 import { api } from "@/shared/api";
+import { isAxiosCustomError } from "@/shared/lib/errors";
 
-export const geoDataListQuery = async (search: string) => {
-    try {
-        return await api.objectList({
-            q: search,
-        });
-    } catch (error) {
-        console.error("🚀 Error fetching geoDataListQuery :", error);
-    }
-};
+export const geoDataListQuery = async (search: string) =>
+    await api.objectList({ q: search }).catch((error: unknown) => isAxiosCustomError(error));

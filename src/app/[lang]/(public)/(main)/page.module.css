@@ -4,10 +4,3 @@
     gap: 10px;
     align-items: center;
 }
-
-.geoData {
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}

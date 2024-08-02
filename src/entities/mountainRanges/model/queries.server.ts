@@ -1,60 +1,33 @@
-import { AxiosError } from "axios";
-
 import { api } from "@/shared/api";
+import { isAxiosCustomError } from "@/shared/lib/errors";
+
+import { GeodataMountainRangeResponse } from "./types";
 
 export type GetRangesModel = {
-    topList: (lang: string) => Promise<api.GeodataMountainRangeResponse[]>;
+    topList: (lang: string) => Promise<void | GeodataMountainRangeResponse[]>;
     secondList: ({
         parent_id,
         lang,
     }: {
         parent_id: number[];
         lang: string;
-    }) => Promise<api.GeodataMountainRangeResponse[]>;
-    rangesItem: ({
-        id,
-        lang,
-    }: {
-        id: number;
-        lang: string;
-    }) => Promise<api.GeodataMountainRangeResponse>;
+    }) => Promise<void | GeodataMountainRangeResponse[]>;
 };
 
 export const getRangesList = (): GetRangesModel => ({
     topList: async (lang: string) => {
-        return (
-            (await api
-                .mountainRangesList({
-                    filter: JSON.stringify({ parent_id: [] }),
-                    locale_lang: lang,
-                })
-                .catch((error: AxiosError) =>
-                    console.error("🚀 Error fetching top list of mountain ranges :", error.message),
-                )) ?? []
-        );
+        return await api
+            .mountainRangesList({
+                filter: JSON.stringify({ parent_id: [] }),
+                locale_lang: lang ?? "ru",
+            })
+            .catch((error: unknown) => {
+                isAxiosCustomError(error);
+            });
     },
     secondList: async ({ parent_id, lang }: { parent_id: number[]; lang: string }) => {
-        return (
-            (await api
-                .mountainRangesList({ filter: JSON.stringify({ parent_id }), locale_lang: lang })
-                .catch((error: AxiosError) =>
-                    console.error(
-                        "🚀 Error fetching second list of mountain ranges :",
-                        error.message,
-                    ),
-                )) ?? []
-        );
-    },
-    rangesItem: async ({ id, lang }: { id: number; lang: string }) => {
-        return (
-            (await api
-                .mountainRange(id, { locale_lang: lang })
-                .catch((error: AxiosError) =>
-                    console.error(
-                        "🚀 Error fetching ranges item of mountain ranges :",
-                        error.message,
-                    ),
-                )) ?? ({} as api.GeodataMountainRangeResponse)
-        );
+        return await api
+            .mountainRangesList({ filter: JSON.stringify({ parent_id }), locale_lang: lang })
+            .catch((error: unknown) => isAxiosCustomError(error));
     },
 });
