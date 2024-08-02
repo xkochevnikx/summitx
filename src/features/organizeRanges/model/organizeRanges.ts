@@ -4,17 +4,14 @@ import type { OrganizedRegions } from "./types";
 
 export const organizeRanges = async ({ lang }: { lang: string }): Promise<OrganizedRegions> => {
     const { topList, secondList } = getRangesList();
-
     const topRegions = await topList(lang);
-
-    if (topRegions) {
+    if (topRegions?.length) {
         const topRegionIds = topRegions.map((region) => region.id);
-
         const childRegions = await secondList({
             parent_id: topRegionIds,
             lang,
         });
-        if (childRegions) {
+        if (childRegions?.length) {
             const organized = topRegions.reduce((acc, region) => {
                 acc[region.id] = {
                     ...region,
@@ -22,10 +19,8 @@ export const organizeRanges = async ({ lang }: { lang: string }): Promise<Organi
                 };
                 return acc;
             }, {} as OrganizedRegions);
-
             return organized;
         }
     }
-
     return {};
 };

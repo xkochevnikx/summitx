@@ -2,6 +2,8 @@ import React, { ComponentProps, ReactNode } from "react";
 
 import { classNames } from "@/shared/lib/classNames";
 
+import { Spinner } from "../spinner/spinner";
+
 import cls from "./button.module.css";
 
 type ButtonProps = ComponentProps<"button"> & {
@@ -11,6 +13,7 @@ type ButtonProps = ComponentProps<"button"> & {
     onClick?: () => void;
     disabled?: boolean;
     type?: "submit" | "reset" | "button";
+    isLoading?: boolean | null;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -19,6 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
     children,
     onClick,
     disabled,
+    isLoading = false,
     type = "button",
 }) => {
     return (
@@ -29,7 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
             onClick={onClick}
             disabled={disabled}
         >
-            {children}
+            {isLoading ? <Spinner /> : children}
         </button>
     );
 };

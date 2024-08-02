@@ -1,0 +1,25 @@
+:root {
+    --font-family-main: consolas, "Times New Roman", serif;
+
+    /* s */
+    --font-size-s: 12px;
+
+    /* m */
+    --font-size-m: 16px;
+
+    /* l */
+    --font-size-l: 24px;
+
+    /* xl */
+    --font-size-xl: 32px;
+
+    /* sizes */
+    --header-height: 64px;
+    --header-height-scrolled: 48px;
+    --sidebar-width-collapsed: 300px;
+    --sidebar-width: 80px;
+    --modal-z-index: 10;
+
+    /* colors */
+    --overlay-color: rgba(0 0 0 / 60%);
+}

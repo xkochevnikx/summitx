@@ -1,20 +1,24 @@
 "use client";
 import { FC } from "react";
 
-import { useGeoData } from "../model/store";
+import { api } from "@/shared/api";
 
-export const GeoDataList: FC = () => {
-    const { geoData, isLoading } = useGeoData();
+type GeoDataListProps = {
+    geoData: api.GeodataApiApiResponseTypesGeodataObjectResponse[];
+};
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+export const GeoDataList: FC<GeoDataListProps> = ({ geoData }) => {
+    const mappedData = geoData?.map((data) => {
+        const [key, value] = Object.entries(data)[0];
+        return [key, value];
+    });
 
     return (
         <ul>
-            {geoData.map((item) => (
-                <li key={item.id}>{item.object_name}</li>
-            ))}
+            {mappedData?.map((data) => {
+                const [key, value] = data;
+                return <li key={key}>{value.object_name}</li>;
+            })}
         </ul>
     );
 };
