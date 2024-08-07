@@ -18,7 +18,7 @@ export const getRangesList = (): GetRangesModel => ({
     topList: async (lang: string) => {
         return await api
             .mountainRangesList({
-                filter: JSON.stringify({ parent_id: {} }),
+                filter: JSON.stringify({ parent_id: [] }),
                 locale_lang: lang ?? "ru",
             })
             .catch((error: unknown) => {

@@ -28,7 +28,7 @@ export default withSentryConfig(nextConfig, {
     telemetry: false,
     org: "summitx",
     project: "javascript-nextjs",
-    enabled: process.env.NODE_ENV === "production",
+    enabled: true,
     widenClientFileUpload: true,
     hideSourceMaps: true,
     disableLogger: true,
