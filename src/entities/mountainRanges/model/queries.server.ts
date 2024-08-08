@@ -22,7 +22,7 @@ export const getRangesList = (): GetRangesModel => ({
                 locale_lang: lang ?? "ru",
             })
             .catch((error: unknown) => {
-                isAxiosCustomError(error);
+                throw error;
             });
     },
     secondList: async ({ parent_id, lang }: { parent_id: number[]; lang: string }) => {

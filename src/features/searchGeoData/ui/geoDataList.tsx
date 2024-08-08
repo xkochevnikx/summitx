@@ -4,7 +4,7 @@ import { FC } from "react";
 import { api } from "@/shared/api";
 
 type GeoDataListProps = {
-    geoData: api.GeodataApiApiResponseTypesGeodataObjectResponse[];
+    geoData: api.GeodataApiApiResponseTypesGeodataObjectResponse[] | void;
 };
 
 export const GeoDataList: FC<GeoDataListProps> = ({ geoData }) => {
