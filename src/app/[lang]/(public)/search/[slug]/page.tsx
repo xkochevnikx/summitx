@@ -1,5 +1,4 @@
-import { GeoDataList } from "@/features/searchGeoData";
-import { api } from "@/shared/api";
+import { GeoDataList, getListGeoDataLoggedMethod } from "@/features/searchGeoData";
 import { isAxiosCustomError } from "@/shared/lib/errors";
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryCacheFetch } from "@/shared/lib/queryCacheFetch";
@@ -24,10 +23,9 @@ export default async function Page({
     const language = langGuard(lang);
 
     const list = await queryCacheFetch.fetch([GEO_DATA_LIST_QUERY, decodedSlug], () =>
-        api.objectList({ locale_lang: language, q: decodedSlug }).catch((error: unknown) => {
-            isAxiosCustomError(error);
-            return [];
-        }),
+        getListGeoDataLoggedMethod(decodedSlug, language ?? "ru").catch((error: unknown) =>
+            isAxiosCustomError(error),
+        ),
     );
 
     return (

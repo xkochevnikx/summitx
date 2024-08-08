@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { organizeRanges, RegionsList } from "@/features/organizeRanges";
+import { isAxiosCustomError } from "@/shared/lib/errors";
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryCacheFetch } from "@/shared/lib/queryCacheFetch";
 
@@ -19,7 +20,9 @@ export default async function Page({ params: { lang } }: { params: { lang: strin
     const language = langGuard(lang);
 
     const regions = await queryCacheFetch.fetch([GET_REGIONS_QUERY, lang], () =>
-        organizeRanges({ lang: language ?? "ru" }),
+        organizeRanges({ lang: language ?? "ru" }).catch((error: unknown) =>
+            isAxiosCustomError(error),
+        ),
     );
 
     return (

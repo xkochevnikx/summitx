@@ -3,7 +3,6 @@ import Pino from "pino";
 
 export const logger = Pino();
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loggedMethod = <A extends any[] = any[], R = any>({
     msg,
     logRes,
@@ -21,8 +20,8 @@ export const loggedMethod = <A extends any[] = any[], R = any>({
 
             logger.info({
                 methodName,
+                msg: `✅ Call ${methodName}: ${msg ?? ""}`,
                 args: logArgs?.(...args),
-                msg: `Call ${methodName}: ${msg ?? ""}`,
             });
 
             try {
@@ -30,16 +29,16 @@ export const loggedMethod = <A extends any[] = any[], R = any>({
 
                 logger.info({
                     methodName,
+                    msg: ` 🚀 Result ${methodName}: ${msg ?? ""}`,
                     data: logRes?.(result as R, ...args),
-                    msg: `Result ${methodName}: ${msg ?? ""}`,
                 });
 
                 return result as ReturnType<T>;
             } catch (error) {
                 logger.error({
                     methodName,
+                    msg: `⛔️ Error ${methodName}: ${msg ?? ""}`,
                     error,
-                    msg: `Error ${methodName}: ${msg ?? ""}`,
                 });
                 Sentry.captureException(error);
                 return;
