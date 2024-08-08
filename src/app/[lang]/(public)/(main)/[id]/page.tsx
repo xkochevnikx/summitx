@@ -17,7 +17,6 @@ export default async function Page({
 }: {
     params: { lang: string; id: number };
 }) {
-    console.log("🚀 ~ id:", id);
     const language = langGuard(lang);
 
     const region = await queryCacheFetch.fetch([GET_REGION_QUERY, lang], () =>
