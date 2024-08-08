@@ -8,16 +8,21 @@ const { topList, secondList } = getRangesList();
 const loggedTopList = loggedMethod({
     msg: "Fetching top regions",
     logArgs: (lang: string) => ({ lang }),
-    /* eslint-disable @typescript-eslint/no-explicit-any */
     logRes: (res: any) => ({ res }),
 })(topList);
+
+export const loggedSecondList = loggedMethod({
+    msg: "Fetching child regions",
+    logArgs: (args: { parent_id: number[]; lang: string }) => args,
+    logRes: (res: any) => ({ res }),
+})(secondList);
 
 export const organizeRanges = async ({ lang }: { lang: string }): Promise<OrganizedRegions> => {
     const topRegions = await loggedTopList(lang);
 
     if (topRegions?.length) {
         const topRegionIds = topRegions.map((region) => region.id);
-        const childRegions = await secondList({
+        const childRegions = await loggedSecondList({
             parent_id: topRegionIds,
             lang,
         });
