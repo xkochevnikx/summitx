@@ -1,10 +1,8 @@
-import { AxiosError } from "axios";
-
 import { api } from "@/shared/api";
-import { isAxiosCustomError } from "@/shared/lib/errors";
+import { loggedMethod } from "@/shared/lib/logger";
 
-export const getRangesItem = async ({ id, lang }: { id: number; lang: string }) => {
-    return await api
-        .mountainRange(+id, { locale_lang: lang })
-        .catch((error: AxiosError) => isAxiosCustomError(error));
-};
+export const getRangesLoggedMethod = loggedMethod({
+    msg: "Fetching region",
+    logArgs: (id: number, locale_lang: string) => ({ id, locale_lang }),
+    logRes: (res: any) => ({ res }),
+})((id: number, locale_lang: string) => api.mountainRange(id, { locale_lang }));

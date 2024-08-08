@@ -1,4 +1,5 @@
-import { getRangesItem } from "@/features/organizeRanges";
+import { getRangesLoggedMethod } from "@/features/organizeRanges";
+import { isAxiosCustomError } from "@/shared/lib/errors";
 import { langGuard } from "@/shared/lib/languageGuard";
 import { queryCacheFetch } from "@/shared/lib/queryCacheFetch";
 
@@ -14,13 +15,14 @@ const GET_REGION_QUERY = "getRegionQuery";
 export default async function Page({
     params: { lang, id },
 }: {
-    params: { lang: string; id: string };
+    params: { lang: string; id: number };
 }) {
-    console.log("🚀 ~ id:", id);
     const language = langGuard(lang);
 
     const region = await queryCacheFetch.fetch([GET_REGION_QUERY, lang], () =>
-        getRangesItem({ id: Number(id), lang: language ?? "ru" }),
+        getRangesLoggedMethod(Number(id), language ?? "ru").catch((error: unknown) =>
+            isAxiosCustomError(error),
+        ),
     );
 
     return (

@@ -20,6 +20,7 @@
         "cookies-next": "^4.2.1",
         "next": "^14.2.5",
         "npm": "^10.8.1",
+        "pino": "^9.3.2",
         "react": "^18",
         "react-dom": "^18",
         "react-hook-form": "^7.52.1",
