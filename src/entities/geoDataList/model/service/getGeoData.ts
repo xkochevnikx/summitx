@@ -1,7 +1,8 @@
 "use server";
 import { z } from "zod";
 
-import { api } from "@/shared/api";
+import { GeoDataSchema } from "../domain/schema";
+import { getGeoDataList } from "../repositories/query";
 
 const propsSchema = z.object({
     locale_lang: z.string(),
@@ -11,5 +12,7 @@ const propsSchema = z.object({
 export const getGeoDataService = async (props: z.infer<typeof propsSchema>) => {
     const { locale_lang, q } = propsSchema.parse(props);
 
-    return await api.objectList({ q, locale_lang });
+    const result = await getGeoDataList(q, locale_lang);
+
+    return GeoDataSchema.parseAsync(result);
 };

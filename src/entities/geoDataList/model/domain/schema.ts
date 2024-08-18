@@ -1,317 +1,89 @@
-// import { z } from "zod";
+import { z } from "zod";
 
-// // Схема для GeodataApiApiResponseTypesGeodataMountainResponse
-// const mountainResponseSchema = z.object({
-//     id: z.number(),
-//     object_name: z.string().nullable(),
-//     elevation: z
-//         .object({
-//             amount: z.number(),
-//             string: z.string(),
-//             unit: z.string(),
-//         })
-//         .nullable(),
-//     alternative_names: z
-//         .array(
-//             z.object({
-//                 kind: z.string(),
-//                 value: z.union([
-//                     z.string(),
-//                     z.object({
-//                         lang: z.string(),
-//                         value: z.string(),
-//                     }),
-//                 ]),
-//             }),
-//         )
-//         .optional(),
-//     description: z
-//         .object({
-//             lang: z.string(),
-//             value: z.string(),
-//         })
-//         .nullable(),
-//     parent_country_region: z
-//         .object({
-//             id: z.number(),
-//             object_name: z.string().nullable(),
-//         })
-//         .nullable(),
-//     parent_mountain_range: z
-//         .object({
-//             id: z.number(),
-//             object_name: z.string().nullable(),
-//         })
-//         .nullable(),
-//     prominence: z
-//         .object({
-//             amount: z.number(),
-//             string: z.string(),
-//             unit: z.string(),
-//         })
-//         .nullable(),
-//     volcano: z
-//         .object({
-//             status: z.string().nullable(),
-//             volcano_type: z.string().nullable(),
-//         })
-//         .nullable(),
-// });
+import * as Schemas from "@/shared/lib/schemasShared";
 
-// // Схема для GeodataApiApiResponseTypesGeodataMountainRangeResponse
-// const mountainRangeResponseSchema = z.object({
-//     id: z.number(),
-//     object_name: z.string().nullable(),
-//     area: z
-//         .object({
-//             amount: z.number(),
-//             string: z.string(),
-//             unit: z.string(),
-//         })
-//         .nullable(),
-//     area_statistics: z
-//         .object({
-//             glaciers_area: z.object({
-//                 amount: z.number(),
-//                 string: z.string(),
-//                 unit: z.string(),
-//             }),
-//             glaciers_count: z.number(),
-//             mountain_passes_count: z.number(),
-//             mountains_count: z.number(),
-//         })
-//         .nullable(),
-//     alternative_names: z
-//         .array(
-//             z.object({
-//                 kind: z.string(),
-//                 value: z.union([
-//                     z.string(),
-//                     z.object({
-//                         lang: z.string(),
-//                         value: z.string(),
-//                     }),
-//                 ]),
-//             }),
-//         )
-//         .optional(),
-//     description: z
-//         .object({
-//             lang: z.string(),
-//             value: z.string(),
-//         })
-//         .nullable(),
-//     parent_id: z.number().nullable(),
-// });
+// Схема для GeodataApiApiResponseTypesGeodataMountainResponse
+export const MountainResponseSchema = z.object({
+    id: z.number(),
+    object_name: z.string().nullable().optional(),
+    alternative_names: z.array(Schemas.LocaleApiLocaleGeoNameSchema).optional(),
+    description: Schemas.LocaleApiLocaleLocalizedStringSchema.nullable().optional(),
+    elevation: Schemas.LocaleApiQuantitiesLengthSchema.nullable().optional(),
+    parent_country_region: Schemas.CountryRegionResponseSchema.nullable().optional(),
+    parent_mountain_range: Schemas.MountainRangeResponseSchema.nullable().optional(),
+    prominence: Schemas.LocaleApiQuantitiesLengthSchema.nullable().optional(),
+    volcano: Schemas.VolcanoSchema.nullable().optional(),
+});
 
-// // Схема для GeodataApiApiResponseTypesGeodataMountainPassResponse
-// const mountainPassResponseSchema = z.object({
-//     id: z.number(),
-//     object_name: z.string().nullable(),
-//     scale: z
-//         .object({
-//             max: z.string(),
-//             min: z.string(),
-//         })
-//         .nullable(),
-//     alternative_names: z
-//         .array(
-//             z.object({
-//                 kind: z.string(),
-//                 value: z.union([
-//                     z.string(),
-//                     z.object({
-//                         lang: z.string(),
-//                         value: z.string(),
-//                     }),
-//                 ]),
-//             }),
-//         )
-//         .optional(),
-//     description: z
-//         .object({
-//             lang: z.string(),
-//             value: z.string(),
-//         })
-//         .nullable(),
-//     elevation: z
-//         .object({
-//             amount: z.number(),
-//             string: z.string(),
-//             unit: z.string(),
-//         })
-//         .nullable(),
-//     parent_country_region: z
-//         .object({
-//             id: z.number(),
-//             object_name: z.string().nullable(),
-//         })
-//         .nullable(),
-//     parent_mountain_range: z
-//         .object({
-//             id: z.number(),
-//             object_name: z.string().nullable(),
-//         })
-//         .nullable(),
-// });
+// Схема для GeodataApiApiResponseTypesGeodataMountainRangeResponse
+export const MountainRangeResponseSchema = z.object({
+    id: z.number(),
+    parent_id: z.number().nullable().optional(),
+    object_name: z.string().nullable().optional(),
+    alternative_names: z.array(Schemas.LocaleApiLocaleGeoNameSchema).optional(),
+    description: Schemas.LocaleApiLocaleLocalizedStringSchema.nullable().optional(),
+    area: Schemas.LocaleApiQuantitiesAreaSchema.nullable().optional(),
+    area_statistics:
+        Schemas.GeodataApiApiResponseTypesGeodataAreaStatisticsSchema.nullable().optional(),
+});
 
-// // Схема для GeodataApiApiResponseTypesGeodataGlacierResponse
-// const glacierResponseSchema = z.object({
-//     id: z.number(),
-//     object_name: z.string().nullable(),
-//     area: z
-//         .object({
-//             amount: z.number(),
-//             string: z.string(),
-//             unit: z.string(),
-//         })
-//         .nullable(),
-//     area_statistics: z
-//         .object({
-//             glaciers_area: z.object({
-//                 amount: z.number(),
-//                 string: z.string(),
-//                 unit: z.string(),
-//             }),
-//             glaciers_count: z.number(),
-//             mountain_passes_count: z.number(),
-//             mountains_count: z.number(),
-//         })
-//         .nullable(),
-//     alternative_names: z
-//         .array(
-//             z.object({
-//                 kind: z.string(),
-//                 value: z.union([
-//                     z.string(),
-//                     z.object({
-//                         lang: z.string(),
-//                         value: z.string(),
-//                     }),
-//                 ]),
-//             }),
-//         )
-//         .optional(),
-//     description: z
-//         .object({
-//             lang: z.string(),
-//             value: z.string(),
-//         })
-//         .nullable(),
-//     parent_id: z.number().nullable(),
-//     parent_country_region: z
-//         .object({
-//             id: z.number(),
-//             object_name: z.string().nullable(),
-//         })
-//         .nullable(),
-//     parent_mountain_range: z
-//         .object({
-//             id: z.number(),
-//             object_name: z.string().nullable(),
-//         })
-//         .nullable(),
-// });
+// Схема для GeodataApiApiResponseTypesGeodataMountainPassResponse
+export const MountainPassResponseSchema = z.object({
+    id: z.number(),
+    object_name: z.string().nullable().optional(),
+    alternative_names: z.array(Schemas.LocaleApiLocaleGeoNameSchema).optional(),
+    description: Schemas.LocaleApiLocaleLocalizedStringSchema.nullable().optional(),
+    elevation: Schemas.LocaleApiQuantitiesLengthSchema.nullable().optional(),
+    parent_country_region: Schemas.CountryRegionResponseSchema.nullable().optional(),
+    parent_mountain_range: Schemas.MountainRangeResponseSchema.nullable().optional(),
+    scale: Schemas.MountainPassScaleSchema.nullable().optional(),
+});
 
-// // Схема для GeodataApiApiResponseTypesGeodataCountryResponse
-// const countryResponseSchema = z.object({
-//     id: z.number(),
-//     object_name: z.string().nullable(),
-//     area: z
-//         .object({
-//             amount: z.number(),
-//             string: z.string(),
-//             unit: z.string(),
-//         })
-//         .nullable(),
-//     area_statistics: z
-//         .object({
-//             glaciers_area: z.object({
-//                 amount: z.number(),
-//                 string: z.string(),
-//                 unit: z.string(),
-//             }),
-//             glaciers_count: z.number(),
-//             mountain_passes_count: z.number(),
-//             mountains_count: z.number(),
-//         })
-//         .nullable(),
-//     alternative_names: z
-//         .array(
-//             z.object({
-//                 kind: z.string(),
-//                 value: z.union([
-//                     z.string(),
-//                     z.object({
-//                         lang: z.string(),
-//                         value: z.string(),
-//                     }),
-//                 ]),
-//             }),
-//         )
-//         .optional(),
-//     description: z
-//         .object({
-//             lang: z.string(),
-//             value: z.string(),
-//         })
-//         .nullable(),
-//     parent_id: z.number().nullable(),
-// });
+// Схема для GeodataApiApiResponseTypesGeodataGlacierResponse
+export const GlacierResponseSchema = z.object({
+    id: z.number(),
+    object_name: z.string().nullable().optional(),
+    alternative_names: z.array(Schemas.LocaleApiLocaleGeoNameSchema).optional(),
+    description: Schemas.LocaleApiLocaleLocalizedStringSchema.nullable().optional(),
+    area: Schemas.LocaleApiQuantitiesAreaSchema.nullable().optional(),
+    area_statistics:
+        Schemas.GeodataApiApiResponseTypesGeodataAreaStatisticsSchema.nullable().optional(),
+    parent_country_region: Schemas.CountryRegionResponseSchema.nullable().optional(),
+    parent_mountain_range: Schemas.MountainRangeResponseSchema.nullable().optional(),
+});
 
-// // Схема для GeodataApiApiResponseTypesGeodataCountryRegionResponse
-// const countryRegionResponseSchema = z.object({
-//     id: z.number(),
-//     object_name: z.string().nullable(),
-//     area: z
-//         .object({
-//             amount: z.number(),
-//             string: z.string(),
-//             unit: z.string(),
-//         })
-//         .nullable(),
-//     area_statistics: z
-//         .object({
-//             glaciers_area: z.object({
-//                 amount: z.number(),
-//                 string: z.string(),
-//                 unit: z.string(),
-//             }),
-//             glaciers_count: z.number(),
-//             mountain_passes_count: z.number(),
-//             mountains_count: z.number(),
-//         })
-//         .nullable(),
-//     alternative_names: z
-//         .array(
-//             z.object({
-//                 kind: z.string(),
-//                 value: z.union([
-//                     z.string(),
-//                     z.object({
-//                         lang: z.string(),
-//                         value: z.string(),
-//                     }),
-//                 ]),
-//             }),
-//         )
-//         .optional(),
-//     description: z
-//         .object({
-//             lang: z.string(),
-//             value: z.string(),
-//         })
-//         .nullable(),
-//     parent_id: z.number().nullable(),
-// });
+// Схема для GeodataApiApiResponseTypesGeodataCountryResponse
+export const CountryResponseSchema = z.object({
+    id: z.number(),
+    object_name: z.string().nullable().optional(),
+    alternative_names: z.array(Schemas.LocaleApiLocaleGeoNameSchema).optional(),
+    description: z.string().nullable().optional(),
+    area: Schemas.LocaleApiQuantitiesAreaSchema.nullable().optional(),
+    area_statistics:
+        Schemas.GeodataApiApiResponseTypesGeodataAreaStatisticsSchema.nullable().optional(),
+    parent_id: z.number().nullable().optional(),
+});
 
-// const geodataResponseSchema = z.union([
-//     z.object({ Mountain: mountainResponseSchema }),
-//     z.object({ MountainRange: mountainRangeResponseSchema }),
-//     z.object({ MountainPass: mountainPassResponseSchema }),
-//     z.object({ Glacier: glacierResponseSchema }),
-//     z.object({ Country: countryResponseSchema }),
-//     z.object({ CountryRegion: countryRegionResponseSchema }),
-// ]);
+// Схема для GeodataApiApiResponseTypesGeodataCountryRegionResponse
+export const CountryRegionResponseSchema = z.object({
+    id: z.number(),
+    object_name: z.string().nullable().optional(),
+    alternative_names: z.array(Schemas.LocaleApiLocaleGeoNameSchema).optional(),
+    description: z.string().nullable().optional(),
+    area: Schemas.LocaleApiQuantitiesAreaSchema.nullable().optional(),
+    area_statistics:
+        Schemas.GeodataApiApiResponseTypesGeodataAreaStatisticsSchema.nullable().optional(),
+    parent_id: z.number().nullable().optional(),
+});
 
-// export const geoDataArraySchema = z.array(geodataResponseSchema);
+// Основная схема для GeodataApiApiResponseTypesGeodataObjectResponse
+export const GeoDataSchema = z.array(
+    z.union([
+        z.object({ Mountain: MountainResponseSchema }).optional(),
+        z.object({ MountainRange: MountainRangeResponseSchema }).optional(),
+        z.object({ MountainPass: MountainPassResponseSchema }).optional(),
+        z.object({ Glacier: GlacierResponseSchema }).optional(),
+        z.object({ Country: CountryResponseSchema }).optional(),
+        z.object({ CountryRegion: CountryRegionResponseSchema }).optional(),
+    ]),
+);

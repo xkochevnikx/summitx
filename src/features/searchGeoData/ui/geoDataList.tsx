@@ -1,24 +1,25 @@
 "use client";
 import { FC } from "react";
+import { z } from "zod";
 
-import { api } from "@/shared/api";
+import { GeoDataSchema } from "@/entities/geoDataList";
 
 type GeoDataListProps = {
-    geoData: api.GeodataApiApiResponseTypesGeodataObjectResponse[] | void;
+    geoData: z.infer<typeof GeoDataSchema> | void;
 };
 
 export const GeoDataList: FC<GeoDataListProps> = ({ geoData }) => {
-    const mappedData = geoData?.map((data) => {
-        const [key, value] = Object.entries(data)[0];
-        return [key, value];
-    });
+    const mappedData = geoData
+        ?.map((data) => {
+            if (!data) return null;
+            const [[key, value]] = Object.entries(data); // [['key', 'value']]
+            return [key, value];
+        })
+        ?.filter((item): item is [string, any] => Boolean(item));
 
     return (
-        <ul>
-            {mappedData?.map((data) => {
-                const [key, value] = data;
-                return <li key={key}>{value.object_name}</li>;
-            })}
+        <ul style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            {mappedData?.map(([key, value]) => <div key={key}>{JSON.stringify(value)}</div>)}
         </ul>
     );
 };
