@@ -1,4 +1,4 @@
-import { loggedMethod } from "@/shared/lib/logger";
+import { loggedMethod } from "@/shared/lib/logger/logger";
 
 import { getRangesItemService } from "../services/getRangesItem";
 
