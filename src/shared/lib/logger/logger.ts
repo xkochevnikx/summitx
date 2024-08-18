@@ -1,7 +1,5 @@
-import * as Sentry from "@sentry/nextjs";
-import Pino from "pino";
-
-export const logger = Pino();
+import { logger } from "./pinoConfig";
+import { sentryCaptureExceptionFailsafe } from "./sentryCapture";
 
 export const loggedMethod = <A extends any[] = any[], R = any>({
     msg,
@@ -34,13 +32,13 @@ export const loggedMethod = <A extends any[] = any[], R = any>({
                 });
 
                 return result as ReturnType<T>;
-            } catch (error) {
+            } catch (error: unknown) {
                 logger.error({
                     methodName,
                     msg: `⛔️ Error ${methodName}: ${msg ?? ""}`,
                     error,
                 });
-                Sentry.captureException(error);
+                sentryCaptureExceptionFailsafe(error);
                 return;
             }
         };

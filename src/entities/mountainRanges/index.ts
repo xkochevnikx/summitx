@@ -1,1 +1,4 @@
-export { getRangesList } from "./model/queries.server";
+export {
+    getSecondListLoggedMethod,
+    getTopListLoggedMethod,
+} from "./model/logged/getOrganizeRanges";
