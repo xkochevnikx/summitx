@@ -5,7 +5,7 @@
  * Summit-X is the project about mountains and mountaineers
  * OpenAPI spec version: 0.1.13
  */
-import { createInstance } from "./api-instanse";
+import { createInstance } from "./api-instance";
 export type UserListParams = {
     /**
      * JSON-encoded array of requested range. Example: [0, 9]
