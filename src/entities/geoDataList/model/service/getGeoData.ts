@@ -1,4 +1,3 @@
-"use server";
 import { z } from "zod";
 
 import { GeoDataSchema } from "../domain/schema";
@@ -9,6 +8,14 @@ const propsSchema = z.object({
     q: z.string(),
 });
 
+/**
+ * Сервис для получения геоданных с проверкой входных параметров и схемы результата.
+ *
+ * @param {Object} props - Объект с параметрами запроса.
+ * @param {string} props.locale_lang - Локальный язык.
+ * @param {string} props.q - Поисковый запрос.
+ * @returns {Promise<any>} - Промис с результатом геоданных.
+ */
 export const getGeoDataService = async (props: z.infer<typeof propsSchema>) => {
     const { locale_lang, q } = propsSchema.parse(props);
 
