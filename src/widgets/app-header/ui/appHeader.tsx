@@ -1,12 +1,12 @@
-import { UpdateLang } from "@/features/i18n";
+import { UpdateLang } from "@/features/langSwitcher";
 import { GeoDataForm } from "@/features/searchGeoData";
+import { ThemeSwitcher } from "@/features/themeSwitcher";
 
 import { HeaderLayout } from "./headerLayout";
 import { Logo } from "./logo";
 import { MainNav } from "./main-nav";
 
-export function AppHeader({ variant }: { variant: "auth" | "private" | "public" }) {
-    const isProfile = variant !== "auth";
+export const AppHeader = () => {
     return (
         <HeaderLayout
             className=""
@@ -14,7 +14,7 @@ export function AppHeader({ variant }: { variant: "auth" | "private" | "public" 
             nav={<MainNav />}
             feature={<GeoDataForm />}
             actions={<UpdateLang />}
-            profile={isProfile && <span>profile</span>}
+            theme={<ThemeSwitcher />}
         />
     );
-}
+};

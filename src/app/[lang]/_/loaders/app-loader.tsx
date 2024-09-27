@@ -1,9 +1,9 @@
 "use client";
 import { ReactNode, useEffect } from "react";
 
-import { useLang } from "@/features/i18n";
+import { useLang } from "@/features/langSwitcher";
 
-export function AppLoader({ children }: { children?: ReactNode }) {
+export const AppLoader = ({ children }: { children?: ReactNode }) => {
     const { loadLang } = useLang();
 
     useEffect(() => {
@@ -11,4 +11,4 @@ export function AppLoader({ children }: { children?: ReactNode }) {
     }, [loadLang]);
 
     return <>{children}</>;
-}
+};

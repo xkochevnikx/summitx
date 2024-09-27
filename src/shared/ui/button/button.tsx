@@ -14,6 +14,7 @@ type ButtonProps = ComponentProps<"button"> & {
     disabled?: boolean;
     type?: "submit" | "reset" | "button";
     isLoading?: boolean | null;
+    theme?: "clear" | "outlined";
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -24,12 +25,15 @@ export const Button: React.FC<ButtonProps> = ({
     disabled,
     isLoading = false,
     type = "button",
+    theme = "outlined",
 }) => {
+    const mods = { [cls.disabled]: disabled, [cls[theme]]: true };
+
     return (
         <button
             id={id}
             type={type}
-            className={classNames(cls.button, { [cls.disabled]: disabled }, [className])}
+            className={classNames(cls.button, mods, [className])}
             onClick={onClick}
             disabled={disabled}
         >
