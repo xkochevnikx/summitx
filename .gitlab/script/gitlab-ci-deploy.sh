@@ -124,10 +124,15 @@ deploy_to_stg() {
 
     remove_old_branches
 
-    port="$(shuf -i 3000-65000 -n 1)"
-
-    prepare_frontend "${port}"
-    generate_nginx_config "${port}"
+    if [ -e "${BRANCH_PATH}" ]; then
+        prepare_frontend_sources
+        systemctl restart "${STG_SERVICE_NAME}@${BRANCH_NAME}"
+    else
+        port="$(shuf -i 3000-65000 -n 1)"
+        prepare_frontend_sources
+        prepare_frontend "${port}"
+        generate_nginx_config "${port}"
+    fi
 
     info "Deployed to http://${BRANCH_NAME}.stg.summitx.info, NextJS is running on port ${port}"
 
