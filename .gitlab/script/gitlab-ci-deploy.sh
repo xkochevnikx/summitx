@@ -70,7 +70,7 @@ prepare_frontend() {
     cp "/${STG_ENV_FILE}" "${BRANCH_PATH}/.env"
 
     echo "Patching package.json to run on specific port"
-    sed -i "s/\"start\": \"next start\"/\"start\": \"next start --port ${port}\"/" "${BRANCH_PATH}/package.json"
+    sed -i "s/\"start\": \"next start[^\"]*\"/\"start\": \"next start --port ${port}\"/" "${BRANCH_PATH}/package.json"
 
     info "Installing dependencies with 'npm install'"
     cd "${BRANCH_PATH}"
@@ -81,9 +81,6 @@ prepare_frontend() {
 
     info "Setting permissions after build"
     chown -R "${STG_OWNER}:${STG_GROUP}" "${BRANCH_PATH}"
-
-    info "Starting service"
-    systemctl enable --now "${STG_SERVICE_NAME}@${BRANCH_NAME}"
 }
 
 generate_nginx_config() {
@@ -124,14 +121,17 @@ deploy_to_stg() {
 
     remove_old_branches
 
+    port="$(shuf -i 3000-65000 -n 1)"
+    prepare_frontend_sources
+    prepare_frontend "${port}"
+    generate_nginx_config "${port}"
+
     if [ -e "${BRANCH_PATH}" ]; then
-        prepare_frontend_sources
+        echo "Restarting service ${STG_SERVICE_NAME}@${BRANCH_NAME}"
         systemctl restart "${STG_SERVICE_NAME}@${BRANCH_NAME}"
     else
-        port="$(shuf -i 3000-65000 -n 1)"
-        prepare_frontend_sources
-        prepare_frontend "${port}"
-        generate_nginx_config "${port}"
+        echo "Starting service ${STG_SERVICE_NAME}@${BRANCH_NAME}"
+        systemctl enable --now "${STG_SERVICE_NAME}@${BRANCH_NAME}"
     fi
 
     info "Deployed to http://${BRANCH_NAME}.stg.summitx.info, NextJS is running on port ${port}"
