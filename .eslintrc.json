@@ -101,6 +101,17 @@
                             [
                                 "shared",
                                 {
+                                    "segment": "assets"
+                                }
+                            ]
+                        ],
+                        "allow": "**"
+                    },
+                    {
+                        "target": [
+                            [
+                                "shared",
+                                {
                                     "segment": "config"
                                 }
                             ]

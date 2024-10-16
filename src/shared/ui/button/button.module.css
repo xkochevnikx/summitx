@@ -34,3 +34,18 @@
     cursor: not-allowed;
     pointer-events: none;
 }
+
+.clear {
+    padding: 0;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.clear:hover,
+.clear:focus,
+.clear:active {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}

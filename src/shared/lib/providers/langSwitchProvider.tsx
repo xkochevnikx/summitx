@@ -1,4 +1,4 @@
-import { createStrictContext, useStrictContext } from "./react";
+import { createStrictContext, useStrictContext } from "../react";
 
 /**
  * Контекст для хранения текущего языка приложения.
@@ -12,7 +12,13 @@ const langContext = createStrictContext<string>();
  * @param {React.ReactNode} children - Дочерние компоненты, которым будет доступен контекст языка.
  * @returns {JSX.Element} - Провайдер для контекста языка.
  */
-export function I18nProvider({ lang, children }: { lang: string; children?: React.ReactNode }) {
+export function LangSwitchProvider({
+    lang,
+    children,
+}: {
+    lang: string;
+    children?: React.ReactNode;
+}) {
     return <langContext.Provider value={lang}>{children}</langContext.Provider>;
 }
 

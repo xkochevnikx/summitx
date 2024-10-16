@@ -1,3 +1,4 @@
+"use client";
 import { Context, createContext, useContext } from "react";
 
 /**

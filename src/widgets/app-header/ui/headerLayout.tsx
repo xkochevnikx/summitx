@@ -7,7 +7,7 @@ import { useWindowScroll } from "@/shared/lib/hooks/useWindowScroll";
 import cls from "./headerLayout.module.css";
 
 export const HeaderLayout = ({
-    profile,
+    theme,
     logo,
     feature,
     className,
@@ -15,7 +15,7 @@ export const HeaderLayout = ({
     nav,
 }: {
     className?: string;
-    profile?: ReactNode;
+    theme?: ReactNode;
     feature: ReactNode;
     nav?: ReactNode;
     actions?: ReactNode;
@@ -33,7 +33,7 @@ export const HeaderLayout = ({
             <div className={cls.feature}>{feature}</div>
             <div className={cls.actions}>
                 {actions}
-                {profile}
+                {theme}
             </div>
         </header>
     );

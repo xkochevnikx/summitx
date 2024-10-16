@@ -1,4 +1,4 @@
-import { createI18nModule } from "@/shared/lib/i18n";
+import { createI18nModule } from "@/shared/lib/providers/langSwitchProvider";
 
 export const useI18n = createI18nModule({
     title: {
