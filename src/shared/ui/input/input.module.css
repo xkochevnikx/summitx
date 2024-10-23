@@ -15,7 +15,7 @@
     padding: 0.5rem 0.75rem;
     font-size: 0.75rem;
     border: 2px solid #ddd;
-    border-radius: 5px;
+    border-radius: 2px;
     background-color: #f9f9f9;
     transition:
         border-color 0.3s,
@@ -23,8 +23,7 @@
 }
 
 .inputBox .input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #2ebaae;
     outline: none;
 }
 

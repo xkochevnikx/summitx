@@ -1,0 +1,38 @@
+.sidebar {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 4rem;
+    left: 0;
+    transform: translateX(+130%);
+    transition: all 0.2s;
+}
+
+.open {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 4rem;
+    left: 0;
+    transform: translateX(0);
+    transition: all 0.2s;
+}
+
+.content {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    width: 350px;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.content:nth-child(n) {
+    border-bottom: solid 1px rgba(160, 160, 160, 0.3);
+}

@@ -1,0 +1,7 @@
+.burgerIcon path {
+    transition: fill 0.4s ease-out;
+}
+
+.burgerIcon:hover path {
+    fill: #2ebaae;
+}

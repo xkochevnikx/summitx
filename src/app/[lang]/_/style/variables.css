@@ -1,6 +1,4 @@
 :root {
-    --font-family-main: consolas, "Times New Roman", serif;
-
     /* s */
     --font-size-s: 12px;
 
@@ -22,5 +20,5 @@
 
     /* colors */
     --overlay-color: rgba(0 0 0 / 60%);
-    --background-color: #eef1f6;
+    --background-color-main: rgba(160, 160, 160, 0.075);
 }

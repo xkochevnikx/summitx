@@ -1,3 +1,5 @@
+import { Raleway } from "next/font/google";
+
 import { getInitialTheme } from "@/features/themeSwitcher";
 
 import { OpenLayout } from "./_/layouts/openLayout";
@@ -6,6 +8,10 @@ import { AppProvider } from "./_/providers/app-provider";
 
 import "./_/style/index.css";
 
+const raleway = Raleway({
+    weight: ["400", "500", "600", "700", "800"],
+    subsets: ["latin"],
+});
 export default async function RootLayout({
     children,
     params: { lang },
@@ -17,7 +23,7 @@ export default async function RootLayout({
 
     return (
         <html lang={lang}>
-            <body>
+            <body className={raleway.className}>
                 <AppLoader>
                     <AppProvider initialTheme={theme}>
                         <OpenLayout>{children}</OpenLayout>

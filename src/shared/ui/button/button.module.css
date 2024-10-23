@@ -1,31 +1,25 @@
 .button {
     font-size: 0.75rem;
     padding: 0.5rem 1.5rem;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #ffffff;
+    border-radius: 2px;
+    background-color: white;
+    color: rgba(160, 160, 160);
     cursor: pointer;
     transition:
-        background-color 0.3s,
+        color 0.3s,
         border-color 0.3s,
         box-shadow 0.3s;
-    border: 1px solid black;
+    border: 1px solid rgba(160, 160, 160);
     height: var(--font-size-xl);
 }
 
 .button:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    border-color: #2ebaae;
+    color: #2ebaae;
 }
 
 .button:active {
-    background-color: #004085;
-    border-color: #004085;
-}
-
-.button:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background-color: rgb(238, 230, 230);
 }
 
 .button.disabled {

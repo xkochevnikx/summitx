@@ -29,6 +29,8 @@ export default async function Page({ params: { lang } }: { params: { lang: strin
         <div className={cls.container}>
             <Suspense fallback={<div>Loading...</div>}>
                 <RegionsList regions={regions} />
+                <RegionsList regions={regions} />
+                <RegionsList regions={regions} />
             </Suspense>
         </div>
     );

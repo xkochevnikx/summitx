@@ -22,7 +22,7 @@ const schema = z.object({
 
 type FormDataValues = z.infer<typeof schema>;
 
-export const GeoDataForm: FC = () => {
+export const GeoDataForm: FC<{ onClose: () => void }> = ({ onClose }) => {
     const router = useRouter();
     const { control, handleSubmit } = useFormFacade<FormDataValues>({
         defaultValues: { name: "" },
@@ -30,6 +30,7 @@ export const GeoDataForm: FC = () => {
     });
 
     const onSubmit = (name: string) => {
+        onClose();
         router.push(`/search/${name}`);
     };
 
@@ -48,7 +49,7 @@ export const GeoDataForm: FC = () => {
                     />
                 )}
             />
-            <Button type="submit">Search</Button>
+            <Button type="submit">SEARCH</Button>
         </form>
     );
 };

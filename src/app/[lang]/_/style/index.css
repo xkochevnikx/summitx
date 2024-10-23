@@ -2,12 +2,7 @@
 @import "variables.css";
 @import "dark-theme.css";
 
-@font-face {
-    font-family: Consolas;
-    src: local("Consolas"), url("./fonts/Consolas.ttf");
-}
-
-main {
-    margin-top: 4rem;
-    background-color: var(--background-color);
+body {
+    height: 100vh;
+    background-color: var(--background-color-main);
 }
